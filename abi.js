@@ -1,4 +1,4 @@
-const signalABI =  [
+const signalABI = [
     {
       "inputs": [
         {
