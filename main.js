@@ -204,7 +204,7 @@ window.addEventListener('load', async () => {
             loadBalance();
     });
     
-    window.ethereum.on('chainChanged', function (accounts) {
+    window.ethereum.on('networkChanged', function (accounts) {
             requestChainSwitch();
     });
 
