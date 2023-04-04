@@ -10,23 +10,23 @@ const walletComponent = document.querySelector('#wallet-component');
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
 const rpc = "https://endpoints.omniatech.io/v1/arbitrum/goerli/public";
-const chains = ["0x66eed"]
+const chains = ["0x66eed"];
 
 
 
-    (async function listenForConnection() {
-        var walletDivs = document.querySelectorAll('.wallet-instance');
-        walletDivs.forEach(function (walletDiv) {
-            walletDiv.addEventListener('click', async function () {
-                connect();
-                requestChainSwitch();
-                await loadBalance();
-                walletComponent.style.display = "none";
-                button.value = "Disconnect";
+(async function listenForConnection() {
+    var walletDivs = document.querySelectorAll('.wallet-instance');
+    walletDivs.forEach(function (walletDiv) {
+        walletDiv.addEventListener('click', async function () {
+            connect();
+            requestChainSwitch();
+            await loadBalance();
+            walletComponent.style.display = "none";
+            button.value = "Disconnect";
 
-            });
         });
-    })();
+    });
+})();
 
 
 async function connect() {
