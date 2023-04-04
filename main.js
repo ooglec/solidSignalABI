@@ -110,6 +110,7 @@ async function requestChainSwitch() {
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: '0x66EED' }],
     });
+    loadBalance();
 }
 
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
