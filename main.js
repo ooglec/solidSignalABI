@@ -143,6 +143,10 @@ function reset(button) {
     button.value = "Buy";
 }
 
+function error(text){
+    toast(text, "linear-gradient(to right, #00b09b, #96c93d)");
+}
+
 function toast(text, bg) {
     Toastify({
         text: text,
