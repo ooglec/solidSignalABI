@@ -19,7 +19,7 @@ const connectionButton = document.querySelector('#connect');
             connect();
             requestChainSwitch();
             await loadBalance();
-            walletComponent.style.display = none;
+            walletComponent.style.display = "none";
             button.value = "Disconnect";
 
         });
