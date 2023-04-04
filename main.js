@@ -212,7 +212,11 @@ window.addEventListener('load', async () => {
     });
     
     window.ethereum.on('networkChanged', async function(networkId){
-      requestChainSwitch();
+      try{
+         requestChainSwitch();
+      }catch(err){
+          console.log(err)
+      }
       console.log('networkChanged');
     });
 
