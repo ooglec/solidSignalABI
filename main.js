@@ -9,7 +9,7 @@ let maximumRaiseAmount;
 const walletComponent = document.querySelector('#wallet-component');
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
-const rpc = "https://endpoints.omniatech.io/v1/arbitrum/goerli/public"
+const rpc = "https://endpoints.omniatech.io/v1/arbitrum/goerli/public";
 
 
 
