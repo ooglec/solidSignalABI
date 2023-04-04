@@ -158,7 +158,7 @@ function toast(text, bg) {
         duration: 3000,
         style: {
             background: bg,
-            fontSize: "20px"
+            fontSize: "18px"
         }
     }).showToast();
 }
