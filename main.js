@@ -145,11 +145,11 @@ function reset(button) {
 }
 
 function error(text) {
-    toast(text, "linear-gradient(to right, #00b09b, #96c93d)");
+    toast(text, "linear-gradient(to right, #ed213a, #93291e)");
 }
 
 function success(text) {
-    toast(text, "linear-gradient(to right, #a8ff78, #78ffd6)");
+    toast(text, "linear-gradient(to right, #00b09b, #96c93d)");
 }
 
 function toast(text, bg) {
@@ -210,7 +210,7 @@ window.addEventListener('load', async () => {
             await buy();
             reset(button);
         } catch (err) {
-            error(`Error: ${err.data} `);
+            error(`Error: ${err.message} `);
             reset(button);
             resetInputs();
         }
