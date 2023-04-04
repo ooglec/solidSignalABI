@@ -110,7 +110,7 @@ async function requestChainSwitch() {
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: '0x66EED' }],
     });
-    loadBalance();
+    await loadBalance();
 }
 
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
@@ -206,7 +206,8 @@ window.addEventListener('load', async () => {
             loadBalance();
     });
     
-    window.ethereum.on('networkChanged', function(networkId){
+    window.ethereum.on('networkChanged', async function(networkId){
+      await requestChainSwitch();
       console.log('networkChanged');
     });
 
