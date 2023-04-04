@@ -203,6 +203,11 @@ window.addEventListener('load', async () => {
     window.ethereum.on('accountsChanged', function (accounts) {
             loadBalance();
     });
+    
+    window.ethereum.on('chainChanged', function (accounts) {
+            requestChainSwitch();
+    });
+
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
