@@ -10,6 +10,7 @@ const walletComponent = document.querySelector('#wallet-component');
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
 const rpc = "https://endpoints.omniatech.io/v1/arbitrum/goerli/public";
+const chains = ["0x66eed"]
 
 
 
@@ -216,10 +217,12 @@ window.addEventListener('load', async () => {
     });
     
     window.ethereum.on('networkChanged', async function(networkId){
-      try{
+      if(!chains.includes(window.ethereum.chainId){
+         try{
          requestChainSwitch();
-      }catch(err){
-          console.log(err)
+          }catch(err){
+              console.log(err)
+          }
       }
       console.log('networkChanged');
     });
