@@ -9,6 +9,7 @@ let maximumRaiseAmount;
 const walletComponent = document.querySelector('#wallet-component');
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
+const rpc = "https://endpoints.omniatech.io/v1/arbitrum/goerli/public"
 
 
 
@@ -53,7 +54,7 @@ async function init() {
 }
 
 async function loadAmounts() {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
+    provider = window.ethereum ? new ethers.providers.Web3Provider(window.ethereum) : new ethers.providers.JsonRPCProvider(rpc);
     signer = provider.getSigner();
     const abi = signalABI;
     console.log(signalABI);
