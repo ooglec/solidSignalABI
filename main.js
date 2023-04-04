@@ -14,19 +14,19 @@ const chains = ["0x66eed"]
 
 
 
-(async function listenForConnection() {
-    var walletDivs = document.querySelectorAll('.wallet-instance');
-    walletDivs.forEach(function (walletDiv) {
-        walletDiv.addEventListener('click', async function () {
-            connect();
-            requestChainSwitch();
-            await loadBalance();
-            walletComponent.style.display = "none";
-            button.value = "Disconnect";
+    (async function listenForConnection() {
+        var walletDivs = document.querySelectorAll('.wallet-instance');
+        walletDivs.forEach(function (walletDiv) {
+            walletDiv.addEventListener('click', async function () {
+                connect();
+                requestChainSwitch();
+                await loadBalance();
+                walletComponent.style.display = "none";
+                button.value = "Disconnect";
 
+            });
         });
-    });
-})();
+    })();
 
 
 async function connect() {
@@ -42,9 +42,9 @@ async function connect() {
 }
 
 async function init() {
-        walletComponent.style.display = "none";
+    walletComponent.style.display = "none";
     if (window.ethereum && window.ethereum.selectedAddress) {
-            localStorage.setItem("connected", true);
+        localStorage.setItem("connected", true);
         provider = new ethers.providers.Web3Provider(window.ethereum);
         signer = provider.getSigner();
         connectionButton.innerHTML = "Disconnect";
@@ -69,7 +69,7 @@ async function loadAmounts() {
     document.getElementById("funds-raised").innerHTML = `$${amtConverted}`;
     document.getElementById("funds-raised-sm").innerHTML = `$${amtConverted} USD`;
     document.getElementById("price").innerHTML = `$${price}`;
-    document.getElementById("maximum-amount").innerHTML =	`$${maximumRaiseAmount} USDC`;
+    document.getElementById("maximum-amount").innerHTML = `$${maximumRaiseAmount} USDC`;
     document.getElementById("progress-indicator-id").style.width = `${parseInt((amtConverted / maximumRaiseAmount) * 300)}px`;
 }
 
@@ -95,11 +95,11 @@ async function buy() {
     if (parseFloat(value) > solidSpendAllowance) {
         await usdcContract.approve(solidAddress, ethers.constants.MaxUint256);
         button.value = "Buy";
-        toast('Approval successful', "green");
+        success('Approval successful');
     } else {
         const tx = await solidContract.buy(ethers.utils.parseUnits(value.toString(), 6));
         await tx.wait();
-        toast(`Purchase of ${value*price} successful`, "green");
+        success(`Purchase of ${value * price} successful`);
         resetInputs()
         await loadAmounts();
     }
@@ -111,16 +111,16 @@ async function requestChainSwitch() {
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: '0x66EED' }],
     });
-    try{
+    try {
         await loadAmounts();
         await loadBalance();
-    }catch(err){
+    } catch (err) {
         console.log(err);
     }
 }
 
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
-            if(localStorage.getItem("connected") == null) return;
+    if (localStorage.getItem("connected") == null) return;
     if (value > solidSpendAllowance) {
         button.value = "Approve";
     } else {
@@ -134,9 +134,9 @@ function checkMinimumPurchase(value, solidSpendAllowance, button) {
     }
 }
 
-function resetInputs(){
+function resetInputs() {
     document.querySelector('#USDC').value = 0;
-  document.querySelector('.signal-value').innerHTML = 0;
+    document.querySelector('.signal-value').innerHTML = 0;
 }
 
 function reset(button) {
@@ -144,8 +144,12 @@ function reset(button) {
     button.value = "Buy";
 }
 
-function error(text){
+function error(text) {
     toast(text, "linear-gradient(to right, #00b09b, #96c93d)");
+}
+
+function success(text) {
+    toast(text, "linear-gradient(to right, #a8ff78, #78ffd6)");
 }
 
 function toast(text, bg) {
@@ -162,10 +166,10 @@ function toast(text, bg) {
 
 
 window.addEventListener('load', async () => {
-    try{
+    try {
         init();
         await loadAmounts();
-    }catch(err){}
+    } catch (err) { }
 
     const inputElement = document.querySelector('#USDC');
     var form = document.getElementById('Form');
@@ -178,22 +182,22 @@ window.addEventListener('load', async () => {
         checkMinimumPurchase(newValue, solidSpendAllowance, button);
     });
 
-      connectionButton.addEventListener('click', async (event) => {
-        if(localStorage.getItem("connected") == null){
+    connectionButton.addEventListener('click', async (event) => {
+        if (localStorage.getItem("connected") == null) {
             walletComponent.style.display = "block";
-        }else{
+        } else {
             localStorage.removeItem("connected");
-          connectionButton.innerHTML = "Connect Wallet";
-          button.value = "Connect Wallet";
+            connectionButton.innerHTML = "Connect Wallet";
+            button.value = "Connect Wallet";
         }
-      })
+    })
 
-    document.querySelector("#modal-close").addEventListener('click', ()=>{
-            walletComponent.style.display = "none";
+    document.querySelector("#modal-close").addEventListener('click', () => {
+        walletComponent.style.display = "none";
     })
 
     button.addEventListener('click', async (event) => {
-        if(localStorage.getItem("connected") == null){
+        if (localStorage.getItem("connected") == null) {
             button.value = "Connect Wallet";
             return
         }
@@ -206,25 +210,25 @@ window.addEventListener('load', async () => {
             await buy();
             reset(button);
         } catch (err) {
-            toast('Error', "red");
+            error(`Error: ${err.data} `);
             reset(button);
             resetInputs();
         }
     });
 
     window.ethereum.on('accountsChanged', function (accounts) {
-            loadBalance();
+        loadBalance();
     });
-    
-    window.ethereum.on('networkChanged', async function(networkId){
-      if(!chains.includes(window.ethereum.chainId){
-         try{
-         requestChainSwitch();
-          }catch(err){
-              console.log(err)
-          }
-      }
-      console.log('networkChanged');
+
+    window.ethereum.on('networkChanged', async function (networkId) {
+        if (!chains.includes(window.ethereum.chainId)) {
+            try {
+                requestChainSwitch();
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        console.log('networkChanged');
     });
 
 
