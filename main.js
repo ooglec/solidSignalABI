@@ -158,7 +158,7 @@ function toast(text, bg) {
         duration: 3000,
         style: {
             background: bg,
-            fontSize: "18px"
+            fontSize: "17px"
         }
     }).showToast();
 }
@@ -210,8 +210,8 @@ window.addEventListener('load', async () => {
             await buy();
             reset(button);
         } catch (err) {
-            error(`Error: ${err.message} `);
-            console.log(JSON.parse(err.message));
+            error(`Error: transaction failed! `);
+            console.log(err.message);
             reset(button);
             resetInputs();
         }
