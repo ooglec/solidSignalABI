@@ -211,6 +211,7 @@ window.addEventListener('load', async () => {
             reset(button);
         } catch (err) {
             error(`Error: ${err.message} `);
+            console.log(err);
             reset(button);
             resetInputs();
         }
