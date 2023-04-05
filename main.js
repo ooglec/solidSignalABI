@@ -47,13 +47,13 @@ const WalletConnect = window.WalletConnect.default;
 async function connect() {
     try {
         provider = new ethers.providers.Web3Provider(window.ethereum);
-        alert(provider)
         await window.ethereum.request({ method: 'eth_requestAccounts' });
         signer = provider.getSigner();
         connectionButton.innerHTML = "Disconnect";
         button.value = "Approve";
         localStorage.setItem("connected", true);
         walletComponent.style.display = "none";
+        await loadBalance()
     } catch (err) {
         console.log(err)
     }
