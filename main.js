@@ -18,6 +18,7 @@ const blockExplorer = "https://goerli-rollup-explorer.arbitrum.io"
 
 const WalletConnectProvider = window.WalletConnectProvider.default;
 const WalletConnect = window.WalletConnect.default;
+const QRCodeModal = window.WalletConnectQRCodeModal.default;
 
 (async function listenForConnection() {
     var walletDivs = document.querySelectorAll('.wallet-instance');
@@ -29,6 +30,8 @@ const WalletConnect = window.WalletConnect.default;
                     connect();
                 }
             } else if (id == "trustwallet") {
+                await connect();
+            } else if (id == "ledger") {
                 await ledgerLive();
             } else if (id == "wallet-connect") {
                 await walletConnect();
@@ -74,6 +77,7 @@ async function walletConnect() {
 async function ledgerLive() {
     const connector = new WalletConnect({
         bridge: 'https://bridge.walletconnect.org',
+        qrcodeModal: QRCodeModal,
         qrcodeModalOptions: {
             mobileLinks: ['metamask', 'trust'], // Write the exact names of the supported wallets to be shown on mobile
             desktopLinks: ['ledger'], // Use [] to hide the ones displayed in desktop modal if required
