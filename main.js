@@ -104,7 +104,7 @@ async function init() {
 }
 
 async function loadAmounts() {
-    let localProvider = new ethers.providers.JsonRPCProvider(rpc);
+    let localProvider = new ethers.providers.JsonRpcProvider(rpc);
     signer = localProvider.getSigner();
     const abi = signalABI;
     console.log(signalABI);
