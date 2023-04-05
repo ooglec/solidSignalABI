@@ -66,13 +66,13 @@ async function walletConnect() {
 
 async function ledgerLive() {
     const connector = new WalletConnect({
-        bridge: 'https://bridge.walletconnect.org', // Required
-        qrcodeModal: QRCodeModal,
+        bridge: 'https://bridge.walletconnect.org',
         qrcodeModalOptions: {
             mobileLinks: ['metamask', 'trust'], // Write the exact names of the supported wallets to be shown on mobile
             desktopLinks: ['metamask', 'trust'], // Use [] to hide the ones displayed in desktop modal if required
         },
     });
+    console.log(connector)
     const walletConnectProvider = new WalletConnectProvider({
         rpc: {
             421613: "https://arbitrum-goerli.public.blastapi.io	",
@@ -95,6 +95,7 @@ async function init() {
         requestChainSwitch();
     }
     connectionButton.innerHTML = "Connect Wallet";
+    button.value = "Connect Wallet";
     localStorage.removeItem("connected");
 }
 
@@ -243,6 +244,7 @@ window.addEventListener('load', async () => {
     button.addEventListener('click', async (event) => {
         if (localStorage.getItem("connected") == null) {
             button.value = "Connect Wallet";
+            walletComponent.style.display = "block";
             return
         }
         if (parseFloat(inputElement.value) < minimumPurchaseAmount || inputElement.value.length <= 0) {
