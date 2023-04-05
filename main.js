@@ -97,6 +97,7 @@ async function init() {
         localStorage.setItem("connected", true);
         provider = new ethers.providers.Web3Provider(window.ethereum);
         signer = provider.getSigner();
+        await loadBalance()
         connectionButton.innerHTML = "Disconnect";
     } else {
         if (!chains.includes(window.ethereum.chainId)) {
