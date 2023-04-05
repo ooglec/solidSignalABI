@@ -7,6 +7,8 @@ let solidSpendAllowance = 0;
 const minimumPurchaseAmount = 500;
 let maximumRaiseAmount;
 const walletComponent = document.querySelector('#wallet-component');
+const anouncementBanner = document.querySelector("#announcement");
+const swicthNework = document.querySelector("#switch-link");
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
 const rpc = "https://endpoints.omniatech.io/v1/arbitrum/goerli/public";
@@ -69,10 +71,9 @@ async function ledgerLive() {
         bridge: 'https://bridge.walletconnect.org',
         qrcodeModalOptions: {
             mobileLinks: ['metamask', 'trust'], // Write the exact names of the supported wallets to be shown on mobile
-            desktopLinks: ['metamask', 'trust'], // Use [] to hide the ones displayed in desktop modal if required
+            desktopLinks: ['ledger'], // Use [] to hide the ones displayed in desktop modal if required
         },
     });
-    console.log(connector)
     const walletConnectProvider = new WalletConnectProvider({
         rpc: {
             421613: "https://arbitrum-goerli.public.blastapi.io	",
@@ -162,6 +163,7 @@ async function requestChainSwitch() {
     } catch (err) {
         console.log(err);
     }
+    anouncementBanner.style.display = "none"
 }
 
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
@@ -263,12 +265,17 @@ window.addEventListener('load', async () => {
         }
     });
 
+    swicthNework.addEventListener("click", function () {
+        requestChainSwitch();
+    })
+
     window.ethereum.on('accountsChanged', function (accounts) {
         loadBalance();
     });
 
     window.ethereum.on('networkChanged', async function (networkId) {
         if (!chains.includes(window.ethereum.chainId)) {
+            anouncementBanner.style.display = "block";
             try {
                 requestChainSwitch();
             } catch (err) {
