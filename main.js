@@ -170,7 +170,6 @@ async function requestChainSwitch() {
         }
     } catch (err) {
         addChain();
-        requestChainSwitch();
     }
     anouncementBanner.style.display = "none"
 }
