@@ -45,13 +45,17 @@ const WalletConnect = window.WalletConnect.default;
 
 
 async function connect() {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-    signer = provider.getSigner();
-    connectionButton.innerHTML = "Disconnect";
-    button.value = "Approve";
-    localStorage.setItem("connected", true);
-    walletComponent.style.display = "none";
+    try {
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        signer = provider.getSigner();
+        connectionButton.innerHTML = "Disconnect";
+        button.value = "Approve";
+        localStorage.setItem("connected", true);
+        walletComponent.style.display = "none";
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 async function walletConnect() {
