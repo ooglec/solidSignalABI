@@ -18,7 +18,12 @@ const chains = ["0x66eed"];
     var walletDivs = document.querySelectorAll('.wallet-instance');
     walletDivs.forEach(function (walletDiv) {
         walletDiv.addEventListener('click', async function () {
-            connect();
+            let id = walletDiv.id
+            if (id == "metamask" || id == "trustwallet") {
+                connect();
+            } else if (id == "wallet-connect") {
+                walletConnect()
+            }
             requestChainSwitch();
             await loadBalance();
             walletComponent.style.display = "none";
@@ -31,7 +36,6 @@ const chains = ["0x66eed"];
 
 async function connect() {
     provider = new ethers.providers.Web3Provider(window.ethereum);
-
     await window.ethereum.request({ method: 'eth_requestAccounts' });
 
     signer = provider.getSigner();
@@ -39,6 +43,18 @@ async function connect() {
     button.value = "Approve";
     localStorage.setItem("connected", true);
     walletComponent.style.display = "none";
+}
+
+async function walletConnect() {
+    walletConnectProvider = new WalletConnectProvider({
+        rpc: {
+            421613: "https://arbitrum-goerli.public.blastapi.io	",
+            42161: "https://endpoints.omniatech.io/v1/arbitrum/one/public"
+        }
+    });
+    await walletConnectProvider.enable();
+    provider = new ethers.providers.Web3Provider(walletConnectProvider);
+    signer = provider.getSigner();
 }
 
 async function init() {
