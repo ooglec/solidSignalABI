@@ -29,16 +29,14 @@ const WalletConnect = window.WalletConnect.default;
                     await connect();
                 }
             } else if (id == "trustwallet") {
-
                 await ledgerLive();
-
             } else if (id == "wallet-connect") {
                 await walletConnect();
             }
             walletComponent.style.display = "none";
             button.value = "Buy"
             requestChainSwitch();
-            await loadBalance();
+            // await loadBalance();
 
 
         });
