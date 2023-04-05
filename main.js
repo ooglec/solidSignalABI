@@ -26,7 +26,7 @@ const WalletConnect = window.WalletConnect.default;
             let id = walletDiv.id;
             if (id == "metamask") {
                 if (window.ethereum.isMetamask) {
-                    await connect();
+                    connect();
                 }
             } else if (id == "trustwallet") {
                 await ledgerLive();
