@@ -12,7 +12,7 @@ const connectionButton = document.querySelector('#connect');
 const rpc = "https://endpoints.omniatech.io/v1/arbitrum/goerli/public";
 const chains = ["0x66eed"];
 
-
+const WalletConnectProvider = window.WalletConnectProvider.default;
 
 (async function listenForConnection() {
     var walletDivs = document.querySelectorAll('.wallet-instance');
