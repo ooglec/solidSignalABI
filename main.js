@@ -104,11 +104,11 @@ async function init() {
 }
 
 async function loadAmounts() {
-    provider = window.ethereum ? new ethers.providers.Web3Provider(window.ethereum) : new ethers.providers.JsonRPCProvider(rpc);
-    signer = provider.getSigner();
+    let localProvider = new ethers.providers.JsonRPCProvider(rpc);
+    signer = localProvider.getSigner();
     const abi = signalABI;
     console.log(signalABI);
-    const solidContract = new ethers.Contract(solidAddress, abi, provider);
+    const solidContract = new ethers.Contract(solidAddress, abi, localProvider);
     const amt = await solidContract.usdcRaised();
     const amtConverted = Math.round(ethers.utils.formatUnits(amt, 6) * 100) / 100
     const prc = await solidContract.presalePrice();
