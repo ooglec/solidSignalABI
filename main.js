@@ -18,7 +18,7 @@ const WalletConnectProvider = window.WalletConnectProvider.default;
     var walletDivs = document.querySelectorAll('.wallet-instance');
     walletDivs.forEach(function (walletDiv) {
         walletDiv.addEventListener('click', async function () {
-            let id = walletDiv.id
+            let id = walletDiv.id;
             if (id == "metamask") {
                 if (window.ethereum.isMetamask) {
                     connect();
@@ -28,7 +28,7 @@ const WalletConnectProvider = window.WalletConnectProvider.default;
                     connect();
                 }
             } else if (id == "wallet-connect") {
-                walletConnect()
+                walletConnect();
             }
             requestChainSwitch();
             await loadBalance();
