@@ -95,13 +95,14 @@ async function init() {
         provider = new ethers.providers.Web3Provider(window.ethereum);
         signer = provider.getSigner();
         connectionButton.innerHTML = "Disconnect";
+    } else {
+        if (!chains.includes(window.ethereum.chainId)) {
+            anouncementBanner.style.display = "block";
+        }
+        connectionButton.innerHTML = "Connect Wallet";
+        button.value = "Connect Wallet";
+        localStorage.removeItem("connected");
     }
-    if (!chains.includes(window.ethereum.chainId)) {
-        anouncementBanner.style.display = "block";
-    }
-    connectionButton.innerHTML = "Connect Wallet";
-    button.value = "Connect Wallet";
-    localStorage.removeItem("connected");
 }
 
 async function loadAmounts() {
