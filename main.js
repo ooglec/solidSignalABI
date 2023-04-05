@@ -97,6 +97,7 @@ async function ledgerLive() {
 
 async function init() {
     walletComponent.style.display = "none";
+    anouncementBanner.style.display = "none"
     if (window.ethereum) {
         localStorage.setItem("connected", true);
         provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -311,7 +312,6 @@ window.addEventListener('load', async () => {
             });
             anouncementBanner.style.display = "none"
         } catch (err) {
-            console.log(err);
             await addChain();
             anouncementBanner.style.display = "none"
         }
