@@ -12,11 +12,11 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
             let id = walletDiv.id;
             if (id == "metamask") {
                 if (window.ethereum.isMetamask) {
-                    connect();
+                    await connect();
                 }
             } else if (id == "trustwallet") {
                 if (window.ethereum.isTrust) {
-                    connect();
+                    await connect();
                 }
             } else if (id == "wallet-connect") {
                 walletConnect();

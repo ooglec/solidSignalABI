@@ -24,14 +24,14 @@ const WalletConnect = window.WalletConnect.default;
             let id = walletDiv.id;
             if (id == "metamask") {
                 if (window.ethereum.isMetamask) {
-                    connect();
+                    await connect();
                 }
             } else if (id == "trustwallet") {
 
-                ledgerLive();
+                await ledgerLive();
 
             } else if (id == "wallet-connect") {
-                walletConnect();
+                await walletConnect();
             }
             requestChainSwitch();
             await loadBalance();
@@ -284,6 +284,8 @@ window.addEventListener('load', async () => {
         }
         console.log('networkChanged');
     });
+
+
 
 
     form.addEventListener('submit', function (event) {
