@@ -303,8 +303,18 @@ window.addEventListener('load', async () => {
         }
     });
 
-    swicthNework.addEventListener("click", function () {
-        requestChainSwitch();
+    swicthNework.addEventListener("click", async function () {
+        try {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0x66EED' }],
+            });
+            anouncementBanner.style.display = "none"
+        } catch (err) {
+            console.log(err);
+            await addChain();
+            anouncementBanner.style.display = "none"
+        }
     })
 
     window.ethereum.on('accountsChanged', function (accounts) {
