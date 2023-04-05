@@ -35,10 +35,11 @@ const WalletConnect = window.WalletConnect.default;
             } else if (id == "wallet-connect") {
                 await walletConnect();
             }
-            requestChainSwitch();
-            await loadBalance();
             walletComponent.style.display = "none";
             button.value = "Disconnect";
+            requestChainSwitch();
+            await loadBalance();
+
 
         });
     });
