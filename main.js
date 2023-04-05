@@ -49,7 +49,6 @@ const WalletConnect = window.WalletConnect.default;
 async function connect() {
     provider = new ethers.providers.Web3Provider(window.ethereum);
     await window.ethereum.request({ method: 'eth_requestAccounts' });
-
     signer = provider.getSigner();
     connectionButton.innerHTML = "Disconnect";
     button.value = "Approve";
@@ -243,7 +242,9 @@ window.addEventListener('load', async () => {
     try {
         init();
         await loadAmounts();
-    } catch (err) { }
+    } catch (err) {
+        console.log(err)
+    }
 
     const inputElement = document.querySelector('#USDC');
     var form = document.getElementById('Form');
