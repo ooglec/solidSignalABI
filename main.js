@@ -93,7 +93,9 @@ async function init() {
         provider = new ethers.providers.Web3Provider(window.ethereum);
         signer = provider.getSigner();
         connectionButton.innerHTML = "Disconnect";
-        requestChainSwitch();
+    }
+    if (!chains.includes(window.ethereum.chainId)) {
+        anouncementBanner.style.display = "block";
     }
     connectionButton.innerHTML = "Connect Wallet";
     button.value = "Connect Wallet";
@@ -155,7 +157,7 @@ async function buy() {
 async function requestChainSwitch() {
     await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0x1' }],
+        params: [{ chainId: '0x66EED' }],
     });
     try {
         await loadAmounts();
