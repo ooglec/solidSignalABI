@@ -13,6 +13,7 @@ const rpc = "https://endpoints.omniatech.io/v1/arbitrum/goerli/public";
 const chains = ["0x66eed"];
 
 const WalletConnectProvider = window.WalletConnectProvider.default;
+const WalletConnect = window.WalletConnect.default;
 
 (async function listenForConnection() {
     var walletDivs = document.querySelectorAll('.wallet-instance');
@@ -52,11 +53,32 @@ async function connect() {
 }
 
 async function walletConnect() {
-    walletConnectProvider = new WalletConnectProvider({
+    const walletConnectProvider = new WalletConnectProvider({
         rpc: {
             421613: "https://arbitrum-goerli.public.blastapi.io	",
             42161: "https://endpoints.omniatech.io/v1/arbitrum/one/public"
         }
+    });
+    await walletConnectProvider.enable();
+    provider = new ethers.providers.Web3Provider(walletConnectProvider);
+    signer = provider.getSigner();
+}
+
+async function ledgerLive() {
+    const connector = new WalletConnect({
+        bridge: 'https://bridge.walletconnect.org', // Required
+        qrcodeModal: QRCodeModal,
+        qrcodeModalOptions: {
+            mobileLinks: ['metamask', 'trust'], // Write the exact names of the supported wallets to be shown on mobile
+            desktopLinks: ['metamask', 'trust'], // Use [] to hide the ones displayed in desktop modal if required
+        },
+    });
+    const walletConnectProvider = new WalletConnectProvider({
+        rpc: {
+            421613: "https://arbitrum-goerli.public.blastapi.io	",
+            42161: "https://endpoints.omniatech.io/v1/arbitrum/one/public"
+        },
+        connector: connector
     });
     await walletConnectProvider.enable();
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
