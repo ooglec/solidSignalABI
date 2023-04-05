@@ -104,7 +104,7 @@ async function init() {
         await loadBalance()
         connectionButton.innerHTML = "Disconnect";
     } else {
-        if (!chains.includes(window.ethereum.chainId)) {
+        if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId) {
             anouncementBanner.style.display = "block";
         }
         connectionButton.innerHTML = "Connect Wallet";
