@@ -97,7 +97,7 @@ async function ledgerLive() {
 
 async function init() {
     walletComponent.style.display = "none";
-    if (window.ethereum && window.ethereum.selectedAddress) {
+    if (window.ethereum) {
         localStorage.setItem("connected", true);
         provider = new ethers.providers.Web3Provider(window.ethereum);
         signer = provider.getSigner();
