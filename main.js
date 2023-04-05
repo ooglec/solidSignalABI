@@ -184,7 +184,7 @@ async function requestChainSwitch() {
         });
         try {
             await loadAmounts();
-            await loadBalance();
+            // await loadBalance();
         } catch (err) {
             console.log(err);
         }
