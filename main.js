@@ -31,7 +31,7 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
                 }
             } else if (id == "trustwallet") {
                 await connect();
-            } else if (id == "ledger") {
+            } else if (id == "ledger-live") {
                 await ledgerLive();
             } else if (id == "wallet-connect") {
                 await walletConnect();
