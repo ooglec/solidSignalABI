@@ -25,9 +25,9 @@ const WalletConnect = window.WalletConnect.default;
                     connect();
                 }
             } else if (id == "trustwallet") {
-                if (navigator.userAgent.includes("Trust")) {
-                    ledgerLive();
-                }
+
+                ledgerLive();
+
             } else if (id == "wallet-connect") {
                 walletConnect();
             }
