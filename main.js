@@ -25,7 +25,7 @@ const WalletConnect = window.WalletConnect.default;
         walletDiv.addEventListener('click', async function () {
             let id = walletDiv.id;
             if (id == "metamask") {
-                if (window.ethereum.isMetamask) {
+                if (window.ethereum) {
                     connect();
                 }
             } else if (id == "trustwallet") {
