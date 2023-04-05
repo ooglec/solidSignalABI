@@ -304,7 +304,7 @@ window.addEventListener('load', async () => {
         loadBalance();
     });
 
-    window.ethereum.on('networkChanged', async function (networkId) {
+    window.ethereum.on('chainChanged', async function (networkId) {
         if (!chains.includes(window.ethereum.chainId)) {
             anouncementBanner.style.display = "block";
             try {
@@ -313,7 +313,7 @@ window.addEventListener('load', async () => {
                 console.log(err)
             }
         }
-        console.log('networkChanged');
+        console.log('chainChanged');
     });
 
 
