@@ -13,6 +13,8 @@ const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
 const rpc = "https://endpoints.omniatech.io/v1/arbitrum/goerli/public";
 const chains = ["0x66eed"];
+const walletChainId = "0x66eed"
+const blockExplorer = "https://goerli-rollup-explorer.arbitrum.io"
 
 const WalletConnectProvider = window.WalletConnectProvider.default;
 const WalletConnect = window.WalletConnect.default;
@@ -155,15 +157,20 @@ async function buy() {
 }
 
 async function requestChainSwitch() {
-    await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0x66EED' }],
-    });
     try {
-        await loadAmounts();
-        await loadBalance();
+        await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0x66EED' }],
+        });
+        try {
+            await loadAmounts();
+            await loadBalance();
+        } catch (err) {
+            console.log(err);
+        }
     } catch (err) {
-        console.log(err);
+        addChain();
+        requestChainSwitch();
     }
     anouncementBanner.style.display = "none"
 }
@@ -286,6 +293,22 @@ window.addEventListener('load', async () => {
         }
         console.log('networkChanged');
     });
+
+    async function addChain() {
+        const ethereum = window.ethereum;
+        const data = [{
+            chainId: walletChainId,
+            chainName: 'AGOR',
+            nativeCurrency: {
+                name: 'AGOR',
+                symbol: 'AGOR',
+                decimals: 18 //In number form
+            },
+            rpcUrls: [rpc],
+            blockExplorerUrls: [blockExplorer]
+        }];
+        await ethereum.request({ method: 'wallet_addEthereumChain', params: data });
+    }
 
 
 
