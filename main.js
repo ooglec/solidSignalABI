@@ -36,7 +36,7 @@ const WalletConnect = window.WalletConnect.default;
                 await walletConnect();
             }
             walletComponent.style.display = "none";
-            button.value = "Disconnect";
+            button.value = "Buy"
             requestChainSwitch();
             await loadBalance();
 
@@ -157,6 +157,23 @@ async function buy() {
     await loadBalance();
 }
 
+
+async function addChain() {
+    const ethereum = window.ethereum;
+    const data = [{
+        chainId: walletChainId,
+        chainName: 'AGOR',
+        nativeCurrency: {
+            name: 'AGOR',
+            symbol: 'AGOR',
+            decimals: 18 //In number form
+        },
+        rpcUrls: [rpc],
+        blockExplorerUrls: [blockExplorer]
+    }];
+    await ethereum.request({ method: 'wallet_addEthereumChain', params: data });
+}
+
 async function requestChainSwitch() {
     try {
         await window.ethereum.request({
@@ -170,8 +187,8 @@ async function requestChainSwitch() {
             console.log(err);
         }
     } catch (err) {
-        console.log(err)
-        addChain();
+        console.log(err);
+        await addChain();
     }
     anouncementBanner.style.display = "none"
 }
@@ -295,21 +312,7 @@ window.addEventListener('load', async () => {
         console.log('networkChanged');
     });
 
-    async function addChain() {
-        const ethereum = window.ethereum;
-        const data = [{
-            chainId: walletChainId,
-            chainName: 'AGOR',
-            nativeCurrency: {
-                name: 'AGOR',
-                symbol: 'AGOR',
-                decimals: 18 //In number form
-            },
-            rpcUrls: [rpc],
-            blockExplorerUrls: [blockExplorer]
-        }];
-        await ethereum.request({ method: 'wallet_addEthereumChain', params: data });
-    }
+
 
 
 
