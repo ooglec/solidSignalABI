@@ -155,7 +155,7 @@ async function buy() {
 async function requestChainSwitch() {
     await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0x66EED' }],
+        params: [{ chainId: '0x1' }],
     });
     try {
         await loadAmounts();
