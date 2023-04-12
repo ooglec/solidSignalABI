@@ -26,7 +26,7 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
         walletDiv.addEventListener('click', async function () {
             let id = walletDiv.id;
             if (id == "metamask") {
-                if (window.ethereum) {
+                if (window.ethereum && window.ethereum.isMetamask) {
                     connect();
                 }
             } else if (id == "trustwallet") {
@@ -79,7 +79,7 @@ async function ledgerLive() {
         bridge: 'https://bridge.walletconnect.org',
         qrcodeModal: QRCodeModal,
         qrcodeModalOptions: {
-            mobileLinks: ['metamask', 'trust'], // Write the exact names of the supported wallets to be shown on mobile
+            mobileLinks: ['ledger'], // Write the exact names of the supported wallets to be shown on mobile
             desktopLinks: ['ledger'], // Use [] to hide the ones displayed in desktop modal if required
         },
     });
