@@ -67,8 +67,9 @@ async function walletConnect() {
         rpc: {
             421613: "https://arbitrum-goerli.public.blastapi.io	",
             42161: "https://endpoints.omniatech.io/v1/arbitrum/one/public"
-        }
+        },
     });
+
     await walletConnectProvider.enable();
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
     signer = provider.getSigner();
