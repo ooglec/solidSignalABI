@@ -1,7 +1,7 @@
 let provider;
 let signer;
 let price;
-const solidAddress = "0x3E270f23EcaC0c96ED7329Bf0D9cFC0Ce96f2123";
+const solidAddress = "0x61bE06e4478F2eD97aC92b44E7C70b475c57F879";
 const usdcAddress = "0x6b52834DDDa183E4C01d20f1421412035c66Da54";
 let solidSpendAllowance = 0;
 const minimumPurchaseAmount = 500;
