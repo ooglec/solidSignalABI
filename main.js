@@ -221,6 +221,25 @@ async function requestChainSwitch() {
     anouncementBanner.style.display = "none"
 }
 
+async function requestChainSwitchV2() {
+    try {
+        await provider.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0x66EED' }],
+        });
+        try {
+            await loadAmounts();
+            // await loadBalance();
+        } catch (err) {
+            console.log(err);
+        }
+    } catch (err) {
+        console.log(err);
+        await addChain();
+    }
+}
+
+
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
     if (localStorage.getItem("connected") == null) return;
     if (value > solidSpendAllowance) {
@@ -339,11 +358,28 @@ window.addEventListener('load', async () => {
         loadBalance();
     });
 
+    provider.on('accountsChanged', function (accounts) {
+        loadBalance();
+    });
+
     window.ethereum.on('chainChanged', async function (networkId) {
         if (!chains.includes(window.ethereum.chainId)) {
             anouncementBanner.style.display = "block";
             try {
                 await requestChainSwitch();
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        console.log('chainChanged');
+    });
+
+    provider.on('network', async function (networkId) {
+
+        if (!chains.includes(provider.chainId)) {
+            anouncementBanner.style.display = "block";
+            try {
+                await requestChainSwitchV2();
             } catch (err) {
                 console.log(err)
             }
