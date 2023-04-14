@@ -26,9 +26,7 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
         walletDiv.addEventListener('click', async function () {
             let id = walletDiv.id;
             if (id == "metamask") {
-                if (window.ethereum && window.ethereum.isMetamask) {
-                    connect();
-                }
+                await connect();
             } else if (id == "trustwallet") {
                 await connect();
             } else if (id == "ledger-live") {
