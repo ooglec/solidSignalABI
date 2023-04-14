@@ -79,8 +79,8 @@ async function walletConnect() {
 
     await walletConnectProvider.enable();
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
-    alert(provider)
     signer = provider.getSigner();
+    alert(await signer.getAddress())
     localStorage.setItem("connected", true);
     connectionButton.innerHTML = "Disconnect";
     button.value = "Approve";
@@ -152,7 +152,7 @@ async function loadAmounts() {
 }
 
 async function loadBalance() {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
+    provider = provider ? provider : new ethers.providers.Web3Provider(window.ethereum);
     const solidContract = new ethers.Contract(solidAddress, signalABI, provider);
     const usdcContract = new ethers.Contract(usdcAddress, erc20ABI, provider);
     const signerAddress = await signer.getAddress();
