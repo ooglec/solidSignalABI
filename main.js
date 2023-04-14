@@ -25,10 +25,6 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
     walletDivs.forEach(function (walletDiv) {
         walletDiv.addEventListener('click', async function () {
             let id = walletDiv.id;
-            if (!window.ethereum) {
-                window.open("https://metamask.io/download/", "_blank")
-                return
-            }
             if (id == "metamask") {
                 if (window.ethereum) {
                     await connect();
