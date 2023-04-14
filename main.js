@@ -166,7 +166,7 @@ async function loadBalance() {
 
 
 async function buy() {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
+    provider = provider ? provider : new ethers.providers.Web3Provider(window.ethereum);
     signer = provider.getSigner();
     const solidContract = new ethers.Contract(solidAddress, signalABI, signer);
     const usdcContract = new ethers.Contract(usdcAddress, erc20ABI, signer);
