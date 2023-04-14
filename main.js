@@ -172,14 +172,23 @@ async function buy() {
     const usdcContract = new ethers.Contract(usdcAddress, erc20ABI, signer);
     const value = document.querySelector('#USDC').value;
     if (parseFloat(value) > solidSpendAllowance) {
-        await usdcContract.approve(solidAddress, ethers.constants.MaxUint256);
-        button.value = "Buy";
-        success('Approval successful');
+        try {
+            await usdcContract.approve(solidAddress, ethers.constants.MaxUint256);
+            button.value = "Buy";
+            success('Approval successful');
+        } catch (err) {
+            error(`Error: Approval Failed`)
+        }
     } else {
-        const tx = await solidContract.buy(ethers.utils.parseUnits(value.toString(), 6));
-        await tx.wait();
-        success(`Purchase of ${value * price} successful`);
-        resetInputs()
+        try {
+            const tx = await solidContract.buy(ethers.utils.parseUnits(value.toString(), 6));
+            await tx.wait();
+            success(`Purchase of ${value * price} successful`);
+            resetInputs()
+        } catch (err) {
+            error(`Error: Transaction Failed`)
+        }
+
         await loadAmounts();
     }
     await loadBalance();
@@ -334,7 +343,6 @@ window.addEventListener('load', async () => {
             await buy();
             reset(button);
         } catch (err) {
-            error(`Error: transaction failed! `);
             console.log(err.message);
             reset(button);
             resetInputs();
