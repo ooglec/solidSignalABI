@@ -153,8 +153,10 @@ async function loadAmounts() {
 
 async function loadBalance() {
     provider = provider ? provider : new ethers.providers.Web3Provider(window.ethereum);
-    const solidContract = new ethers.Contract(solidAddress, signalABI, provider);
-    const usdcContract = new ethers.Contract(usdcAddress, erc20ABI, provider);
+    let localProvider = new ethers.providers.JsonRpcProvider(rpc);
+    const solidContract = new ethers.Contract(solidAddress, signalABI, localProvider);
+    const usdcContract = new ethers.Contract(usdcAddress, erc20ABI, localProvider);
+    signer = await provider.getSigner()
     const signerAddress = await signer.getAddress();
     const balance = await solidContract.myBalance(signerAddress);
     const allowance = await usdcContract.allowance(signerAddress, solidAddress);
@@ -190,8 +192,8 @@ async function buy() {
         }
 
         await loadAmounts();
+        await loadBalance();
     }
-    await loadBalance();
 }
 
 
@@ -293,6 +295,15 @@ function toast(text, bg) {
     }).showToast();
 }
 
+function isWrongNetwork() {
+    if (chains.includes(provider.chainId) || chains.includes(window.ethereum.chainId)) {
+        return false
+    } else {
+        error("Wrong Network: Switch network to make transactions")
+        return true
+    }
+}
+
 
 
 window.addEventListener('load', async () => {
@@ -332,6 +343,10 @@ window.addEventListener('load', async () => {
         if (localStorage.getItem("connected") == null) {
             button.value = "Connect Wallet";
             walletComponent.style.display = "block";
+            return
+        }
+
+        if (isWrongNetwork()) {
             return
         }
         if (parseFloat(inputElement.value) < minimumPurchaseAmount || inputElement.value.length <= 0) {
