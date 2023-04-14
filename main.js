@@ -56,6 +56,7 @@ async function connect() {
         walletComponent.style.display = "none";
         await loadBalance()
     } catch (err) {
+        error("Connection failed")
         console.log(err)
     }
 }
@@ -71,6 +72,7 @@ async function walletConnect() {
     await walletConnectProvider.enable();
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
     signer = provider.getSigner();
+    localStorage.setItem("connected", true);
 }
 
 async function ledgerLive() {
@@ -92,6 +94,7 @@ async function ledgerLive() {
     await walletConnectProvider.enable();
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
     signer = provider.getSigner();
+    localStorage.setItem("connected", true);
 }
 
 async function init() {
