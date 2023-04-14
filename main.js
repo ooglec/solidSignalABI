@@ -25,8 +25,16 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
     walletDivs.forEach(function (walletDiv) {
         walletDiv.addEventListener('click', async function () {
             let id = walletDiv.id;
+            if (!window.ethereum) {
+                window.open("https://metamask.io/download/", "_blank")
+                return
+            }
             if (id == "metamask") {
-                await connect();
+                if (window.ethereum) {
+                    await connect();
+                } else {
+                    window.open("https://metamask.io/download/", "_blank")
+                }
             } else if (id == "trustwallet") {
                 if (window.ethereum.isTrust) {
                     await connect();
