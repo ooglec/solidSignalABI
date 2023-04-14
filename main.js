@@ -79,6 +79,7 @@ async function walletConnect() {
 
     await walletConnectProvider.enable();
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
+    alert(provider)
     signer = provider.getSigner();
     localStorage.setItem("connected", true);
     connectionButton.innerHTML = "Disconnect";
