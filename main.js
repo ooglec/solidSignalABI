@@ -334,18 +334,13 @@ window.addEventListener('load', async () => {
         if (!chains.includes(window.ethereum.chainId)) {
             anouncementBanner.style.display = "block";
             try {
-                requestChainSwitch();
+                await requestChainSwitch();
             } catch (err) {
                 console.log(err)
             }
         }
         console.log('chainChanged');
     });
-
-
-
-
-
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
