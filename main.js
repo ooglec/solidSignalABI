@@ -28,7 +28,11 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
             if (id == "metamask") {
                 await connect();
             } else if (id == "trustwallet") {
-                await connect();
+                if (window.ethereum.isTrust) {
+                    await connect();
+                } else {
+                    window.open("https://trustwallet.com/download", "_blank")
+                }
             } else if (id == "ledger-live") {
                 await ledgerLive();
             } else if (id == "wallet-connect") {
