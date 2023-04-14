@@ -81,6 +81,8 @@ async function walletConnect() {
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
     signer = provider.getSigner();
     localStorage.setItem("connected", true);
+    connectionButton.innerHTML = "Disconnect";
+    button.value = "Approve";
 }
 
 async function ledgerLive() {
@@ -103,7 +105,13 @@ async function ledgerLive() {
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
     signer = provider.getSigner();
     localStorage.setItem("connected", true);
+    connectionButton.innerHTML = "Disconnect";
+    button.value = "Approve";
 }
+
+
+//get connected chain
+
 
 async function init() {
     walletComponent.style.display = "none";
