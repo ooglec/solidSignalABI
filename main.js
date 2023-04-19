@@ -322,7 +322,7 @@ window.addEventListener('load', async () => {
 
     inputElement.addEventListener('input', (event) => {
         const newValue = parseFloat(event.target.value);
-        document.querySelector('.signal-value').innerHTML = newValue * price;
+        document.querySelector('.signal-value').innerHTML = newValue / price;
         checkMinimumPurchase(newValue, solidSpendAllowance, button);
     });
 
