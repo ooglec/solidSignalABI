@@ -21,6 +21,7 @@ const WalletConnectProvider = window.WalletConnectProvider.default;
 const WalletConnect = window.WalletConnect.default;
 const QRCodeModal = window.WalletConnectQRCodeModal.default;
 
+
 (async function listenForConnection() {
     var walletDivs = document.querySelectorAll('.wallet-instance');
     walletDivs.forEach(function (walletDiv) {
@@ -287,6 +288,7 @@ function resetInputs() {
 function setAddress(address) {
     let addressBarText = document.querySelector('#address')
     addressBarText.innerHTML = shortenAddress(address)
+    addressBarText.style.display = "block";
 }
 
 function shortenAddress(address, startLength = 6, endLength = 4) {
@@ -336,6 +338,7 @@ function isWrongNetwork() {
 
 
 window.addEventListener('load', async () => {
+    document.querySelector('#address').style.display = "block";
     try {
         init();
         await loadAmounts();
@@ -361,6 +364,7 @@ window.addEventListener('load', async () => {
             localStorage.removeItem("connected");
             connectionButton.innerHTML = "Connect Wallet";
             button.value = "Connect Wallet";
+            addressBarText.style.display = "none";
         }
     })
 
