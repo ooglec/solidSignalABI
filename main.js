@@ -49,6 +49,7 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
             await loadBalance();
 
 
+
         });
     });
 })();
@@ -59,6 +60,8 @@ async function connect() {
         provider = new ethers.providers.Web3Provider(window.ethereum);
         await window.ethereum.request({ method: 'eth_requestAccounts' });
         signer = provider.getSigner();
+        const signerAddress = await signer.getAddress()
+        setAddress(signerAddress)
         connectionButton.innerHTML = "Disconnect";
         button.value = "Approve";
         localStorage.setItem("connected", true);
@@ -81,6 +84,8 @@ async function walletConnect() {
     await walletConnectProvider.enable();
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
     signer = provider.getSigner();
+    const signerAddress = await signer.getAddress()
+    setAddress(signerAddress)
     console.log(await signer.getAddress())
     localStorage.setItem("connected", true);
     connectionButton.innerHTML = "Disconnect";
@@ -106,6 +111,8 @@ async function ledgerLive() {
     await walletConnectProvider.enable();
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
     signer = provider.getSigner();
+    const signerAddress = await signer.getAddress()
+    setAddress(signerAddress)
     localStorage.setItem("connected", true);
     connectionButton.innerHTML = "Disconnect";
     button.value = "Approve";
@@ -121,8 +128,10 @@ async function init() {
         localStorage.setItem("connected", true);
         provider = new ethers.providers.Web3Provider(window.ethereum);
         signer = provider.getSigner();
+        const signerAddress = await signer.getAddress()
         await loadBalance()
         connectionButton.innerHTML = "Disconnect";
+        setAddress(signerAddress)
     } else {
         if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId) {
             anouncementBanner.style.display = "block";
@@ -275,6 +284,22 @@ function resetInputs() {
     document.querySelector('.signal-value').innerHTML = 0;
 }
 
+function setAddress(address) {
+    let addressBarText = document.querySelector('#address')
+    addressBarText.innerHTML = shortenAddress(address)
+}
+
+function shortenAddress(address, startLength = 6, endLength = 4) {
+    if (!address) {
+        return "";
+    }
+
+    const cleanAddress = address.replace(/^0x/, ""); // Remove '0x' from the start, if present
+    const start = cleanAddress.slice(0, startLength);
+    const end = cleanAddress.slice(-endLength);
+
+    return `0x${start}...${end}`;
+}
 function reset(button) {
     button.disabled = false;
     button.value = "Buy";
