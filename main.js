@@ -174,6 +174,8 @@ async function buy() {
     const solidContract = new ethers.Contract(solidAddress, signalABI, signer);
     const usdcContract = new ethers.Contract(usdcAddress, erc20ABI, signer);
     const value = document.querySelector('#USDC').value;
+    const allowance = await usdcContract.allowance(signerAddress, solidAddress);
+    solidSpendAllowance = Math.round(ethers.utils.formatUnits(allowance, 6) * 1000) / 1000
     if (parseFloat(value) > solidSpendAllowance) {
         try {
             await usdcContract.approve(solidAddress, ethers.constants.MaxUint256);
