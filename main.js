@@ -189,7 +189,7 @@ async function buy() {
         try {
             const tx = await solidContract.buy(ethers.utils.parseUnits(value.toString(), 6));
             await tx.wait();
-            success(`Purchase of ${value * price} successful`);
+            success(`Purchase of ${value / price} successful`);
             resetInputs()
         } catch (err) {
             error(`Error: Transaction Failed`)
