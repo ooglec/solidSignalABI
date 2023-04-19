@@ -1,8 +1,9 @@
 let provider;
 let signer;
 let price;
-const solidAddress = "0x61bE06e4478F2eD97aC92b44E7C70b475c57F879";
+const solidAddress = "0x45846bD83C49ee0148354a491703cad98Da17Dfc";
 const usdcAddress = "0x6b52834DDDa183E4C01d20f1421412035c66Da54";
+const chainName = 'Arbitrum Goerli';
 let solidSpendAllowance = 0;
 const minimumPurchaseAmount = 500;
 let maximumRaiseAmount;
@@ -201,7 +202,7 @@ async function addChain() {
     const ethereum = window.ethereum;
     const data = [{
         chainId: walletChainId,
-        chainName: 'Arbitrum Goerli',
+        chainName: chainName,
         nativeCurrency: {
             name: 'AGOR',
             symbol: 'AGOR',
