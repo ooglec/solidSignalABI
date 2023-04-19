@@ -201,7 +201,7 @@ async function addChain() {
     const ethereum = window.ethereum;
     const data = [{
         chainId: walletChainId,
-        chainName: 'AGOR',
+        chainName: 'Arbitrum Goerli',
         nativeCurrency: {
             name: 'AGOR',
             symbol: 'AGOR',
