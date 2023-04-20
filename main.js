@@ -280,7 +280,7 @@ async function requestChainSwitchV2() {
 
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
     if (localStorage.getItem("connected") == null) return;
-
+    console.log(userUsdcBalance)
     button.disabled = false;
     if (userUsdcBalance < value) {
         button.value = "Insufficient Balance";
