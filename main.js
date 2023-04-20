@@ -1,7 +1,7 @@
 let provider;
 let signer;
 let price;
-const solidAddress = "0x45846bD83C49ee0148354a491703cad98Da17Dfc";
+const solidAddress = "0x3de69A2Ae60838D4a854647366012723D7a6498F";
 const usdcAddress = "0x6b52834DDDa183E4C01d20f1421412035c66Da54";
 const chainName = 'Arbitrum Goerli';
 let solidSpendAllowance = 0;
