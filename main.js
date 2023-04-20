@@ -421,11 +421,11 @@ window.addEventListener('load', async () => {
     window.ethereum.on('chainChanged', async function (networkId) {
         if (!chains.includes(window.ethereum.chainId)) {
             anouncementBanner.style.display = "block";
-            try {
-                await requestChainSwitch();
-            } catch (err) {
-                console.log(err)
-            }
+            // try {
+            //     await requestChainSwitch();
+            // } catch (err) {
+            //     console.log(err)
+            // }
         }
         console.log('chainChanged');
     });
