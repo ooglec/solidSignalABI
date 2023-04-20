@@ -285,7 +285,6 @@ function checkMinimumPurchase(value, solidSpendAllowance, button) {
     if (userUsdcBalance < value) {
         button.value = "Insufficient Balance";
         button.style.background = "#007BFF"
-        button.disabled = true;
     } else {
         if (value > solidSpendAllowance) {
             button.value = "Approve";
