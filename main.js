@@ -369,6 +369,7 @@ window.addEventListener('load', async () => {
 
 
     inputElement.addEventListener('input', (event) => {
+        button.disabled = false;
         const newValue = parseFloat(event.target.value);
         document.querySelector('.signal-value').innerHTML = newValue / price;
         checkMinimumPurchase(newValue, solidSpendAllowance, button);
@@ -379,7 +380,6 @@ window.addEventListener('load', async () => {
         } else {
             button.value = "Buy";
             button.style.background = "#007BFF"
-            button.disabled = false;
         }
     });
 
