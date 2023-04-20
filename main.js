@@ -364,7 +364,7 @@ window.addEventListener('load', async () => {
             localStorage.removeItem("connected");
             connectionButton.innerHTML = "Connect Wallet";
             button.value = "Connect Wallet";
-            addressBarText.style.display = "none";
+            document.querySelector('#address').style.display = "none";
         }
     })
 
