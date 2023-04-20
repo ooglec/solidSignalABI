@@ -288,6 +288,7 @@ function checkMinimumPurchase(value, solidSpendAllowance, button) {
     } else {
 
         if (value < minimumPurchaseAmount) {
+            console.log(minimumPurchaseAmount)
             button.disabled = true;
             button.value = "Amount too low";
         } else if (value > solidSpendAllowance) {
