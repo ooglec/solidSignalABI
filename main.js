@@ -338,7 +338,7 @@ function isWrongNetwork() {
 
 
 window.addEventListener('load', async () => {
-    document.querySelector('#address').style.display = "block";
+    document.querySelector('#address').style.display = "none";
     try {
         init();
         await loadAmounts();
