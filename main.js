@@ -215,6 +215,7 @@ async function buy() {
             success(`Purchase of ${value / price} successful`);
             resetInputs()
         } catch (err) {
+            console.log(err)
             error(`Error: Transaction Failed`)
         }
 
