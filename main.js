@@ -6,6 +6,7 @@ const usdcAddress = "0x6b52834DDDa183E4C01d20f1421412035c66Da54";
 const chainName = 'Arbitrum Goerli';
 let solidSpendAllowance = 0;
 let minimumPurchaseAmount = 0;
+let userUsdcBalance = 0;
 let maximumRaiseAmount;
 let presaleEnd;
 const walletComponent = document.querySelector('#wallet-component');
@@ -174,7 +175,9 @@ async function loadBalance() {
     const signerAddress = await signer.getAddress();
     const balance = await solidContract.myBalance(signerAddress);
     const allowance = await usdcContract.allowance(signerAddress, solidAddress);
+    const balanceUsdc = await usdcContract.balanceOf(signerAddress);
     solidSpendAllowance = Math.round(ethers.utils.formatUnits(allowance, 6) * 1000) / 1000
+    userUsdcBalance = Math.round(ethers.utils.formatUnits(balanceUsdc, 6) * 1000) / 1000
     document.getElementById("purchase").innerHTML = `$${(Math.round(ethers.utils.formatEther(balance) * 100) / 100) * price}`;
     document.getElementById("purchase-signal").innerHTML = `${(Math.round(ethers.utils.formatEther(balance) * 100) / 100)} SIGNAL`;
     button.value = "Buy";
@@ -364,6 +367,13 @@ window.addEventListener('load', async () => {
         const newValue = parseFloat(event.target.value);
         document.querySelector('.signal-value').innerHTML = newValue / price;
         checkMinimumPurchase(newValue, solidSpendAllowance, button);
+        if (userUsdcBalance < newValue) {
+            button.value = "Insufficient Balance";
+            button.disabled = true;
+        } else {
+            button.value = "Buy";
+            button.disabled = false;
+        }
     });
 
     connectionButton.addEventListener('click', async (event) => {
