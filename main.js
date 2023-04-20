@@ -158,7 +158,7 @@ async function loadAmounts() {
     const _minimumPurchaseAmount = await solidContract.minimumPurchaseAmount()
     price = Math.round(ethers.utils.formatEther(prc) * 100) / 100
     maximumRaiseAmount = (Math.round(ethers.utils.formatUnits(maxPresale, 18) * 100) / 100) * price
-    minimumPurchaseAmount = (Math.round(ethers.utils.formatUnits(maxPresale, 6) * 100) / 100)
+    minimumPurchaseAmount = (Math.round(ethers.utils.formatUnits(_minimumPurchaseAmount, 6) * 100) / 100)
     document.getElementById("funds-raised").innerHTML = `$${amtConverted}`;
     document.getElementById("funds-raised-sm").innerHTML = `$${amtConverted} USD`;
     document.getElementById("price").innerHTML = `$${price}`;
