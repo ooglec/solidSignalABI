@@ -8,6 +8,7 @@ let solidSpendAllowance = 0;
 let minimumPurchaseAmount = 0;
 let userUsdcBalance = 0;
 let maximumRaiseAmount;
+let totalAmountRaised;
 let presaleEnd;
 const walletComponent = document.querySelector('#wallet-component');
 const anouncementBanner = document.querySelector("#announcement");
@@ -159,6 +160,7 @@ async function loadAmounts() {
     price = Math.round(ethers.utils.formatEther(prc) * 100) / 100
     maximumRaiseAmount = (Math.round(ethers.utils.formatUnits(maxPresale, 18) * 100) / 100) * price
     minimumPurchaseAmount = (Math.round(ethers.utils.formatUnits(_minimumPurchaseAmount, 6) * 100) / 100)
+    totalAmountRaised = amtConverted
     document.getElementById("funds-raised").innerHTML = `$${amtConverted}`;
     document.getElementById("funds-raised-sm").innerHTML = `$${amtConverted} USD`;
     document.getElementById("price").innerHTML = `$${price}`;
@@ -298,6 +300,10 @@ function checkMinimumPurchase(value, solidSpendAllowance, button) {
             button.value = "Buy";
         }
     }
+
+    if ((totalAmountRaised + value) >= maximumRaiseAmount) {
+        button.value = "Exceeds Presale Target"
+    }
 }
 
 function replaceNaNWithZero(value) {
@@ -408,6 +414,12 @@ window.addEventListener('load', async () => {
         if (isWrongNetwork()) {
             return
         }
+
+        if (totalAmountRaised >= maximumRaiseAmount) {
+            error("Presale Ended: Presale target acheived")
+            return
+        }
+
         if (parseFloat(inputElement.value) < minimumPurchaseAmount || inputElement.value.length <= 0) {
             return;
         }
