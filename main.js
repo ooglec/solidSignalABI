@@ -369,10 +369,12 @@ window.addEventListener('load', async () => {
         checkMinimumPurchase(newValue, solidSpendAllowance, button);
         if (userUsdcBalance < newValue) {
             button.value = "Insufficient Balance";
-            button.style.background = "red"
+            button.style.background = "#007BFF"
+            button.disabled = true;
         } else {
             button.value = "Buy";
             button.style.background = "#007BFF"
+            button.disabled = false;
         }
     });
 
