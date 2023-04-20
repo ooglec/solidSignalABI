@@ -280,6 +280,7 @@ async function requestChainSwitchV2() {
 
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
     if (localStorage.getItem("connected") == null) return;
+    button.disabled = false;
     if (value > solidSpendAllowance) {
         button.value = "Approve";
     } else {
@@ -288,8 +289,7 @@ function checkMinimumPurchase(value, solidSpendAllowance, button) {
     if (value < minimumPurchaseAmount) {
         button.disabled = true;
         button.value = "Amount too low";
-    } else {
-        button.disabled = false;
+
     }
 }
 
