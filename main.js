@@ -5,8 +5,9 @@ const solidAddress = "0x45846bD83C49ee0148354a491703cad98Da17Dfc";
 const usdcAddress = "0x6b52834DDDa183E4C01d20f1421412035c66Da54";
 const chainName = 'Arbitrum Goerli';
 let solidSpendAllowance = 0;
-const minimumPurchaseAmount = 500;
+let minimumPurchaseAmount = 0;
 let maximumRaiseAmount;
+let presaleEnd;
 const walletComponent = document.querySelector('#wallet-component');
 const anouncementBanner = document.querySelector("#announcement");
 const swicthNework = document.querySelector("#switch-link");
@@ -153,8 +154,10 @@ async function loadAmounts() {
     const amtConverted = Math.round(ethers.utils.formatUnits(amt, 6) * 100) / 100
     const prc = await solidContract.presalePrice();
     const maxPresale = await solidContract.presaleCap()
+    const _minimumPurchaseAmount = await solidContract.minimumPurchaseAmount()
     price = Math.round(ethers.utils.formatEther(prc) * 100) / 100
     maximumRaiseAmount = (Math.round(ethers.utils.formatUnits(maxPresale, 18) * 100) / 100) * price
+    minimumPurchaseAmount = (Math.round(ethers.utils.formatUnits(maxPresale, 6) * 100) / 100)
     document.getElementById("funds-raised").innerHTML = `$${amtConverted}`;
     document.getElementById("funds-raised-sm").innerHTML = `$${amtConverted} USD`;
     document.getElementById("price").innerHTML = `$${price}`;
