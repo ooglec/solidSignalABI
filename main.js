@@ -210,7 +210,7 @@ async function buy() {
         }
     } else {
         try {
-            const tx = await solidContract.buy(ethers.utils.parseUnits(value.toString(), 6));
+            const tx = await solidContract.buy(ethers.utils.parseUnits(value.toString(), 6), { gasLimit: 2100000 });
             await tx.wait();
             success(`Purchase of ${value / price} successful`);
             resetInputs()
