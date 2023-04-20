@@ -178,9 +178,9 @@ async function loadBalance() {
     const balanceUsdc = await usdcContract.balanceOf(signerAddress);
     solidSpendAllowance = Math.round(ethers.utils.formatUnits(allowance, 6) * 1000) / 1000
     userUsdcBalance = Math.round(ethers.utils.formatUnits(balanceUsdc, 6) * 1000) / 1000
-    document.getElementById("purchase").innerHTML = `$${((Math.round(ethers.utils.formatEther(balance) * 100) / 100) * price)
+    document.getElementById("purchase").innerHTML = `$${replaceNaNWithZero(((Math.round(ethers.utils.formatEther(balance) * 100) / 100) * price))
         }`;
-    document.getElementById("purchase-signal").innerHTML = `${(Math.round(ethers.utils.formatEther(balance) * 100) / 100) || 0} SIGNAL`;
+    document.getElementById("purchase-signal").innerHTML = `${replaceNaNWithZero((Math.round(ethers.utils.formatEther(balance) * 100) / 100))} SIGNAL`;
     button.value = "Buy";
 }
 
@@ -291,6 +291,10 @@ function checkMinimumPurchase(value, solidSpendAllowance, button) {
         button.value = "Amount too low";
 
     }
+}
+
+function replaceNaNWithZero(value) {
+    return isNaN(value) ? 0 : value;
 }
 
 function resetInputs() {
