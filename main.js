@@ -178,8 +178,9 @@ async function loadBalance() {
     const balanceUsdc = await usdcContract.balanceOf(signerAddress);
     solidSpendAllowance = Math.round(ethers.utils.formatUnits(allowance, 6) * 1000) / 1000
     userUsdcBalance = Math.round(ethers.utils.formatUnits(balanceUsdc, 6) * 1000) / 1000
-    document.getElementById("purchase").innerHTML = `$${(Math.round(ethers.utils.formatEther(balance) * 100) / 100) * price}`;
-    document.getElementById("purchase-signal").innerHTML = `${(Math.round(ethers.utils.formatEther(balance) * 100) / 100)} SIGNAL`;
+    document.getElementById("purchase").innerHTML = `$${((Math.round(ethers.utils.formatEther(balance) * 100) / 100) * price)
+        }`;
+    document.getElementById("purchase-signal").innerHTML = `${(Math.round(ethers.utils.formatEther(balance) * 100) / 100) || 0} SIGNAL`;
     button.value = "Buy";
 }
 
