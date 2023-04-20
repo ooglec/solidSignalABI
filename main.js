@@ -296,7 +296,7 @@ function checkMinimumPurchase(value, solidSpendAllowance, button) {
             button.value = "Amount too low";
         } else if (value > solidSpendAllowance) {
             button.value = "Approve";
-        } else if (value < solidSpendAllowance) {
+        } else if (value <= solidSpendAllowance) {
             button.value = "Buy";
         }
     }
