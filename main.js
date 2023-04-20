@@ -186,7 +186,13 @@ async function buy() {
     const usdcContract = new ethers.Contract(usdcAddress, erc20ABI, signer);
     const value = document.querySelector('#USDC').value;
     const allowance = await usdcContract.allowance(signerAddress, solidAddress);
+    const userBalance = await usdcContract.balanceOf(signerAddress)
+    const bigNumValue = ethers.utils.parseUnits(value.toString(), 6)
     solidSpendAllowance = Math.round(ethers.utils.formatUnits(allowance, 6) * 1000) / 1000
+    if (bigNumValue.gt(userBalance)) {
+        error(`Error: Insufficient balance`)
+        return
+    }
     if (parseFloat(value) > solidSpendAllowance) {
         try {
             await usdcContract.approve(solidAddress, ethers.constants.MaxUint256);
@@ -421,11 +427,11 @@ window.addEventListener('load', async () => {
     window.ethereum.on('chainChanged', async function (networkId) {
         if (!chains.includes(window.ethereum.chainId)) {
             anouncementBanner.style.display = "block";
-            // try {
-            //     await requestChainSwitch();
-            // } catch (err) {
-            //     console.log(err)
-            // }
+            try {
+                await requestChainSwitch();
+            } catch (err) {
+                console.log(err)
+            }
         }
         console.log('chainChanged');
     });
