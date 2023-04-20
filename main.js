@@ -286,14 +286,14 @@ function checkMinimumPurchase(value, solidSpendAllowance, button) {
         button.value = "Insufficient Balance";
         button.style.background = "#007BFF"
     } else {
-        if (value > solidSpendAllowance) {
-            button.value = "Approve";
-        } else if (value < solidSpendAllowance) {
-            button.value = "Buy";
-        }
+
         if (value < minimumPurchaseAmount) {
             button.disabled = true;
             button.value = "Amount too low";
+        } else if (value > solidSpendAllowance) {
+            button.value = "Approve";
+        } else if (value < solidSpendAllowance) {
+            button.value = "Buy";
         }
     }
 }
