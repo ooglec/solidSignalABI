@@ -301,7 +301,7 @@ function checkMinimumPurchase(value, solidSpendAllowance, button) {
         }
     }
 
-    if ((totalAmountRaised + value) >= maximumRaiseAmount) {
+    if ((totalAmountRaised + value) > maximumRaiseAmount) {
         button.value = "Exceeds Presale Target"
     }
 }
