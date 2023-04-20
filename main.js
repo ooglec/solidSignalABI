@@ -280,16 +280,22 @@ async function requestChainSwitchV2() {
 
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
     if (localStorage.getItem("connected") == null) return;
-    button.disabled = false;
-    if (value > solidSpendAllowance) {
-        button.value = "Approve";
-    } else {
-        button.value = "Buy";
-    }
-    if (value < minimumPurchaseAmount) {
-        button.disabled = true;
-        button.value = "Amount too low";
 
+    button.disabled = false;
+    if (userUsdcBalance < value) {
+        button.value = "Insufficient Balance";
+        button.style.background = "#007BFF"
+        button.disabled = true;
+    } else {
+        if (value > solidSpendAllowance) {
+            button.value = "Approve";
+        } else {
+            button.value = "Buy";
+        }
+        if (value < minimumPurchaseAmount) {
+            button.disabled = true;
+            button.value = "Amount too low";
+        }
     }
 }
 
@@ -373,14 +379,7 @@ window.addEventListener('load', async () => {
         const newValue = parseFloat(event.target.value);
         document.querySelector('.signal-value').innerHTML = newValue / price;
         checkMinimumPurchase(newValue, solidSpendAllowance, button);
-        if (userUsdcBalance < newValue) {
-            button.value = "Insufficient Balance";
-            button.style.background = "#007BFF"
-            button.disabled = true;
-        } else {
-            button.value = "Buy";
-            button.style.background = "#007BFF"
-        }
+
     });
 
     connectionButton.addEventListener('click', async (event) => {
