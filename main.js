@@ -346,9 +346,9 @@ function success(text) {
     toast(text, "linear-gradient(to right, #0abf3055, #22242f 30%)")
 }
 
-function toast(text, bg) {
+function toast(text, bg, subText = '') {
     Toastify({
-        text: text,
+        text: `${text}<br><span>${subText}</span>`,
         duration: 3000,
         close: true,
         gravity: "top", // `top` or `bottom`
