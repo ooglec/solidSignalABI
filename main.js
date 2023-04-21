@@ -339,6 +339,7 @@ function reset(button) {
 
 function error(text) {
     toast(text, "linear-gradient(to right, #ed213a, #93291e)");
+    createToast('error', 'fa-solid fa-circle-check', text, text);
 }
 
 function success(text) {
@@ -393,8 +394,8 @@ window.addEventListener('load', async () => {
     } catch (err) {
         console.log(err)
     }
-    let notifications = document.createElement('div')
-    notifications.classList.add("notifications")
+    let notifications = document.createElement('div');
+    notifications.classList.add("notifications");
     const inputElement = document.querySelector('#USDC');
     var form = document.getElementById('Form');
 
