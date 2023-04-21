@@ -209,7 +209,7 @@ async function buy() {
             button.value = "Buy";
             success('Approval successful');
         } catch (err) {
-            error(`Error: Approval Failed`, extractErrorMessage(err.message))
+            // error(`Error: Approval Failed`, extractErrorMessage(err.message))
         }
     } else {
         try {
@@ -218,8 +218,7 @@ async function buy() {
             success(`Transaction successful`, `Purchase of ${value / price} presale signal successful`);
             resetInputs()
         } catch (err) {
-            console.log(err)
-            error(`Error: Transaction Failed`, extractErrorMessage(err.message))
+            //
         }
 
         await loadAmounts();
@@ -491,6 +490,7 @@ window.addEventListener('load', async () => {
             try {
                 await requestChainSwitchV2();
             } catch (err) {
+                error(`Error: Transaction Failed`, extractErrorMessage(err.message))
                 console.log(err)
             }
         }
