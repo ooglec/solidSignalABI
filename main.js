@@ -209,7 +209,7 @@ async function buy() {
             button.value = "Buy";
             success('Approval successful');
         } catch (err) {
-            error(`Error: Approval Failed`, 'approval was not successful try again')
+            error(`Error: Approval Failed`, extractErrorMessage(err.message))
         }
     } else {
         try {
@@ -219,7 +219,7 @@ async function buy() {
             resetInputs()
         } catch (err) {
             console.log(err)
-            error(`Error: Transaction Failed`, err.message)
+            error(`Error: Transaction Failed`, extractErrorMessage(err.message))
         }
 
         await loadAmounts();
@@ -314,6 +314,13 @@ function replaceNaNWithZero(value) {
 function resetInputs() {
     document.querySelector('#USDC').value = 0;
     document.querySelector('.signal-value').innerHTML = 0;
+}
+
+function extractErrorMessage(errorString) {
+    const regex = /^Error:\s(.*?)\s\(/;
+    const match = regex.exec(errorString);
+    const errorMessage = match ? match[1] : '';
+    return errorMessage
 }
 
 function setAddress(address) {
