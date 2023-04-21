@@ -500,8 +500,10 @@ window.addEventListener('load', async () => {
         loadBalance();
     });
 
-    provider.on('accountsChanged', function (accounts) {
+    provider.on('accountsChanged', async function (accounts) {
         signer = provider.getSigner();
+        const signerAddress = await signer.getAddress()
+        setAddress(signerAddress)
         loadBalance();
     });
 
