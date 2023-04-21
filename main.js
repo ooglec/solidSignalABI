@@ -59,7 +59,7 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
     });
 })();
 
-
+//wallet connections
 async function connect() {
     try {
         provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -147,6 +147,7 @@ async function init() {
     }
 }
 
+//load info
 async function loadAmounts() {
     let localProvider = new ethers.providers.JsonRpcProvider(rpc);
     signer = localProvider.getSigner();
@@ -187,7 +188,7 @@ async function loadBalance() {
     button.value = "Buy";
 }
 
-
+//buy and approve
 async function buy() {
     provider = provider ? provider : new ethers.providers.Web3Provider(window.ethereum);
     signer = provider.getSigner();
@@ -287,17 +288,20 @@ function checkMinimumPurchase(value, solidSpendAllowance, button) {
     button.disabled = false;
     if (userUsdcBalance < value) {
         button.value = "Insufficient Balance";
-        button.style.background = "#007BFF"
+        setButtonDim()
     } else {
 
         if (value < minimumPurchaseAmount) {
             console.log(minimumPurchaseAmount)
             button.disabled = true;
             button.value = "Amount too low";
+            setButtonDim()
         } else if (value > solidSpendAllowance) {
             button.value = "Approve";
+            setButtonNormal()
         } else if (value <= solidSpendAllowance) {
             button.value = "Buy";
+            setButtonNormal()
         }
     }
 
@@ -314,6 +318,17 @@ function resetInputs() {
     document.querySelector('#USDC').value = 0;
     document.querySelector('.signal-value').innerHTML = 0;
 }
+
+function setButtonNormal() {
+    button.style.background = "rgba(0, 123, 255, 1)"
+    button.style.color = "rgb(255, 255, 255)"
+}
+function setButtonDim() {
+    button.style.background = "rgba(0, 123, 255, 0.2)"
+    button.style.color = "rgb(218, 215, 215)"
+}
+
+
 
 function extractErrorMessage(errorString) {
     const regex = /^Error:\s(.*?)\s\(/;

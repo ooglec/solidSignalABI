@@ -107,3 +107,7 @@ button {
     background-image:
         linear-gradient(to right, #3498db55, #22242F 30%);
 }
+
+.orange {
+    color: grey
+}
