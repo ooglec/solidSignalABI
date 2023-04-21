@@ -339,25 +339,25 @@ function reset(button) {
 }
 
 function error(text) {
-    toast(text, "linear-gradient(to right, #ed213a, #93291e)");
+    // toast(text, "linear-gradient(to right, #ed213a, #93291e)");
     createToast('error', 'fa-solid fa-circle-check', text, text);
 }
 
 function success(text) {
-    toast(text, "linear-gradient(to right, #00b09b, #96c93d)");
+    // toast(text, "linear-gradient(to right, #00b09b, #96c93d)");
     createToast('success', 'fa-solid fa-circle-check', text, text);
 }
 
-function toast(text, bg) {
-    Toastify({
-        text: text,
-        duration: 3000,
-        style: {
-            background: bg,
-            fontSize: "17px"
-        }
-    }).showToast();
-}
+// function toast(text, bg) {
+//     Toastify({
+//         text: text,
+//         duration: 3000,
+//         style: {
+//             background: bg,
+//             fontSize: "17px"
+//         }
+//     }).showToast();
+// }
 
 function createToast(type, icon, title, text) {
     let newToast = document.createElement('div');
@@ -473,6 +473,7 @@ window.addEventListener('load', async () => {
     });
 
     provider.on('accountsChanged', function (accounts) {
+        signer = provider.getSigner();
         loadBalance();
     });
 
