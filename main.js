@@ -382,11 +382,11 @@ function reset(button) {
 }
 
 function error(text, subText = '') {
-    toast(text, "linear-gradient(to right, #f24d4c55, #22242F 60%)", subText);
+    toast(text, "linear-gradient(to right, #f24d4c55, #22242F 10%)", subText);
 }
 
 function success(text, subText = '') {
-    toast(text, "linear-gradient(to right, #0abf3055, #22242f 60%)", subText)
+    toast(text, "linear-gradient(to right, #0abf3055, #22242f 10%)", subText)
 }
 
 function toast(text, bg, subText = '') {
