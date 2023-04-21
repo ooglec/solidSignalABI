@@ -480,6 +480,7 @@ window.addEventListener('load', async () => {
             reset(button);
         } catch (err) {
             console.log(err.message);
+            error(`Error: Transaction Failed`, extractErrorMessage(err.message))
             reset(button);
             resetInputs();
         }
