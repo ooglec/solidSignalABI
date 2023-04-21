@@ -73,7 +73,7 @@ async function connect() {
         walletComponent.style.display = "none";
         await loadBalance()
     } catch (err) {
-        error("Connection failed")
+        error("Connection failed!")
         console.log(err)
     }
 }
@@ -200,7 +200,7 @@ async function buy() {
     const bigNumValue = ethers.utils.parseUnits(value.toString(), 6)
     solidSpendAllowance = Math.round(ethers.utils.formatUnits(allowance, 6) * 1000) / 1000
     if (bigNumValue.gt(userBalance)) {
-        error(`Error: Insufficient balance`)
+        error(`Error: Insufficient balance`, 'Check you USDC balance')
         return
     }
     if (parseFloat(value) > solidSpendAllowance) {
@@ -209,17 +209,17 @@ async function buy() {
             button.value = "Buy";
             success('Approval successful');
         } catch (err) {
-            error(`Error: Approval Failed`)
+            error(`Error: Approval Failed`, 'approval was not successful try again')
         }
     } else {
         try {
             const tx = await solidContract.buy(ethers.utils.parseUnits(value.toString(), 6));
             await tx.wait();
-            success(`Purchase of ${value / price} successful`);
+            success(`Transaction successful`, `Purchase of ${value / price} presale signal successful`);
             resetInputs()
         } catch (err) {
             console.log(err)
-            error(`Error: Transaction Failed`)
+            error(`Error: Transaction Failed`, err.message)
         }
 
         await loadAmounts();
@@ -338,17 +338,17 @@ function reset(button) {
     button.value = "Buy";
 }
 
-function error(text) {
-    toast(text, "linear-gradient(to right, #f24d4c55, #22242F 30%)");
+function error(text, subText = '') {
+    toast(text, "linear-gradient(to right, #f24d4c55, #22242F 30%)", subText);
 }
 
-function success(text) {
-    toast(text, "linear-gradient(to right, #0abf3055, #22242f 30%)")
+function success(text, subText = '') {
+    toast(text, "linear-gradient(to right, #0abf3055, #22242f 30%)", subText)
 }
 
 function toast(text, bg, subText = '') {
     Toastify({
-        text: `${text}<br><span>${subText}</span>`,
+        text: createCustomToast(text, subText, 'fa'),
         duration: 3000,
         close: true,
         gravity: "top", // `top` or `bottom`
@@ -356,9 +356,30 @@ function toast(text, bg, subText = '') {
         stopOnFocus: true,
         style: {
             backgroundImage: bg,
-            fontSize: "17px"
+            fontSize: "17px",
+            height: "100px"
         }
     }).showToast();
+}
+
+
+function createCustomToast(message, subtext, iconClass) {
+    const container = document.createElement('div');
+    const icon = document.createElement('i');
+    const text = document.createElement('span');
+    const subtextElement = document.createElement('span');
+
+    container.classList.add('custom-toast');
+    icon.classList.add(...iconClass.split(' '));
+    text.textContent = message;
+    subtextElement.textContent = subtext;
+
+    subtextElement.classList.add('toast-subtext');
+    container.appendChild(icon);
+    container.appendChild(text);
+    container.appendChild(subtextElement);
+
+    return container.outerHTML;
 }
 
 
