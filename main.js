@@ -343,6 +343,7 @@ function error(text) {
 
 function success(text) {
     toast(text, "linear-gradient(to right, #00b09b, #96c93d)");
+    createToast('success', 'fa-solid fa-circle-check', text, text);
 }
 
 function toast(text, bg) {
