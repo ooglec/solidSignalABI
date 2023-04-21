@@ -142,6 +142,7 @@ async function init() {
         const signerAddress = await signer.getAddress()
         await loadBalance()
         connectionButton.innerHTML = "Disconnect";
+        disconnectBtnStyle()
         setButtonNormal()
         setAddress(signerAddress)
     } else {
