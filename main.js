@@ -221,7 +221,7 @@ async function buy() {
             button.value = "Buy";
             success('Approval successful');
         } catch (err) {
-            // error(`Error: Approval Failed`, extractErrorMessage(err.message))
+            error(`Error: Approval Failed`, extractErrorMessage(err.message))
         }
     } else {
         try {
