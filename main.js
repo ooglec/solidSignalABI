@@ -364,7 +364,7 @@ function toast(text, bg, subText = '') {
         style: {
             backgroundImage: bg,
             fontSize: "17px",
-            padding: "20px 0px"
+            padding: "20px 10px"
         }
     }).showToast();
 }
@@ -431,7 +431,7 @@ window.addEventListener('load', async () => {
         }
 
         if (totalAmountRaised >= maximumRaiseAmount) {
-            error("Presale Ended: Presale target acheived")
+            error("Error: Presale Target!", "Presale target exceeded")
             return
         }
 
