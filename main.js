@@ -400,7 +400,7 @@ function toast(text, bg, subText = '') {
         style: {
             backgroundImage: bg,
             fontSize: "17px",
-            padding: "20px 10px"
+            padding: "30px 10px"
         }
     }).showToast();
 }
