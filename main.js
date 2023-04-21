@@ -50,6 +50,7 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
             }
             walletComponent.style.display = "none";
             button.value = "Buy"
+            setButtonNormal()
             requestChainSwitch();
             await loadBalance();
 
@@ -195,6 +196,7 @@ async function loadBalance() {
         }`;
     document.getElementById("purchase-signal").innerHTML = `${replaceNaNWithZero((Math.round(ethers.utils.formatEther(balance) * 100) / 100))} SIGNAL`;
     button.value = "Buy";
+    setButtonNormal()
 }
 
 //buy and approve
