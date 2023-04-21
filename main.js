@@ -68,7 +68,9 @@ async function connect() {
         const signerAddress = await signer.getAddress()
         setAddress(signerAddress)
         connectionButton.innerHTML = "Disconnect";
+        disconnectBtnStyle()
         button.value = "Approve";
+        setButtonNormal()
         localStorage.setItem("connected", true);
         walletComponent.style.display = "none";
         await loadBalance()
@@ -94,7 +96,9 @@ async function walletConnect() {
     console.log(await signer.getAddress())
     localStorage.setItem("connected", true);
     connectionButton.innerHTML = "Disconnect";
+    disconnectBtnStyle()
     button.value = "Approve";
+    setButtonNormal()
 }
 
 async function ledgerLive() {
@@ -120,7 +124,9 @@ async function ledgerLive() {
     setAddress(signerAddress)
     localStorage.setItem("connected", true);
     connectionButton.innerHTML = "Disconnect";
+    disconnectBtnStyle()
     button.value = "Approve";
+    setButtonNormal()
 }
 
 
@@ -136,6 +142,7 @@ async function init() {
         const signerAddress = await signer.getAddress()
         await loadBalance()
         connectionButton.innerHTML = "Disconnect";
+        setButtonNormal()
         setAddress(signerAddress)
     } else {
         if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId) {
@@ -143,6 +150,7 @@ async function init() {
         }
         connectionButton.innerHTML = "Connect Wallet";
         button.value = "Connect Wallet";
+        setButtonNormal()
         localStorage.removeItem("connected");
     }
 }
@@ -307,6 +315,7 @@ function checkMinimumPurchase(value, solidSpendAllowance, button) {
 
     if ((totalAmountRaised + value) > maximumRaiseAmount) {
         button.value = "Exceeds Presale Target"
+        setButtonDim()
     }
 }
 
@@ -328,6 +337,13 @@ function setButtonDim() {
     button.style.color = "rgb(218, 215, 215)"
 }
 
+function disconnectBtnStyle() {
+    connectionButton.style.background = "#121C2D"
+}
+
+function connectBtnStyle() {
+    connectionButton.style.background = "rgba(0, 123, 255, 1)"
+}
 
 
 function extractErrorMessage(errorString) {
@@ -357,6 +373,7 @@ function shortenAddress(address, startLength = 6, endLength = 4) {
 function reset(button) {
     button.disabled = false;
     button.value = "Buy";
+    setButtonNormal()
 }
 
 function error(text, subText = '') {
@@ -424,6 +441,7 @@ window.addEventListener('load', async () => {
         } else {
             localStorage.removeItem("connected");
             connectionButton.innerHTML = "Connect Wallet";
+            connectBtnStyle()
             button.value = "Connect Wallet";
             document.querySelector('#address').style.display = "none";
         }
