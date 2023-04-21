@@ -339,42 +339,28 @@ function reset(button) {
 }
 
 function error(text) {
-    // toast(text, "linear-gradient(to right, #ed213a, #93291e)");
-    createToast('error', 'fa-solid fa-circle-check', text, text);
+    toast(text, "linear-gradient(to right, #f24d4c55, #22242F 30%)");
 }
 
 function success(text) {
-    // toast(text, "linear-gradient(to right, #00b09b, #96c93d)");
-    createToast('success', 'fa-solid fa-circle-check', text, text);
+    toast(text, "linear-gradient(to right, #0abf3055, #22242f 30%)")
 }
 
-// function toast(text, bg) {
-//     Toastify({
-//         text: text,
-//         duration: 3000,
-//         style: {
-//             background: bg,
-//             fontSize: "17px"
-//         }
-//     }).showToast();
-// }
-
-function createToast(type, icon, title, text) {
-    let newToast = document.createElement('div');
-    newToast.innerHTML = `
-        <div class="toast ${type}">
-            <i class="${icon}"></i>
-            <div class="content">
-                <div class="title">${title}</div>
-                <span>${text}</span>
-            </div>
-            <i class="fa-solid fa-xmark" onclick="(this.parentElement).remove()"></i>
-        </div>`;
-    notifications.appendChild(newToast);
-    newToast.timeOut = setTimeout(
-        () => newToast.remove(), 5000
-    )
+function toast(text, bg) {
+    Toastify({
+        text: text,
+        duration: 3000,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        stopOnFocus: true,
+        style: {
+            backgroundImage: bg,
+            fontSize: "17px"
+        }
+    }).showToast();
 }
+
 
 function isWrongNetwork() {
     if (chains.includes(provider.chainId) || chains.includes(window.ethereum.chainId)) {
