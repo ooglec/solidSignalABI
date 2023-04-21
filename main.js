@@ -357,6 +357,7 @@ function toast(text, bg, subText = '') {
         style: {
             backgroundImage: bg,
             fontSize: "17px",
+            padding: "20px 0px"
         }
     }).showToast();
 }
@@ -367,7 +368,7 @@ function isWrongNetwork() {
     if (chains.includes(provider.chainId) || chains.includes(window.ethereum.chainId)) {
         return false
     } else {
-        error("Wrong Network: Switch network to make transactions")
+        error("Wrong Network!", "Switch network to make transactions")
         return true
     }
 }
