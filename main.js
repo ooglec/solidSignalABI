@@ -355,7 +355,7 @@ function success(text, subText = '') {
 
 function toast(text, bg, subText = '') {
     Toastify({
-        text: `${text}\n\n${subText}`,
+        text: `${text}\n${subText}`,
         duration: 3000,
         close: true,
         gravity: "top", // `top` or `bottom`

@@ -41,6 +41,14 @@
         }).showToast();
     }
     toast("ass", "green", "als");
+    const errorString = 'Error: user rejected transaction (action="sendTransaction", transaction={"data":"0xd96a094a000000000000000000000000000000000000000000000000000000001dcd6500","to":"0xcaE8A39DC4401d0b82f7445262dBe1B5dd75CA9B","from":"0x8478F8c1d693aB4C054d3BBC0aBff4178b8F1b0B","gasLimit":{"type":"BigNumber","hex":"0x0125e7"}}, code=ACTION_REJECTED, version=providers/5.7.2)';
+
+    const regex = /^Error:\s(.*?)\s\(/;
+    const match = regex.exec(errorString);
+
+    const errorMessage = match ? match[1] : 'No error message found';
+    alert(errorMessage);
+
 
 </script>
 
