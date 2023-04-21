@@ -348,7 +348,7 @@ function success(text, subText = '') {
 
 function toast(text, bg, subText = '') {
     Toastify({
-        text: createCustomToast(text, subText, 'fa'),
+        text: `${text}\n\n${subText}`,
         duration: 3000,
         close: true,
         gravity: "top", // `top` or `bottom`
@@ -357,30 +357,10 @@ function toast(text, bg, subText = '') {
         style: {
             backgroundImage: bg,
             fontSize: "17px",
-            height: "100px"
         }
     }).showToast();
 }
 
-
-function createCustomToast(message, subtext, iconClass) {
-    const container = document.createElement('div');
-    const icon = document.createElement('i');
-    const text = document.createElement('span');
-    const subtextElement = document.createElement('span');
-
-    container.classList.add('custom-toast');
-    icon.classList.add(...iconClass.split(' '));
-    text.textContent = message;
-    subtextElement.textContent = subtext;
-
-    subtextElement.classList.add('toast-subtext');
-    container.appendChild(icon);
-    container.appendChild(text);
-    container.appendChild(subtextElement);
-
-    return container.outerHTML;
-}
 
 
 function isWrongNetwork() {
