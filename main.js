@@ -10,6 +10,7 @@ let userUsdcBalance = 0;
 let maximumRaiseAmount;
 let totalAmountRaised;
 let presaleEnd;
+let notifications = document.createElement('div');
 const walletComponent = document.querySelector('#wallet-component');
 const anouncementBanner = document.querySelector("#announcement");
 const swicthNework = document.querySelector("#switch-link");
@@ -394,7 +395,6 @@ window.addEventListener('load', async () => {
     } catch (err) {
         console.log(err)
     }
-    let notifications = document.createElement('div');
     notifications.classList.add("notifications");
     const inputElement = document.querySelector('#USDC');
     var form = document.getElementById('Form');
