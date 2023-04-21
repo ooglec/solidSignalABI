@@ -352,7 +352,7 @@ function toast(text, bg) {
         duration: 3000,
         close: true,
         gravity: "top", // `top` or `bottom`
-        position: "left", // `left`, `center` or `right`
+        position: "right", // `left`, `center` or `right`
         stopOnFocus: true,
         style: {
             backgroundImage: bg,
