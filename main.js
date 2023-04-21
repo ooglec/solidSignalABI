@@ -223,7 +223,7 @@ async function buy() {
         } catch (err) {
             console.log("Failed")
             console.log(err)
-            error(`Error: Approval Failed`, extractErrorMessage(err.message))
+            error(`Error: Approval Failed`)
         }
     } else {
         try {
