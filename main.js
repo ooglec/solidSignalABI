@@ -446,7 +446,7 @@ window.addEventListener('load', async () => {
     document.querySelector('#address').style.display = "none";
     try {
         await loadAmounts();
-        init();
+        await init();
     } catch (err) {
         console.log(err)
     }
