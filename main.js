@@ -217,7 +217,8 @@ async function buy() {
     }
     if (parseFloat(value) > solidSpendAllowance) {
         try {
-            await usdcContract.approve(solidAddress, ethers.constants.MaxUint256);
+            const txApprove = await usdcContract.approve(solidAddress, ethers.constants.MaxUint256);
+            await txApprove.wait()
             button.value = "Buy";
             success('Approval successful');
         } catch (err) {
@@ -381,9 +382,10 @@ function reset(button) {
 
 function error(text, subText = '') {
     beautyToast.error({
-        title: 'Success',
+        title: 'Error',
         message: text,
         darkTheme: true,
+        backgroundColor: '',
     });
 }
 
@@ -392,6 +394,7 @@ function success(text, subText = '') {
         title: 'Success',
         message: text,
         darkTheme: true,
+        backgroundColor: '',
     });
 }
 
