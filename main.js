@@ -147,6 +147,7 @@ async function init() {
         setButtonNormal()
         setAddress(signerAddress)
         if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId) {
+            console.log(ethereum.chainId)
             anouncementBanner.style.display = "block";
         }
     } else {
