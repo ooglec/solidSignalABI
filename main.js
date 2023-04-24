@@ -158,6 +158,7 @@ async function init() {
     }
 }
 
+
 //load info
 async function loadAmounts() {
     let localProvider = new ethers.providers.JsonRpcProvider(rpc);
@@ -174,10 +175,11 @@ async function loadAmounts() {
     maximumRaiseAmount = (Math.round(ethers.utils.formatUnits(maxPresale, 18) * 100) / 100) * price
     minimumPurchaseAmount = (Math.round(ethers.utils.formatUnits(_minimumPurchaseAmount, 6) * 100) / 100)
     totalAmountRaised = amtConverted
-    document.getElementById("funds-raised").innerHTML = `$${amtConverted}`;
-    document.getElementById("funds-raised-sm").innerHTML = `$${amtConverted} USD`;
+    // numeral(1000).format('0,0');
+    document.getElementById("funds-raised").innerHTML = `$${numeral(amtConverted).format('0,0')}`;
+    document.getElementById("funds-raised-sm").innerHTML = `$${numeral(amtConverted).format('0,0')} USD`;
     document.getElementById("price").innerHTML = `$${price}`;
-    document.getElementById("maximum-amount").innerHTML = `$${maximumRaiseAmount} USDC`;
+    document.getElementById("maximum-amount").innerHTML = `$${numeral(maximumRaiseAmount).format('0,0')} USDC`;
     document.getElementById("progress-indicator-id").style.width = `${parseInt((amtConverted / maximumRaiseAmount) * 300)}px`;
 }
 
@@ -193,9 +195,11 @@ async function loadBalance() {
     const balanceUsdc = await usdcContract.balanceOf(signerAddress);
     solidSpendAllowance = Math.round(ethers.utils.formatUnits(allowance, 6) * 1000) / 1000
     userUsdcBalance = Math.round(ethers.utils.formatUnits(balanceUsdc, 6) * 1000) / 1000
-    document.getElementById("purchase").innerHTML = `$${replaceNaNWithZero(((Math.round(ethers.utils.formatEther(balance) * 100) / 100) * price))
-        }`;
-    document.getElementById("purchase-signal").innerHTML = `${replaceNaNWithZero((Math.round(ethers.utils.formatEther(balance) * 100) / 100))} SIGNAL`;
+
+    const formatedUSDCBalance = replaceNaNWithZero(((Math.round(ethers.utils.formatEther(balance) * 100) / 100) * price))
+    const formatedSignal = replaceNaNWithZero((Math.round(ethers.utils.formatEther(balance) * 100) / 100))
+    document.getElementById("purchase").innerHTML = `$${numeral(formatedUSDCBalance).format("0,0")}`;
+    document.getElementById("purchase-signal").innerHTML = `${numeral(formatedSignal).format("0,0")} SIGNAL`;
     button.value = "Buy";
     setButtonNormal()
 }
