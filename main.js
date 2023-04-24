@@ -187,7 +187,7 @@ async function loadBalance() {
     const usdcContract = new ethers.Contract(usdcAddress, erc20ABI, localProvider);
     signer = await provider.getSigner()
     const signerAddress = await signer.getAddress();
-    const balance = await solidContract.myBalance(signerAddress);
+    const balance = await solidContract.myBalance(signerAddress); //signal value
     const allowance = await usdcContract.allowance(signerAddress, solidAddress);
     const balanceUsdc = await usdcContract.balanceOf(signerAddress);
     solidSpendAllowance = Math.round(ethers.utils.formatUnits(allowance, 6) * 1000) / 1000
@@ -397,6 +397,7 @@ function error(text, subText = '') {
         darkTheme: true,
         backgroundColor: '#0F1621',
         timeout: 3000,
+        progressBarColor: 'red',
     });
 }
 
@@ -407,6 +408,7 @@ function success(text, subText = '') {
         darkTheme: true,
         backgroundColor: '#0F1621',
         timeout: 3000,
+        progressBarColor: 'green',
     });
 }
 
@@ -442,8 +444,8 @@ function isWrongNetwork() {
 window.addEventListener('load', async () => {
     document.querySelector('#address').style.display = "none";
     try {
-        init();
         await loadAmounts();
+        init();
     } catch (err) {
         console.log(err)
     }
