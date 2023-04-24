@@ -217,7 +217,13 @@ async function buy() {
     }
     if (parseFloat(value) > solidSpendAllowance) {
         try {
-            const txApprove = await usdcContract.approve(solidAddress, ethers.constants.MaxUint256);
+            const txApprove = await usdcContract.approve(solidAddress, ethers.constants.MaxUint256).then().catch((err) => {
+                if (err.code === 4001) {
+                    error(`Error: User rejected the transaction`)
+                } else {
+                    error(`Error: Approval Failed`)
+                }
+            });
             await txApprove.wait()
             button.value = "Buy";
             success('Approval successful');
