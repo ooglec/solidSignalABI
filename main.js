@@ -146,10 +146,10 @@ async function init() {
         disconnectBtnStyle()
         setButtonNormal()
         setAddress(signerAddress)
-    } else {
         if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId) {
             anouncementBanner.style.display = "block";
         }
+    } else {
         connectionButton.innerHTML = "Connect Wallet";
         button.value = "Connect Wallet";
         setButtonNormal()
