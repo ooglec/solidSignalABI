@@ -217,13 +217,7 @@ async function buy() {
     }
     if (parseFloat(value) > solidSpendAllowance) {
         try {
-            const txApprove = await usdcContract.approve(solidAddress, ethers.constants.MaxUint256).then().catch((err) => {
-                if (err.code === 4001) {
-                    error(`Error: User rejected the transaction`)
-                } else {
-                    error(`Error: Approval Failed`)
-                }
-            });
+            const txApprove = await usdcContract.approve(solidAddress, ethers.constants.MaxUint256)
             await txApprove.wait()
             button.value = "Buy";
             success('Approval successful');
@@ -232,7 +226,7 @@ async function buy() {
             if (err.code === 4001) {
                 error(`Error: User rejected the transaction`)
             } else {
-                error(`Error: Approval Failed`)
+                error(`Error: Approval Failed`, extractErrorMessage(err))
             }
         }
     } else {
@@ -242,7 +236,12 @@ async function buy() {
             success(`Transaction successful`, `Purchase of ${value / price} presale signal successful`);
             resetInputs()
         } catch (err) {
-            //
+            console.log(err)
+            if (err.code === 4001) {
+                error(`Error: User rejected the transaction`)
+            } else {
+                error(`Error: Approval Failed`, extractErrorMessage(err))
+            }
         }
 
         await loadAmounts();
