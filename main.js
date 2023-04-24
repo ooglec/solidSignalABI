@@ -223,7 +223,11 @@ async function buy() {
             success('Approval successful');
         } catch (err) {
             console.log(err)
-            error(`Error: Approval Failed`)
+            if (err.code === 4001) {
+                error(`Error: User rejected the transaction`)
+            } else {
+                error(`Error: Approval Failed`)
+            }
         }
     } else {
         try {
