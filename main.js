@@ -530,6 +530,7 @@ window.addEventListener('load', async () => {
     });
 
     provider.on('accountsChanged', async function (accounts) {
+        console.log(accounts)
         signer = provider.getSigner();
         const signerAddress = await signer.getAddress()
         setAddress(signerAddress)
