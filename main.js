@@ -240,7 +240,7 @@ async function buy() {
             if (err.code === 4001) {
                 error(`Error: User rejected the transaction`)
             } else {
-                error(`Error: Approval Failed`, extractErrorMessage(err))
+                error(`Error:`, extractErrorMessage(err))
             }
         }
 

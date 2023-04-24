@@ -4,15 +4,15 @@
     --beautyToast-font: 'Quicksand', sans-serif;
     --beautyToast-regular: 400;
     --beautyToast-bold: 700;
-    --beautyToast-body: 14px;
-    --beautyToast-title: 16px;
+    --beautyToast-body: 16px;
+    --beautyToast-title: 18px;
     --beautyToast-image: 31px;
     --beautyToast-success-color: #68D84C;
     --beautyToast-error-color: #D84C4C;
     --beautyToast-info-color: #4CA5D8;
     --beautyToast-warning-color: #D8D24C;
     --beautyToast-bg-color: #FDFDFD;
-    --beautyToast-text-color: #4E4E4E;
+    --beautyToast-text-color: #e7e7e7;
     --beautyToast-progress-color: #D3D6D2;
     --beautyToast-close-color: #121212;
 }
