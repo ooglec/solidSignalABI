@@ -257,7 +257,7 @@ async function addChain() {
         chainId: walletChainId,
         chainName: chainName,
         nativeCurrency: {
-            name: 'AGOR',
+            name: chainName,
             symbol: 'AGOR',
             decimals: 18 //In number form
         },
@@ -550,7 +550,7 @@ window.addEventListener('load', async () => {
 
     provider.on('network', async function (networkId) {
 
-        if (!chains.includes(provider.chainId)) {
+        if (!chains.includes(provider.chainId) && provider) {
             anouncementBanner.style.display = "block";
             try {
                 await requestChainSwitchV2();
