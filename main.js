@@ -222,6 +222,7 @@ async function buy() {
             button.value = "Buy";
             success('Approval successful');
         } catch (err) {
+            console.log(err)
             error(`Error: Approval Failed`)
         }
     } else {
