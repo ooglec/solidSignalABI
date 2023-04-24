@@ -529,7 +529,11 @@ window.addEventListener('load', async () => {
         }
     })
 
-    window.ethereum.on('accountsChanged', function (accounts) {
+    window.ethereum.on('accountsChanged', async function (accounts) {
+        signer = provider.getSigner();
+        const signerAddress = await signer.getAddress()
+        console.log(`signer changed ${signerAddress}`)
+        setAddress(signerAddress)
         loadBalance();
     });
 
