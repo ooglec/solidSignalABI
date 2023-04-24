@@ -221,8 +221,6 @@ async function buy() {
             button.value = "Buy";
             success('Approval successful');
         } catch (err) {
-            console.log("Failed")
-            console.log(err)
             error(`Error: Approval Failed`)
         }
     } else {
@@ -382,11 +380,19 @@ function reset(button) {
 }
 
 function error(text, subText = '') {
-    toast(text, "linear-gradient(to right, #f24d4c55, #22242F 30%)", subText);
+    beautyToast.error({
+        title: 'Success',
+        message: text,
+        darkTheme: true,
+    });
 }
 
 function success(text, subText = '') {
-    toast(text, "linear-gradient(to right, #0abf3055, #22242f 30%)", subText)
+    beautyToast.success({
+        title: 'Success',
+        message: text,
+        darkTheme: true,
+    });
 }
 
 function toast(text, bg, subText = '') {
