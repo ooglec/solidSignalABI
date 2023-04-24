@@ -382,19 +382,19 @@ function reset(button) {
 
 function error(text, subText = '') {
     beautyToast.error({
-        title: 'Error',
-        message: text,
+        title: text,
+        message: subText,
         darkTheme: true,
-        backgroundColor: '',
+        backgroundColor: '#0F1621',
     });
 }
 
 function success(text, subText = '') {
     beautyToast.success({
-        title: 'Success',
-        message: text,
+        title: text,
+        message: subText,
         darkTheme: true,
-        backgroundColor: '',
+        backgroundColor: '#0F1621',
     });
 }
 
