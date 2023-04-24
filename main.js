@@ -386,6 +386,7 @@ function error(text, subText = '') {
         message: subText,
         darkTheme: true,
         backgroundColor: '#0F1621',
+        timeout: 3000,
     });
 }
 
@@ -395,6 +396,7 @@ function success(text, subText = '') {
         message: subText,
         darkTheme: true,
         backgroundColor: '#0F1621',
+        timeout: 3000,
     });
 }
 
