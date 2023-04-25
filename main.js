@@ -213,6 +213,7 @@ async function init() {
     } else {
         connectionButton.innerHTML = "Connect Wallet";
         button.value = "Connect Wallet";
+        button.disabled = true;
         setButtonNormal()
         localStorage.removeItem("connected");
     }
@@ -552,6 +553,7 @@ window.addEventListener('load', async () => {
             connectionButton.innerHTML = "Connect Wallet";
             connectBtnStyle()
             button.value = "Connect Wallet";
+            button.disabled = true;
             document.querySelector('#address').style.display = "none";
         }
     })
