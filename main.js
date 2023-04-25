@@ -76,7 +76,8 @@ async function fetchTOSStatus() {
         if (res.status == 200) {
             let result = await res.json()
             console.log(result)
-            console.log("Tos accepted: ", result.data)
+            acceptedTOS = result.data.accepted
+            console.log("Tos accepted: ", result.data.accepted)
         } else {
             console.log(res.status)
         }
@@ -84,6 +85,31 @@ async function fetchTOSStatus() {
         console.log(err)
     })
 }
+
+
+
+async function acceptedTOS() {
+    let signerAddress = await signer.getAddress()
+    await fetch(`${serverUrl}/accept`, {
+        method: "POST",
+        body: JSON.stringify({ address: signerAddress }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(async (res) => {
+        if (res.status == 200) {
+            let result = await res.json()
+            console.log(result)
+            acceptedTOS = result.success
+            console.log("Accepted: ", result.success)
+        } else {
+            console.log(res.status)
+        }
+    }).catch((err) => {
+        console.log(err)
+    })
+}
+
 
 //wallet connections
 async function connect() {
