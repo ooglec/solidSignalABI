@@ -75,6 +75,7 @@ async function fetchTOSStatus() {
     }).then((res) => {
         if (res.status == 200) {
             let result = res.json()
+            console.log(result)
             console.log("Tos accepted: ", result.data)
         } else {
             console.log(res.status)
