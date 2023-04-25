@@ -525,6 +525,11 @@ function isWrongNetwork() {
 
 window.addEventListener('load', async () => {
     document.querySelector('#address').style.display = "none";
+    const form = document.getElementById('Form');
+    form.addEventListener('submit', function (event) {
+        console.log("prevented")
+        event.preventDefault();
+    });
     try {
         await loadAmounts();
         await init();
@@ -533,7 +538,6 @@ window.addEventListener('load', async () => {
     }
     notifications.classList.add("notifications");
     const inputElement = document.querySelector('#USDC');
-    const form = document.getElementById('Form');
 
 
 
@@ -692,7 +696,5 @@ window.addEventListener('load', async () => {
         console.log('chainChanged');
     });
 
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-    });
+
 });
