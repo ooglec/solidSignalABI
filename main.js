@@ -59,9 +59,6 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
             requestChainSwitch();
             await loadBalance();
             await fetchTOSStatus()
-
-
-
         });
     });
 })();
@@ -83,6 +80,7 @@ async function fetchTOSStatus() {
             console.log("Tos accepted: ", result.data.accepted)
         } else {
             console.log(res.status)
+            requetsTosAcceptance()
         }
     }).catch((err) => {
         console.log(err)
