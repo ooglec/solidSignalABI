@@ -21,7 +21,7 @@ const serverUrl = "https://solid-signal-server.onrender.com"
 const chains = ["0x66eed"];
 const walletChainId = "0x66eed"
 const blockExplorer = "https://goerli-rollup-explorer.arbitrum.io"
-const acceptedTOS = false
+let acceptedTOS = false
 
 const WalletConnectProvider = window.WalletConnectProvider.default;
 const WalletConnect = window.WalletConnect.default;
