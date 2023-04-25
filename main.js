@@ -458,6 +458,17 @@ function error(text, subText = '') {
     });
 }
 
+function info(text, subText = '') {
+    beautyToast.info({
+        title: text,
+        message: subText,
+        darkTheme: true,
+        backgroundColor: '#0F1621',
+        timeout: 3000,
+        progressBarColor: 'blue',
+    });
+}
+
 function success(text, subText = '') {
     beautyToast.success({
         title: text,
@@ -491,7 +502,7 @@ function isWrongNetwork() {
     if (chains.includes(provider.chainId) || chains.includes(window.ethereum.chainId)) {
         return false
     } else {
-        error("Wrong Network!", "Switch network to make transactions")
+        info("Wrong Network!", "Switch network to make transactions")
         return true
     }
 }
@@ -562,6 +573,7 @@ window.addEventListener('load', async () => {
                 await buy();
             } else {
                 //pop up terms of service modal here
+                info("Accept the terms of service to contiue")
             }
             reset(button);
         } catch (err) {
