@@ -72,9 +72,9 @@ async function fetchTOSStatus() {
         headers: {
             "Content-Type": "application/json"
         }
-    }).then((res) => {
+    }).then((async (res) => {
         if (res.status == 200) {
-            let result = res.json()
+            let result = await res.json()
             console.log(result)
             console.log("Tos accepted: ", result.data)
         } else {
