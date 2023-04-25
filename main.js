@@ -17,9 +17,11 @@ const swicthNework = document.querySelector("#switch-link");
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
 const rpc = "https://arbitrum-goerli.public.blastapi.io";
+const serverUrl = "https://solid-signal-server.onrender.com"
 const chains = ["0x66eed"];
 const walletChainId = "0x66eed"
 const blockExplorer = "https://goerli-rollup-explorer.arbitrum.io"
+const acceptedTOS = false
 
 const WalletConnectProvider = window.WalletConnectProvider.default;
 const WalletConnect = window.WalletConnect.default;
@@ -53,12 +55,34 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
             setButtonNormal()
             requestChainSwitch();
             await loadBalance();
+            await fetchTOSStatus()
 
 
 
         });
     });
 })();
+
+
+async function fetchTOSStatus() {
+    let signerAddress = await signer.getAddress()
+    fetch(serverUrl, {
+        method: "GET",
+        body: { address: signerAddress },
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then((res) => {
+        if (res.status == 200) {
+            let data = res.data.accepted
+            console.log("Tos accepted: ", data)
+        } else {
+
+        }
+    }).catch((err) => {
+        console.log(err)
+    })
+}
 
 //wallet connections
 async function connect() {
@@ -146,6 +170,7 @@ async function init() {
         disconnectBtnStyle()
         setButtonNormal()
         setAddress(signerAddress)
+        await fetchTOSStatus()
         if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId) {
             console.log(ethereum.chainId)
             anouncementBanner.style.display = "block";
