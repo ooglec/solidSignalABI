@@ -13,6 +13,7 @@ let presaleEnd;
 let notifications = document.createElement('div');
 const walletComponent = document.querySelector('#wallet-component');
 const anouncementBanner = document.querySelector("#announcement");
+const consentModal = document.querySelector("#consent_modal");
 const swicthNework = document.querySelector("#switch-link");
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
@@ -89,6 +90,10 @@ async function fetchTOSStatus() {
 
 
 async function acceptTOS() {
+    let checkBox = document.querySelector("#checkbox-consent")
+    if (checkBox.value == false) {
+        return
+    }
     let signerAddress = await signer.getAddress()
     await fetch(`${serverUrl}/accept`, {
         method: "POST",
@@ -101,6 +106,7 @@ async function acceptTOS() {
             let result = await res.json()
             console.log(result)
             acceptedTOS = result.success
+            consentModal.style.display == "none"
             console.log("Accepted: ", result.success)
         } else {
             console.log(res.status)
@@ -360,6 +366,9 @@ async function requestChainSwitchV2() {
     }
 }
 
+async function requetsTosAcceptance() {
+    consentModal.style.display = "block"
+}
 
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
     if (localStorage.getItem("connected") == null) return;
@@ -573,7 +582,9 @@ window.addEventListener('load', async () => {
                 await buy();
             } else {
                 //pop up terms of service modal here
-                info("Accept the terms of service to continue")
+                // info("Accept the terms of service to continue")
+                requetsTosAcceptance()
+
             }
             reset(button);
         } catch (err) {
