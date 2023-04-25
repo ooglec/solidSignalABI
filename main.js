@@ -467,7 +467,7 @@ function error(text, subText = '') {
         message: subText,
         darkTheme: true,
         backgroundColor: '#0F1621',
-        timeout: 3000,
+        timeout: 4000,
         progressBarColor: 'red',
     });
 }
@@ -497,7 +497,7 @@ function success(text, subText = '') {
 function toast(text, bg, subText = '') {
     Toastify({
         text: `${text}\n${subText}`,
-        duration: 3000,
+        duration: 4000,
         close: true,
         gravity: "top", // `top` or `bottom`
         position: "right", // `left`, `center` or `right`
