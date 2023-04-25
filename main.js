@@ -88,7 +88,7 @@ async function fetchTOSStatus() {
 
 
 
-async function acceptedTOS() {
+async function acceptTOS() {
     let signerAddress = await signer.getAddress()
     await fetch(`${serverUrl}/accept`, {
         method: "POST",
