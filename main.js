@@ -72,7 +72,7 @@ async function fetchTOSStatus() {
         headers: {
             "Content-Type": "application/json"
         }
-    }).then((async (res) => {
+    }).then(async (res) => {
         if (res.status == 200) {
             let result = await res.json()
             console.log(result)
