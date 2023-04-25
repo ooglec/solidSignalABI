@@ -107,7 +107,7 @@ async function acceptTOS() {
             let result = await res.json()
             console.log(result)
             acceptedTOS = result.success
-            consentModal.style.display == "none"
+            consentModal.style.display = "none"
             console.log("Accepted: ", result.success)
         } else {
             console.log(res.status)
