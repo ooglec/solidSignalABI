@@ -605,10 +605,10 @@ window.addEventListener('load', async () => {
         console.log(consentCheckBox.checked)
         if (consentCheckBox.checked) {
             consentModalBtn.disabled = false
-            consentModalBtn.style.background = "#0E2137"
+            consentModalBtn.style.background = "#007BFF"
         } else {
             consentModalBtn.disabled = true
-            consentModalBtn.style.background = "#007BFF"
+            consentModalBtn.style.background = "#0E2137"
         }
     })
 
