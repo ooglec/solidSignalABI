@@ -372,8 +372,8 @@ async function requestChainSwitchV2() {
 
 async function requetsTosAcceptance() {
     consentModal.style.display = "block"
-    consentModalBtn.disabled = false
-    consentModalBtn.style.background = "#007BFF"
+    consentModalBtn.disabled = true
+    consentModalBtn.style.background = "#0E2137"
 }
 
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
@@ -602,12 +602,13 @@ window.addEventListener('load', async () => {
     });
 
     consentCheckBox.addEventListener("click", async function (e) {
+        console.log(consentCheckBox.value)
         if (consentCheckBox.value == true) {
             consentModalBtn.disabled = false
-            consentModalBtn.style.background = "#007BFF"
+            consentModalBtn.style.background = "#0E2137"
         } else {
             consentModalBtn.disabled = true
-            consentModalBtn.style.background = "#0E2137"
+            consentModalBtn.style.background = "#007BFF"
         }
     })
 
