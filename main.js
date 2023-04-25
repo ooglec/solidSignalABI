@@ -15,6 +15,7 @@ const walletComponent = document.querySelector('#wallet-component');
 const anouncementBanner = document.querySelector("#announcement");
 const consentModal = document.querySelector("#consent_modal");
 const consentModalBtn = document.querySelector("#confirm-consent");
+const consentCheckBox = document.querySelector("#checkbox-consent");
 const swicthNework = document.querySelector("#switch-link");
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
@@ -107,10 +108,12 @@ async function acceptTOS() {
             let result = await res.json()
             console.log(result)
             acceptedTOS = result.success
-            consentModal.style.display = "none"
+            consentModal.style.display = "none";
             console.log("Accepted: ", result.success)
+            info("Accepted Successfully")
         } else {
             console.log(res.status)
+            error("Acceptance Failed")
         }
     }).catch((err) => {
         console.log(err)
@@ -369,6 +372,8 @@ async function requestChainSwitchV2() {
 
 async function requetsTosAcceptance() {
     consentModal.style.display = "block"
+    consentModalBtn.disabled = false
+    consentModalBtn.style.background = "#007BFF"
 }
 
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
@@ -595,6 +600,16 @@ window.addEventListener('load', async () => {
             resetInputs();
         }
     });
+
+    consentCheckBox.addEventListener("click", async function (e) {
+        if (consentCheckBox.value == true) {
+            consentModalBtn.disabled = false
+            consentModalBtn.style.background = "#007BFF"
+        } else {
+            consentModalBtn.disabled = true
+            consentModalBtn.style.background = "#0E2137"
+        }
+    })
 
     consentModalBtn.addEventListener("click", async function (e) {
         e.preventDefault()
