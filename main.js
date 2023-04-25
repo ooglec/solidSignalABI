@@ -14,6 +14,7 @@ let notifications = document.createElement('div');
 const walletComponent = document.querySelector('#wallet-component');
 const anouncementBanner = document.querySelector("#announcement");
 const consentModal = document.querySelector("#consent_modal");
+const consentModalBtn = document.querySelector("#confirm-consent");
 const swicthNework = document.querySelector("#switch-link");
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
@@ -594,6 +595,16 @@ window.addEventListener('load', async () => {
             resetInputs();
         }
     });
+
+    consentModalBtn.addEventListener("click", async function (e) {
+        e.preventDefault()
+        try {
+            await acceptTOS()
+        } catch (err) {
+
+        }
+
+    })
 
     swicthNework.addEventListener("click", async function () {
         try {
