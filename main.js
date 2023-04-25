@@ -68,7 +68,7 @@ async function fetchTOSStatus() {
     let signerAddress = await signer.getAddress()
     await fetch(`${serverUrl}/accepted`, {
         method: "POST",
-        body: { address: signerAddress },
+        body: JSON.stringify({ address: signerAddress }),
         headers: {
             "Content-Type": "application/json"
         }
@@ -77,7 +77,7 @@ async function fetchTOSStatus() {
             let data = res.data.accepted
             console.log("Tos accepted: ", data)
         } else {
-
+            console.log(res.status)
         }
     }).catch((err) => {
         console.log(err)
