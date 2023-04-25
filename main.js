@@ -573,7 +573,7 @@ window.addEventListener('load', async () => {
                 await buy();
             } else {
                 //pop up terms of service modal here
-                info("Accept the terms of service to contiue")
+                info("Accept the terms of service to continue")
             }
             reset(button);
         } catch (err) {
