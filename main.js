@@ -533,7 +533,7 @@ window.addEventListener('load', async () => {
     }
     notifications.classList.add("notifications");
     const inputElement = document.querySelector('#USDC');
-    var form = document.getElementById('Form');
+    const form = document.getElementById('Form');
 
 
 
