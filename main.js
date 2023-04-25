@@ -621,22 +621,29 @@ window.addEventListener('load', async () => {
 
     window.ethereum.on('accountsChanged', async function (accounts) {
         acceptedTOS = false;
+        button.disabled = true;
+        button.value = "Switching..."
         signer = provider.getSigner();
         const signerAddress = await signer.getAddress()
         console.log(`signer changed ${signerAddress}`)
         loadBalance();
         await fetchTOSStatus()
         setAddress(signerAddress)
+        reset(button);
+
     });
 
     provider.on('accountsChanged', async function (accounts) {
         acceptedTOS = false;
+        button.disabled = true;
+        button.value = "Switching..."
         signer = provider.getSigner();
         const signerAddress = await signer.getAddress()
         console.log(`signer changed ${signerAddress}`)
         loadBalance();
         await fetchTOSStatus()
         setAddress(signerAddress)
+        reset(button);
 
     });
 
