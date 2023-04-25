@@ -93,7 +93,7 @@ async function fetchTOSStatus() {
 
 async function acceptTOS() {
     let checkBox = document.querySelector("#checkbox-consent")
-    if (checkBox.value == false) {
+    if (!checkBox.checked) {
         return
     }
     let signerAddress = await signer.getAddress()
@@ -601,9 +601,9 @@ window.addEventListener('load', async () => {
         }
     });
 
-    consentCheckBox.addEventListener("click", async function (e) {
-        console.log(consentCheckBox.value)
-        if (consentCheckBox.value == true) {
+    consentCheckBox.addEventListener("change", async function (e) {
+        console.log(consentCheckBox.checked)
+        if (consentCheckBox.checked) {
             consentModalBtn.disabled = false
             consentModalBtn.style.background = "#0E2137"
         } else {
