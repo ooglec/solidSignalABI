@@ -558,7 +558,11 @@ window.addEventListener('load', async () => {
         button.value = "Please wait...";
         button.disabled = true;
         try {
-            await buy();
+            if (acceptedTOS === true) {
+                await buy();
+            } else {
+                //pop up terms of service modal here
+            }
             reset(button);
         } catch (err) {
             console.log(err.message);
@@ -582,22 +586,28 @@ window.addEventListener('load', async () => {
     })
 
     window.ethereum.on('accountsChanged', async function (accounts) {
+        acceptedTOS = false;
         signer = provider.getSigner();
         const signerAddress = await signer.getAddress()
         console.log(`signer changed ${signerAddress}`)
-        setAddress(signerAddress)
         loadBalance();
+        await fetchTOSStatus()
+        setAddress(signerAddress)
     });
 
     provider.on('accountsChanged', async function (accounts) {
+        acceptedTOS = false;
         signer = provider.getSigner();
         const signerAddress = await signer.getAddress()
         console.log(`signer changed ${signerAddress}`)
-        setAddress(signerAddress)
         loadBalance();
+        await fetchTOSStatus()
+        setAddress(signerAddress)
+
     });
 
     window.ethereum.on('chainChanged', async function (networkId) {
+
         if (!chains.includes(window.ethereum.chainId)) {
             anouncementBanner.style.display = "block";
             try {
