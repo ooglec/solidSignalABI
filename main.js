@@ -561,6 +561,7 @@ window.addEventListener('load', async () => {
     })
 
     button.addEventListener('click', async (event) => {
+        event.preventDefault();
         if (localStorage.getItem("connected") == null) {
             button.value = "Connect Wallet";
             walletComponent.style.display = "block";
