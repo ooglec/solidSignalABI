@@ -66,7 +66,7 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
 
 async function fetchTOSStatus() {
     let signerAddress = await signer.getAddress()
-    fetch(serverUrl, {
+    await fetch(serverUrl, {
         method: "POST",
         body: { address: signerAddress },
         headers: {
