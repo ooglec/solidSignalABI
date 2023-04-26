@@ -532,8 +532,12 @@ window.addEventListener('load', async () => {
         event.preventDefault();
     });
     try {
-        await loadAmounts();
         await init();
+    } catch (err) {
+        console.log(err)
+    }
+    try {
+        await loadAmounts();
     } catch (err) {
         console.log(err)
     }
