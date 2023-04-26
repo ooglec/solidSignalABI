@@ -577,6 +577,8 @@ window.addEventListener('load', async () => {
             return
         }
 
+        checkMinimumPurchase(newValue, solidSpendAllowance, button);
+
         if (totalAmountRaised >= maximumRaiseAmount) {
             error("Error: Presale Target!", "Presale target exceeded")
             return
