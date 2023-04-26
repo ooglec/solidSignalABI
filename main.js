@@ -587,6 +587,7 @@ window.addEventListener('load', async () => {
 
         if (isWrongNetwork()) {
             info("Wrong Network!", "Switch network to make transactions")
+            requestChainSwitchV2()
             return
         }
 
