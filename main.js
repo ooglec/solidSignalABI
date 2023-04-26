@@ -589,6 +589,7 @@ window.addEventListener('load', async () => {
 
         if (await isWrongNetwork()) {
             info("Wrong Network!", "Switch network to make transactions")
+            anouncementBanner.style.display = "block"
             requestChainSwitchV2()
             return
         }
@@ -715,6 +716,8 @@ window.addEventListener('load', async () => {
                 error(`Error: Transaction Failed`, extractErrorMessage(err.message))
                 console.log(err)
             }
+        } else {
+            anouncementBanner.style.display = "none";
         }
         console.log('chainChanged');
     });
