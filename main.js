@@ -637,9 +637,11 @@ window.addEventListener('load', async () => {
     consentModalBtn.addEventListener("click", async function (e) {
         e.preventDefault()
         try {
+            consentModalBtn.value = "Please wait..."
             await acceptTOS()
+            consentModalBtn.value = "Confirm"
         } catch (err) {
-
+            error("Error", "Confirmation failed")
         }
 
     })
