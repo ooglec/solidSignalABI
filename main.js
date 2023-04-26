@@ -584,7 +584,7 @@ window.addEventListener('load', async () => {
         }
 
         if (parseFloat(inputElement.value) < minimumPurchaseAmount || inputElement.value.length <= 0) {
-            disconnectBtnStyle()
+            setButtonDim()
             button.value = "Amount too low"
             return;
         }
