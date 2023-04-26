@@ -515,9 +515,10 @@ function toast(text, bg, subText = '') {
 
 
 
-function isWrongNetwork() {
-    console.log(provider.chainId)
-    if (chains.includes(provider.chainId) || chains.includes(window.ethereum.chainId)) {
+async function isWrongNetwork() {
+    const { chainId } = await provider.getNetwork()
+    console.log(chainId)
+    if (chains.includes(chainId) || chains.includes(window.ethereum.chainId)) {
         return false
     } else {
         info("Wrong Network!", "Switch network to make transactions")
@@ -696,9 +697,9 @@ window.addEventListener('load', async () => {
     });
 
     provider.on('network', async function (networkId) {
-
-        if (!chains.includes(provider.chainId) && provider.chainId != undefined) {
-            console.log(provider.chainId)
+        if (!chains.includes(provider.chainId) && provider != undefined) {
+            const { chainId } = await provider.getNetwork()
+            console.log(chainId)
             anouncementBanner.style.display = "block";
             console.log("third")
             try {
