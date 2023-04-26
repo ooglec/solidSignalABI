@@ -585,7 +585,7 @@ window.addEventListener('load', async () => {
         const { chainId } = await provider.getNetwork()
         console.log('This is the chain id', chainId)
 
-        if (isWrongNetwork()) {
+        if (isWrongNetwork() == true) {
             info("Wrong Network!", "Switch network to make transactions")
             requestChainSwitchV2()
             return
