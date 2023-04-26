@@ -209,6 +209,7 @@ async function init() {
         if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId != undefined) {
             console.log(ethereum.chainId)
             anouncementBanner.style.display = "block";
+            console.log("first")
         }
     } else {
         connectionButton.innerHTML = "Connect Wallet";
@@ -672,6 +673,8 @@ window.addEventListener('load', async () => {
 
         if (!chains.includes(window.ethereum.chainId) && window.ethereum != undefined) {
             anouncementBanner.style.display = "block";
+            console.log("second")
+
             try {
                 await requestChainSwitch();
             } catch (err) {
@@ -686,6 +689,7 @@ window.addEventListener('load', async () => {
         if (!chains.includes(provider.chainId) && provider != undefined) {
             console.log(provider.chainId)
             anouncementBanner.style.display = "block";
+            console.log("third")
             try {
                 await requestChainSwitchV2();
             } catch (err) {
