@@ -75,9 +75,8 @@ async function fetchTOSStatus() {
     }).then(async (res) => {
         if (res.status == 200) {
             let result = await res.json()
-            console.log(result)
             acceptedTOS = result.data.accepted
-            console.log("Tos accepted: ", result.data.accepted)
+
         } else {
             console.log(res.status)
             requetsTosAcceptance()
@@ -226,7 +225,6 @@ async function loadAmounts() {
     let localProvider = new ethers.providers.JsonRpcProvider(rpc);
     signer = localProvider.getSigner();
     const abi = signalABI;
-    console.log(signalABI);
     const solidContract = new ethers.Contract(solidAddress, abi, localProvider);
     const amt = await solidContract.usdcRaised();
     const amtConverted = Math.round(ethers.utils.formatUnits(amt, 6) * 100) / 100
