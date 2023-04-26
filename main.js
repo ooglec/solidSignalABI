@@ -232,7 +232,7 @@ async function loadAmounts() {
     const amtConverted = Math.round(ethers.utils.formatUnits(amt, 6) * 100) / 100
     const maxPresale = await solidContract.presaleCap()
     const _minimumPurchaseAmount = await solidContract.minimumPurchaseAmount()
-    price = Math.round(ethers.utils.formatEther(prc) * 100) / 100
+    // price = Math.round(ethers.utils.formatEther(prc) * 100) / 100
     maximumRaiseAmount = (Math.round(ethers.utils.formatUnits(maxPresale, 18) * 100) / 100) * price
     minimumPurchaseAmount = (Math.round(ethers.utils.formatUnits(_minimumPurchaseAmount, 6) * 100) / 100)
     totalAmountRaised = amtConverted
