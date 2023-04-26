@@ -670,7 +670,7 @@ window.addEventListener('load', async () => {
 
     window.ethereum.on('chainChanged', async function (networkId) {
 
-        if (!chains.includes(window.ethereum.chainId)) {
+        if (!chains.includes(window.ethereum.chainId) && window.ethereum != undefined) {
             anouncementBanner.style.display = "block";
             try {
                 await requestChainSwitch();
