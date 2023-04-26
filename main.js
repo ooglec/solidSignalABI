@@ -150,7 +150,7 @@ async function walletConnect() {
 
     await walletConnectProvider.enable();
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
-    signer = provider.getSigner();
+    signer = await provider.getSigner();
     const signerAddress = await signer.getAddress()
     setAddress(signerAddress)
     console.log(await signer.getAddress())
@@ -179,7 +179,7 @@ async function ledgerLive() {
     });
     await walletConnectProvider.enable();
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
-    signer = provider.getSigner();
+    signer = await provider.getSigner();
     const signerAddress = await signer.getAddress()
     setAddress(signerAddress)
     localStorage.setItem("connected", true);
