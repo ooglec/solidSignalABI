@@ -516,6 +516,7 @@ function toast(text, bg, subText = '') {
 
 
 function isWrongNetwork() {
+    console.log(provider.chainId)
     if (chains.includes(provider.chainId) || chains.includes(window.ethereum.chainId)) {
         return false
     } else {
@@ -582,6 +583,7 @@ window.addEventListener('load', async () => {
         }
 
         if (isWrongNetwork()) {
+            console.log("wrong network")
             return
         }
 
