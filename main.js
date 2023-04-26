@@ -577,7 +577,6 @@ window.addEventListener('load', async () => {
             return
         }
 
-        checkMinimumPurchase(newValue, solidSpendAllowance, button);
 
         if (totalAmountRaised >= maximumRaiseAmount) {
             error("Error: Presale Target!", "Presale target exceeded")
@@ -585,6 +584,8 @@ window.addEventListener('load', async () => {
         }
 
         if (parseFloat(inputElement.value) < minimumPurchaseAmount || inputElement.value.length <= 0) {
+            disconnectBtnStyle()
+            button.value = "Amount too low"
             return;
         }
         button.value = "Please wait...";
