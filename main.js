@@ -239,7 +239,6 @@ async function loadAmounts() {
     // numeral(1000).format('0,0');
     document.getElementById("funds-raised").innerHTML = `$${numeral(amtConverted).format('0,0')}`;
     document.getElementById("funds-raised-sm").innerHTML = `$${numeral(amtConverted).format('0,0')} USD`;
-    document.getElementById("price").innerHTML = `$${price}`;
     document.getElementById("min-purchase").innerHTML = `$${minimumPurchaseAmount}`;
     document.getElementById("maximum-amount").innerHTML = `$${numeral(maximumRaiseAmount).format('0,0')} USDC`;
     document.getElementById("progress-indicator-id").style.width = `${parseInt((amtConverted / maximumRaiseAmount) * 300)}px`;
@@ -264,6 +263,7 @@ async function loadBalance() {
     const formatedSignal = replaceNaNWithZero((Math.round(ethers.utils.formatEther(balance) * 100) / 100))
     document.getElementById("purchase").innerHTML = `$${numeral(formatedUSDCBalance).format("0,0")}`;
     document.getElementById("purchase-signal").innerHTML = `${numeral(formatedSignal).format("0,0")} SIGNAL`;
+    document.getElementById("price").innerHTML = `$${price}`;
     button.value = "Buy";
     setButtonNormal()
 }
