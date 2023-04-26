@@ -541,11 +541,7 @@ window.addEventListener('load', async () => {
     } catch (err) {
         console.log(err)
     }
-    try {
-        await loadAmounts();
-    } catch (err) {
-        console.log(err)
-    }
+
     notifications.classList.add("notifications");
     const inputElement = document.querySelector('#USDC');
 
@@ -721,6 +717,12 @@ window.addEventListener('load', async () => {
         }
         console.log('chainChanged');
     });
+
+    try {
+        await loadAmounts();
+    } catch (err) {
+        console.log(err)
+    }
 
 
 });
