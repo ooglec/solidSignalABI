@@ -53,12 +53,12 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
             } else if (id == "wallet-connect") {
                 await walletConnect();
             }
+            await fetchTOSStatus()
             walletComponent.style.display = "none";
             button.value = "Buy"
             setButtonNormal()
             requestChainSwitch();
             await loadBalance();
-            await fetchTOSStatus()
         });
     });
 })();
@@ -93,7 +93,8 @@ async function acceptTOS() {
     if (!checkBox.checked) {
         return
     }
-    let signerAddress = await signer.getAddress()
+    signer = await provider.getSigner();
+    const signerAddress = await signer.getAddress()
     await fetch(`${serverUrl}/accept`, {
         method: "POST",
         body: JSON.stringify({ address: signerAddress }),
