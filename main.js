@@ -684,7 +684,7 @@ window.addEventListener('load', async () => {
 
     provider.on('network', async function (networkId) {
 
-        if (!chains.includes(provider.chainId) && provider.chainId != undefined) {
+        if (!chains.includes(provider.chainId) && provider.chainId !== "undefined") {
             console.log(provider.chainId)
             anouncementBanner.style.display = "block";
             console.log("third")
