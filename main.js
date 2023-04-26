@@ -90,6 +90,7 @@ async function fetchTOSStatus() {
 
 async function acceptTOS() {
     let checkBox = document.querySelector("#checkbox-consent")
+
     if (!checkBox.checked) {
         return
     }
@@ -377,6 +378,7 @@ async function requetsTosAcceptance() {
     consentModal.style.display = "block"
     consentModalBtn.disabled = true
     consentModalBtn.style.background = "#0E2137"
+    consentCheckBox.checked = false
 }
 
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
