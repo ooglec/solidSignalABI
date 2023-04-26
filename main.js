@@ -543,7 +543,7 @@ window.addEventListener('load', async () => {
     inputElement.addEventListener('input', (event) => {
         button.disabled = false;
         const newValue = parseFloat(event.target.value);
-        document.querySelector('.signal-value').innerHTML = newValue / price;
+        document.querySelector('.signal-value').innerHTML = replaceNaNWithZero(newValue / price);
         checkMinimumPurchase(newValue, solidSpendAllowance, button);
 
     });
