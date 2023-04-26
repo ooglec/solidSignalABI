@@ -134,7 +134,7 @@ async function connect() {
         walletComponent.style.display = "none";
         await loadBalance()
     } catch (err) {
-        error("Connection failed!")
+        error("Connection failed!", extractErrorMessage(err.message))
         console.log(err)
     }
 }
