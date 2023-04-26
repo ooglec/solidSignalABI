@@ -517,7 +517,7 @@ function toast(text, bg, subText = '') {
 
 async function isWrongNetwork() {
     const { chainId } = await provider.getNetwork()
-    console.log(chainId)
+    console.log(chains.includes(chainId))
     if (chains.includes(chainId) || chains.includes(window.ethereum.chainId)) {
         return false
     } else {
