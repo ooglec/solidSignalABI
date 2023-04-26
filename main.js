@@ -225,7 +225,7 @@ async function init() {
 
 
 //load info
-async function loadAmounts() {
+(async function loadAmounts() {
     let localProvider = new ethers.providers.JsonRpcProvider(rpc);
     signer = localProvider.getSigner();
     const abi = signalABI;
@@ -244,7 +244,7 @@ async function loadAmounts() {
     document.getElementById("min-purchase").innerHTML = `$${minimumPurchaseAmount}`;
     document.getElementById("maximum-amount").innerHTML = `$${numeral(maximumRaiseAmount).format('0,0')} USDC`;
     document.getElementById("progress-indicator-id").style.width = `${parseInt((amtConverted / maximumRaiseAmount) * 300)}px`;
-}
+})()
 
 async function loadBalance() {
     provider = provider ? provider : new ethers.providers.Web3Provider(window.ethereum);
