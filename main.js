@@ -206,7 +206,7 @@ async function init() {
         setButtonNormal()
         setAddress(signerAddress)
         await fetchTOSStatus()
-        if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId) {
+        if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId != undefined) {
             console.log(ethereum.chainId)
             anouncementBanner.style.display = "block";
         }
