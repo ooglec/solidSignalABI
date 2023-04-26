@@ -583,6 +583,9 @@ window.addEventListener('load', async () => {
             return
         }
 
+        const { chainId } = await provider.getNetwork()
+        console.log('This is the chain id', chainId)
+
         if (isWrongNetwork()) {
             console.log("wrong network")
             return
