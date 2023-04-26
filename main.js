@@ -21,7 +21,7 @@ const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
 const rpc = "https://arbitrum-goerli.public.blastapi.io";
 const serverUrl = "https://solid-signal-server.onrender.com"
-const chains = ["0x66eed"];
+const chains = ["0x66eed", 421613];
 const walletChainId = "0x66eed"
 const blockExplorer = "https://goerli-rollup-explorer.arbitrum.io"
 let acceptedTOS = false
@@ -521,7 +521,6 @@ async function isWrongNetwork() {
     if (chains.includes(chainId) || chains.includes(window.ethereum.chainId)) {
         return false
     } else {
-        info("Wrong Network!", "Switch network to make transactions")
         return true
     }
 }
@@ -587,7 +586,7 @@ window.addEventListener('load', async () => {
         console.log('This is the chain id', chainId)
 
         if (isWrongNetwork()) {
-            console.log("wrong network")
+            info("Wrong Network!", "Switch network to make transactions")
             return
         }
 
