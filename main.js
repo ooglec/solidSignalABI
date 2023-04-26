@@ -196,6 +196,8 @@ async function init() {
     walletComponent.style.display = "none";
     if (window.ethereum) {
         localStorage.setItem("connected", true);
+        connectionButton.innerHTML = "Connecting...";
+        button.value = "Connecting...";
         provider = new ethers.providers.Web3Provider(window.ethereum);
         signer = provider.getSigner();
         const signerAddress = await signer.getAddress()
