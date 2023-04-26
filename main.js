@@ -378,7 +378,6 @@ async function requetsTosAcceptance() {
     consentModal.style.display = "block"
     consentModalBtn.disabled = true
     consentModalBtn.style.background = "#0E2137"
-    consentCheckBox.checked = false
 }
 
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
