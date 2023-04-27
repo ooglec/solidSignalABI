@@ -20,7 +20,6 @@ const swicthNework = document.querySelector("#switch-link");
 const walletBar = document.querySelector("#wallet-bar");
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
-const inputElement = document.querySelector('#USDC');
 const rpc = "https://arbitrum-goerli.public.blastapi.io";
 const serverUrl = "https://solid-signal-server.onrender.com"
 const chains = ["0x66eed", 421613];
@@ -542,6 +541,7 @@ async function isWrongNetwork() {
 window.addEventListener('load', async () => {
     document.querySelector('#address').style.display = "none";
     const form = document.getElementById('Form');
+    const inputElement = document.querySelector('#USDC');
     form.addEventListener('submit', function (event) {
         console.log("prevented")
         event.preventDefault();
