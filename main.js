@@ -211,18 +211,19 @@ async function init() {
         disconnectBtnStyle()
         setButtonNormal()
         setAddress(signerAddress)
-        await fetchTOSStatus()
-        if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId != undefined) {
-            console.log(ethereum.chainId)
-            anouncementBanner.style.display = "block";
-            console.log("first")
-        }
         let element = document.querySelector('#USDC')
         if (element.value > 0) {
             console.log(element)
             const newValue = parseFloat(element.value);
             document.querySelector('.signal-value').innerHTML = replaceNaNWithZero(newValue / price);
         }
+        await fetchTOSStatus()
+        if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId != undefined) {
+            console.log(ethereum.chainId)
+            anouncementBanner.style.display = "block";
+            console.log("first")
+        }
+
     } else {
         connectionButton.innerHTML = "Connect Wallet";
         button.value = "Connect Wallet";
