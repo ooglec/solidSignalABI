@@ -20,6 +20,7 @@ const swicthNework = document.querySelector("#switch-link");
 const walletBar = document.querySelector("#wallet-bar");
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
+const inputElement = document.querySelector('#USDC');
 const rpc = "https://arbitrum-goerli.public.blastapi.io";
 const serverUrl = "https://solid-signal-server.onrender.com"
 const chains = ["0x66eed", 421613];
@@ -57,6 +58,7 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
             await fetchTOSStatus()
             walletComponent.style.display = "none";
             button.value = "Buy"
+            inputElement.value = 0;
             setButtonNormal()
             requestChainSwitch();
             await loadBalance();
@@ -215,6 +217,10 @@ async function init() {
             console.log(ethereum.chainId)
             anouncementBanner.style.display = "block";
             console.log("first")
+        }
+        if (inputElement.value > 0) {
+            const newValue = parseFloat(inputElement.value);
+            document.querySelector('.signal-value').innerHTML = replaceNaNWithZero(newValue / price);
         }
     } else {
         connectionButton.innerHTML = "Connect Wallet";
@@ -547,7 +553,7 @@ window.addEventListener('load', async () => {
     }
 
     notifications.classList.add("notifications");
-    const inputElement = document.querySelector('#USDC');
+
 
 
 
