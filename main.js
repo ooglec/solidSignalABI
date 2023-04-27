@@ -17,6 +17,7 @@ const consentModal = document.querySelector("#consent_modal");
 const consentModalBtn = document.querySelector("#confirm-consent");
 const consentCheckBox = document.querySelector("#checkbox-consent");
 const swicthNework = document.querySelector("#switch-link");
+const walletBar = document.querySelector("#wallet-bar");
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
 const rpc = "https://arbitrum-goerli.public.blastapi.io";
@@ -169,6 +170,7 @@ async function ledgerLive() {
         qrcodeModalOptions: {
             mobileLinks: ['ledger'], // Write the exact names of the supported wallets to be shown on mobile
             desktopLinks: ['ledger'], // Use [] to hide the ones displayed in desktop modal if required
+            supportedWallets: ['ledger']
         },
     });
     const walletConnectProvider = new WalletConnectProvider({
@@ -447,6 +449,7 @@ function extractErrorMessage(errorString) {
 function setAddress(address) {
     let addressBarText = document.querySelector('#address')
     addressBarText.innerHTML = shortenAddress(address)
+    walletBar.style.display = "block";
     addressBarText.style.display = "block";
 }
 
@@ -571,6 +574,10 @@ window.addEventListener('load', async () => {
 
     document.querySelector("#modal-close").addEventListener('click', () => {
         walletComponent.style.display = "none";
+    })
+
+    document.querySelector("#close-consent").addEventListener('click', () => {
+        consentModal.style.display = "none";
     })
 
     button.addEventListener('click', async (event) => {
