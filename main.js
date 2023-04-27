@@ -608,10 +608,22 @@ window.addEventListener('load', async () => {
         }
 
 
-        if (totalAmountRaised >= maximumRaiseAmount) {
-            error("Error: Presale Target!", "Presale target exceeded")
+        if ((totalAmountRaised + parseFloat(inputElement.value)) > maximumRaiseAmount) {
+            error("Error: Exceeds Presale Target!", "Presale target exceeded")
+            button.value = "Exceeds Presale Target"
+            setButtonDim()
             return
         }
+
+
+
+        if (totalAmountRaised >= maximumRaiseAmount) {
+            error("Error: Presale Target!", "Presale target exceeded")
+
+            return
+        }
+
+
 
         if (parseFloat(inputElement.value) < minimumPurchaseAmount || inputElement.value.length <= 0) {
             setButtonDim()
