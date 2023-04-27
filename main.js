@@ -217,8 +217,10 @@ async function init() {
             anouncementBanner.style.display = "block";
             console.log("first")
         }
-        if (inputElement.value > 0) {
-            const newValue = parseFloat(inputElement.value);
+        let element = document.querySelector('#USDC')
+        if (element.value > 0) {
+            console.log(element)
+            const newValue = parseFloat(element.value);
             document.querySelector('.signal-value').innerHTML = replaceNaNWithZero(newValue / price);
         }
     } else {
