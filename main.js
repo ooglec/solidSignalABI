@@ -147,8 +147,8 @@ async function connect() {
 async function walletConnect() {
     const walletConnectProvider = new WalletConnectProvider({
         rpc: {
-            421613: "https://arbitrum-goerli.public.blastapi.io	",
-            42161: "https://endpoints.omniatech.io/v1/arbitrum/one/public"
+            // 421613: "https://arbitrum-goerli.public.blastapi.io	",
+            421613: "https://endpoints.omniatech.io/v1/arbitrum/one/public"
         },
     });
 
