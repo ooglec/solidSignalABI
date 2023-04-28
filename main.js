@@ -593,6 +593,7 @@ window.addEventListener('load', async () => {
             button.value = "Connect Wallet";
             button.disabled = true;
             document.querySelector('#address').style.display = "none";
+            walletBar.style.display = "none";
         }
     })
 
