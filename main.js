@@ -765,7 +765,9 @@ window.addEventListener('load', async () => {
     });
 
     try {
-        await loadAmounts();
+        if (minimumPurchaseAmount.length <= 0) {
+            await loadAmounts();
+        }
     } catch (err) {
         console.log(err)
     }
