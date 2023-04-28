@@ -57,6 +57,8 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
             await fetchTOSStatus()
             walletComponent.style.display = "none";
             button.value = "Buy"
+            connectionButton.innerHTML = "Disconnect";
+            disconnectBtnStyle()
             inputElement.value = 0;
             setButtonNormal()
             requestChainSwitch();
