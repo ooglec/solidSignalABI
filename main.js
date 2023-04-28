@@ -585,7 +585,7 @@ window.addEventListener('load', async () => {
             walletComponent.style.display = "block";
         } else {
             localStorage.removeItem("connected");
-            if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER")) {
+            if (localStorage.getItem("walletconnect")) {
                 localStorage.removeItem("walletconnect")
             }
             connectionButton.innerHTML = "Connect Wallet";
