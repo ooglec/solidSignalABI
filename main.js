@@ -200,29 +200,39 @@ async function ledgerLive() {
 async function init() {
     walletComponent.style.display = "none";
     if (window.ethereum) {
-        localStorage.setItem("connected", true);
-        connectionButton.innerHTML = "Connecting...";
-        button.value = "Connecting...";
         provider = new ethers.providers.Web3Provider(window.ethereum);
-        signer = provider.getSigner();
-        const signerAddress = await signer.getAddress()
-        await loadBalance()
-        connectionButton.innerHTML = "Disconnect";
-        disconnectBtnStyle()
-        setButtonNormal()
-        setAddress(signerAddress)
-        let element = document.querySelector('#USDC')
-        if (element.value > 0) {
-            console.log(element)
-            const newValue = parseFloat(element.value);
-            document.querySelector('.signal-value').innerHTML = replaceNaNWithZero(newValue / price);
+        try {
+            signer = provider.getSigner();
+            const signerAddress = await signer.getAddress()
+            localStorage.setItem("connected", true);
+            connectionButton.innerHTML = "Connecting...";
+            button.value = "Connecting...";
+
+            await loadBalance()
+            connectionButton.innerHTML = "Disconnect";
+            disconnectBtnStyle()
+            setButtonNormal()
+            setAddress(signerAddress)
+            let element = document.querySelector('#USDC')
+            if (element.value > 0) {
+                console.log(element)
+                const newValue = parseFloat(element.value);
+                document.querySelector('.signal-value').innerHTML = replaceNaNWithZero(newValue / price);
+            }
+            await fetchTOSStatus()
+            if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId != undefined) {
+                console.log(ethereum.chainId)
+                anouncementBanner.style.display = "block";
+                console.log("first")
+            }
+        } catch (err) {
+            connectionButton.innerHTML = "Connect Wallet";
+            button.value = "Connect Wallet";
+            button.disabled = true;
+            setButtonNormal()
+            localStorage.removeItem("connected");
         }
-        await fetchTOSStatus()
-        if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId != undefined) {
-            console.log(ethereum.chainId)
-            anouncementBanner.style.display = "block";
-            console.log("first")
-        }
+
 
     } else {
         connectionButton.innerHTML = "Connect Wallet";
@@ -573,6 +583,9 @@ window.addEventListener('load', async () => {
             walletComponent.style.display = "block";
         } else {
             localStorage.removeItem("connected");
+            if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER")) {
+                localStorage.removeItem("walletconnect")
+            }
             connectionButton.innerHTML = "Connect Wallet";
             connectBtnStyle()
             button.value = "Connect Wallet";
