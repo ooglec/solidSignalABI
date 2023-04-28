@@ -163,6 +163,7 @@ async function walletConnect() {
     disconnectBtnStyle()
     button.value = "Approve";
     setButtonNormal()
+    await loadBalance();
 }
 
 async function ledgerLive() {
@@ -192,6 +193,7 @@ async function ledgerLive() {
     disconnectBtnStyle()
     button.value = "Approve";
     setButtonNormal()
+    await loadBalance();
 }
 
 
