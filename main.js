@@ -317,7 +317,7 @@ async function buy() {
     }
     if (parseFloat(value) > solidSpendAllowance) {
         try {
-            const txApprove = await usdcContract.approve(solidAddress, "500")
+            const txApprove = await usdcContract.approve(solidAddress, ethers.utils.parseUnits("500", 6))
             await txApprove.wait()
             button.value = "Buy";
             success('Approval successful');
