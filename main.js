@@ -132,6 +132,7 @@ async function connect() {
         await window.ethereum.request({ method: 'eth_requestAccounts' });
         signer = provider.getSigner();
         const signerAddress = await signer.getAddress()
+        await loadBalance()
         setAddress(signerAddress)
         connectionButton.innerHTML = "Disconnect";
         disconnectBtnStyle()
@@ -139,7 +140,6 @@ async function connect() {
         setButtonNormal()
         localStorage.setItem("connected", true);
         walletComponent.style.display = "none";
-        await loadBalance()
     } catch (err) {
         error("Connection failed!", extractErrorMessage(err.message))
         console.log(err)
@@ -158,6 +158,7 @@ async function walletConnect() {
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
     signer = await provider.getSigner();
     const signerAddress = await signer.getAddress()
+    await loadBalance();
     setAddress(signerAddress)
     console.log(await signer.getAddress())
     localStorage.setItem("connected", true);
@@ -165,7 +166,6 @@ async function walletConnect() {
     disconnectBtnStyle()
     button.value = "Approve";
     setButtonNormal()
-    await loadBalance();
 }
 
 async function ledgerLive() {
@@ -189,13 +189,13 @@ async function ledgerLive() {
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
     signer = await provider.getSigner();
     const signerAddress = await signer.getAddress()
+    await loadBalance();
     setAddress(signerAddress)
     localStorage.setItem("connected", true);
     connectionButton.innerHTML = "Disconnect";
     disconnectBtnStyle()
     button.value = "Approve";
     setButtonNormal()
-    await loadBalance();
 }
 
 
