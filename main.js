@@ -36,6 +36,8 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
     var walletDivs = document.querySelectorAll('.wallet-instance');
     walletDivs.forEach(function (walletDiv) {
         walletDiv.addEventListener('click', async function () {
+            connectionButton.innerHTML = "Connecting...";
+            button.value = "Connecting...";
             let id = walletDiv.id;
             if (id == "metamask") {
                 if (window.ethereum) {
@@ -202,20 +204,21 @@ async function ledgerLive() {
 
 async function init() {
     walletComponent.style.display = "none";
+    localStorage.removeItem("connected");
     if (window.ethereum) {
         provider = new ethers.providers.Web3Provider(window.ethereum);
         try {
             signer = provider.getSigner();
             const signerAddress = await signer.getAddress()
-            localStorage.setItem("connected", true);
-            connectionButton.innerHTML = "Connecting...";
-            button.value = "Connecting...";
 
-            await loadBalance()
-            connectionButton.innerHTML = "Disconnect";
-            disconnectBtnStyle()
-            setButtonNormal()
-            setAddress(signerAddress)
+            // connectionButton.innerHTML = "Connecting...";
+            // button.value = "Connecting...";
+
+            // await loadBalance()
+            // connectionButton.innerHTML = "Disconnect";
+            // disconnectBtnStyle()
+            // setButtonNormal()
+            // setAddress(signerAddress)
             let element = document.querySelector('#USDC')
             if (element.value > 0) {
                 console.log(element)
@@ -312,7 +315,7 @@ async function buy() {
     }
     if (parseFloat(value) > solidSpendAllowance) {
         try {
-            const txApprove = await usdcContract.approve(solidAddress, ethers.constants.MaxUint256)
+            const txApprove = await usdcContract.approve(solidAddress, ethers.utils.parseEther(value.toString("500")))
             await txApprove.wait()
             button.value = "Buy";
             success('Approval successful');
@@ -438,8 +441,8 @@ function replaceNaNWithZero(value) {
 }
 
 function resetInputs() {
-    document.querySelector('#USDC').value = 0;
-    document.querySelector('.signal-value').innerHTML = 0;
+    document.querySelector('#USDC').value = 500;
+    document.querySelector('.signal-value').innerHTML = 500 / price;
 }
 
 function setButtonNormal() {
@@ -558,6 +561,7 @@ window.addEventListener('load', async () => {
     document.querySelector('#address').style.display = "none";
     const form = document.getElementById('Form');
     const inputElement = document.querySelector('#USDC');
+
     form.addEventListener('submit', function (event) {
         console.log("prevented")
         event.preventDefault();
@@ -576,14 +580,22 @@ window.addEventListener('load', async () => {
     inputElement.addEventListener('input', (event) => {
         button.disabled = false;
         const newValue = parseFloat(event.target.value);
-        document.querySelector('.signal-value').innerHTML = replaceNaNWithZero(newValue / price);
         checkMinimumPurchase(newValue, solidSpendAllowance, button);
+        if (value < minimumPurchaseAmount) {
+            document.querySelector('.signal-value').innerHTML = 0;
+            return;
+        }
+        document.querySelector('.signal-value').innerHTML = replaceNaNWithZero(newValue / price);
+
 
     });
 
     connectionButton.addEventListener('click', async (event) => {
         if (localStorage.getItem("connected") == null) {
             walletComponent.style.display = "block";
+            document.getElementById("purchase").innerHTML = `-`;
+            document.getElementById("purchase-signal").innerHTML = `-`;
+
         } else {
             localStorage.removeItem("connected");
             if (localStorage.getItem("walletconnect")) {
