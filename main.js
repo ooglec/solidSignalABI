@@ -266,6 +266,7 @@ async function loadAmounts() {
     minimumPurchaseAmount = (Math.round(ethers.utils.formatUnits(_minimumPurchaseAmount, 6) * 100) / 100)
     totalAmountRaised = amtConverted
     // numeral(1000).format('0,0');
+    document.getElementById("price").innerHTML = `$${price}`;
     document.getElementById("funds-raised").innerHTML = `$${numeral(amtConverted).format('0,0')}`;
     document.getElementById("funds-raised-sm").innerHTML = `$${numeral(amtConverted).format('0,0')} USD`;
     document.getElementById("min-purchase").innerHTML = `$${minimumPurchaseAmount}`;
@@ -293,7 +294,7 @@ async function loadBalance() {
     const formatedSignal = replaceNaNWithZero((Math.round(ethers.utils.formatEther(balance) * 100) / 100))
     document.getElementById("purchase").innerHTML = `$${numeral(formatedUSDCBalance).format("0,0")}`;
     document.getElementById("purchase-signal").innerHTML = `${numeral(formatedSignal).format("0,0")} SIGNAL`;
-    document.getElementById("price").innerHTML = `$${price}`;
+    // document.getElementById("price").innerHTML = `$${price}`;
     button.value = "Buy";
     setButtonNormal()
 }
@@ -717,30 +718,35 @@ window.addEventListener('load', async () => {
     })
 
     window.ethereum.on('accountsChanged', async function (accounts) {
-        acceptedTOS = false;
-        button.disabled = true;
-        button.value = "Switching..."
-        signer = provider.getSigner();
-        const signerAddress = await signer.getAddress()
-        console.log(`signer changed ${signerAddress}`)
-        loadBalance();
-        await fetchTOSStatus()
-        setAddress(signerAddress)
-        reset(button);
+        if (localStorage.getItem("connected")) {
+            acceptedTOS = false;
+            button.disabled = true;
+            button.value = "Switching..."
+            signer = provider.getSigner();
+            const signerAddress = await signer.getAddress()
+            console.log(`signer changed ${signerAddress}`)
+            loadBalance();
+            await fetchTOSStatus()
+            setAddress(signerAddress)
+            reset(button);
+        }
 
     });
 
     provider.on('accountsChanged', async function (accounts) {
-        acceptedTOS = false;
-        button.disabled = true;
-        button.value = "Switching..."
-        signer = provider.getSigner();
-        const signerAddress = await signer.getAddress()
-        console.log(`signer changed ${signerAddress}`)
-        loadBalance();
-        await fetchTOSStatus()
-        setAddress(signerAddress)
-        reset(button);
+        if (localStorage.getItem("connected")) {
+            acceptedTOS = false;
+            button.disabled = true;
+            button.value = "Switching..."
+            signer = provider.getSigner();
+            const signerAddress = await signer.getAddress()
+            console.log(`signer changed ${signerAddress}`)
+            loadBalance();
+            await fetchTOSStatus()
+            setAddress(signerAddress)
+            reset(button);
+        }
+
 
     });
 
