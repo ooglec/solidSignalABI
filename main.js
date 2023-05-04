@@ -260,7 +260,8 @@ async function loadAmounts() {
     const amtConverted = Math.round(ethers.utils.formatUnits(amt, 6) * 100) / 100
     const maxPresale = await solidContract.presaleCap()
     const _minimumPurchaseAmount = await solidContract.minimumPurchaseAmount()
-    // price = Math.round(ethers.utils.formatEther(prc) * 100) / 100
+    const prc = await solidContract.presalePrice();
+    price = Math.round(ethers.utils.formatEther(prc) * 100) / 100
     maximumRaiseAmount = (Math.round(ethers.utils.formatUnits(maxPresale, 18) * 100) / 100) * price
     minimumPurchaseAmount = (Math.round(ethers.utils.formatUnits(_minimumPurchaseAmount, 6) * 100) / 100)
     totalAmountRaised = amtConverted
@@ -279,8 +280,8 @@ async function loadBalance() {
     const solidContract = new ethers.Contract(solidAddress, signalABI, localProvider);
     const usdcContract = new ethers.Contract(usdcAddress, erc20ABI, localProvider);
     signer = await provider.getSigner()
-    const prc = await solidContract.presalePrice();
-    price = Math.round(ethers.utils.formatEther(prc) * 100) / 100
+    // const prc = await solidContract.presalePrice();
+    // price = Math.round(ethers.utils.formatEther(prc) * 100) / 100
     const signerAddress = await signer.getAddress();
     const balance = await solidContract.myBalance(signerAddress); //signal value
     const allowance = await usdcContract.allowance(signerAddress, solidAddress);
