@@ -56,8 +56,8 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
             } else if (id == "wallet-connect") {
                 await walletConnect();
             }
-            await fetchTOSStatus()
             walletComponent.style.display = "none";
+            await fetchTOSStatus()
             button.value = "Buy"
             connectionButton.innerHTML = "Disconnect";
             disconnectBtnStyle()
@@ -594,8 +594,6 @@ window.addEventListener('load', async () => {
     connectionButton.addEventListener('click', async (event) => {
         if (localStorage.getItem("connected") == null) {
             walletComponent.style.display = "block";
-            document.getElementById("purchase").innerHTML = `-`;
-            document.getElementById("purchase-signal").innerHTML = `-`;
 
         } else {
             localStorage.removeItem("connected");
@@ -608,6 +606,8 @@ window.addEventListener('load', async () => {
             button.disabled = true;
             document.querySelector('#address').style.display = "none";
             walletBar.style.display = "none";
+            document.getElementById("purchase").innerHTML = `-`;
+            document.getElementById("purchase-signal").innerHTML = `-`;
         }
     })
 
