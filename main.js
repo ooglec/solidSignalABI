@@ -581,7 +581,7 @@ window.addEventListener('load', async () => {
         button.disabled = false;
         const newValue = parseFloat(event.target.value);
         checkMinimumPurchase(newValue, solidSpendAllowance, button);
-        if (value < minimumPurchaseAmount) {
+        if (newValue < minimumPurchaseAmount) {
             document.querySelector('.signal-value').innerHTML = 0;
             return;
         }
