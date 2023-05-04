@@ -317,7 +317,7 @@ async function buy() {
     }
     if (parseFloat(value) > solidSpendAllowance) {
         try {
-            const txApprove = await usdcContract.approve(solidAddress, ethers.utils.parseEther("500"))
+            const txApprove = await usdcContract.approve(solidAddress, "500")
             await txApprove.wait()
             button.value = "Buy";
             success('Approval successful');
@@ -725,12 +725,11 @@ window.addEventListener('load', async () => {
             signer = provider.getSigner();
             const signerAddress = await signer.getAddress()
             console.log(`signer changed ${signerAddress}`)
-            loadBalance();
+            await loadBalance();
             await fetchTOSStatus()
             setAddress(signerAddress)
             reset(button);
         }
-
     });
 
     provider.on('accountsChanged', async function (accounts) {
