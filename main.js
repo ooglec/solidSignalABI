@@ -315,6 +315,7 @@ async function buy() {
         error(`Error: Insufficient balance`, 'Check you USDC balance')
         return
     }
+
     if (parseFloat(value) > solidSpendAllowance) {
         try {
             const txApprove = await usdcContract.approve(solidAddress, ethers.utils.parseUnits("500", 6))
