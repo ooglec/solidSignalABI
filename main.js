@@ -57,12 +57,12 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
                 await walletConnect();
             }
             walletComponent.style.display = "none";
-            await fetchTOSStatus()
             button.value = "Buy"
             connectionButton.innerHTML = "Disconnect";
             disconnectBtnStyle()
             setButtonNormal()
             requestChainSwitch();
+            await fetchTOSStatus()
             await loadBalance();
         });
     });
