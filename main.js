@@ -436,6 +436,8 @@ function checkMinimumPurchase(value, solidSpendAllowance, button) {
         }
     }
 
+
+
     if ((totalAmountRaised + value) > maximumRaiseAmount) {
         button.value = "Exceeds Presale Target"
         setButtonDim()
@@ -632,6 +634,7 @@ window.addEventListener('load', async () => {
             return
         }
 
+
         const { chainId } = await provider.getNetwork()
         console.log('This is the chain id', chainId)
 
@@ -640,6 +643,10 @@ window.addEventListener('load', async () => {
             anouncementBanner.style.display = "block"
             requestChainSwitchV2()
             return
+        }
+
+        if (acceptedTOS == false) {
+            requetsTosAcceptance()
         }
 
 
