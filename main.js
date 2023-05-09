@@ -56,13 +56,13 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
             } else if (id == "wallet-connect") {
                 await walletConnect();
             }
+            await loadBalance();
             walletComponent.style.display = "none";
             button.value = "Buy"
             connectionButton.innerHTML = "Disconnect";
             disconnectBtnStyle()
             setButtonNormal()
             requestChainSwitch();
-            await loadBalance();
             await fetchTOSStatus()
         });
     });
