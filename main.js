@@ -406,8 +406,11 @@ async function requestChainSwitchV2() {
 
 async function requetsTosAcceptance() {
     consentModal.style.display = "block"
-    consentModalBtn.disabled = true
-    consentModalBtn.style.background = "#0E2137"
+    if (!consentCheckBox.checked) {
+        consentModalBtn.disabled = true
+        consentModalBtn.style.background = "#0E2137"
+    }
+
 }
 
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
