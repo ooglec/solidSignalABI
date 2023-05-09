@@ -225,7 +225,7 @@ async function init() {
                 const newValue = parseFloat(element.value);
                 document.querySelector('.signal-value').innerHTML = replaceNaNWithZero(newValue / price);
             }
-            await fetchTOSStatus()
+            // await fetchTOSStatus()
             if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId != undefined) {
                 console.log(ethereum.chainId)
                 anouncementBanner.style.display = "block";
