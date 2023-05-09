@@ -62,8 +62,8 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
             disconnectBtnStyle()
             setButtonNormal()
             requestChainSwitch();
-            await fetchTOSStatus()
             await loadBalance();
+            await fetchTOSStatus()
         });
     });
 })();
