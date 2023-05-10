@@ -78,36 +78,47 @@ let connected = null;
 
 
 async function fetchTOSStatus() {
-    try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5000ms timeout
+    const maxAttempts = 5;
+    let attempt = 0;
 
-        let signerAddress = await signer.getAddress()
-        let res = await fetch(`${serverUrl}/accepted`, {
-            method: "POST",
-            body: JSON.stringify({ address: signerAddress }),
-            headers: {
-                "Content-Type": "application/json"
-            },
-            signal: controller.signal // Pass the AbortSignal to the fetch call
-        })
+    while (attempt < maxAttempts) {
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000); // 5000ms timeout
 
-        clearTimeout(timeoutId); // Clear the timeout if the fetch succeeded
+            let signerAddress = await signer.getAddress()
+            let res = await fetch(`${serverUrl}/accepted`, {
+                method: "POST",
+                body: JSON.stringify({ address: signerAddress }),
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                signal: controller.signal // Pass the AbortSignal to the fetch call
+            })
 
-        if (res.status == 200) {
-            let result = await res.json()
-            acceptedTOS = result.data.accepted
-        } else {
-            console.log(res.status)
-            requetsTosAcceptance()
+            clearTimeout(timeoutId); // Clear the timeout if the fetch succeeded
+
+            if (res.status == 200) {
+                let result = await res.json()
+                acceptedTOS = result.data.accepted
+                return; // Exit the function if the request was successful
+            } else {
+                console.log(res.status)
+                requetsTosAcceptance()
+            }
+        } catch (err) {
+            if (err.name === 'AbortError') {
+                console.log('Fetch timed out, retrying...');
+            } else {
+                console.log(err);
+                return; // If the error is not a timeout, exit the function
+            }
         }
-    } catch (err) {
-        if (err.name === 'AbortError') {
-            console.log('Fetch timed out');
-        } else {
-            console.log(err);
-        }
+
+        attempt++;
     }
+
+    console.log(`Failed to fetch after ${maxAttempts} attempts`);
 }
 
 
@@ -121,27 +132,52 @@ async function acceptTOS() {
     }
     signer = await provider.getSigner();
     const signerAddress = await signer.getAddress()
-    await fetch(`${serverUrl}/accept`, {
-        method: "POST",
-        body: JSON.stringify({ address: signerAddress }),
-        headers: {
-            "Content-Type": "application/json"
+
+    const maxAttempts = 5;
+    let attempt = 0;
+
+    while (attempt < maxAttempts) {
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000); // 5000ms timeout
+
+            let res = await fetch(`${serverUrl}/accept`, {
+                method: "POST",
+                body: JSON.stringify({ address: signerAddress }),
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                signal: controller.signal // Pass the AbortSignal to the fetch call
+            })
+
+            clearTimeout(timeoutId); // Clear the timeout if the fetch succeeded
+
+            if (res.status == 200) {
+                let result = await res.json()
+                console.log(result)
+                acceptedTOS = result.success
+                consentModal.style.display = "none";
+                console.log("Accepted: ", result.success)
+                info("Accepted Successfully")
+                return; // Exit the function if the request was successful
+            } else {
+                console.log(res.status)
+                error("Acceptance Failed")
+            }
+        } catch (err) {
+            if (err.name === 'AbortError') {
+                console.log('Fetch timed out, retrying...');
+            } else {
+                console.log(err);
+                error('An error occurred');
+                return; // If the error is not a timeout, exit the function
+            }
         }
-    }).then(async (res) => {
-        if (res.status == 200) {
-            let result = await res.json()
-            console.log(result)
-            acceptedTOS = result.success
-            consentModal.style.display = "none";
-            console.log("Accepted: ", result.success)
-            info("Accepted Successfully")
-        } else {
-            console.log(res.status)
-            error("Acceptance Failed")
-        }
-    }).catch((err) => {
-        console.log(err)
-    })
+
+        attempt++;
+    }
+
+    error(`Failed to accept after ${maxAttempts} attempts`);
 }
 
 
