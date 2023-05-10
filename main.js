@@ -171,7 +171,6 @@ async function walletConnect() {
     await fetchTOSStatus();
     setAddress(signerAddress)
     console.log(await signer.getAddress())
-    localStorage.setItem("connected", true);
     connected = true;
     disconnectBtnStyle()
     button.value = "Buy";
@@ -203,7 +202,6 @@ async function ledgerLive() {
     await loadBalance();
     await fetchTOSStatus();
     setAddress(signerAddress)
-    localStorage.setItem("connected", true);
     connected = true;
     disconnectBtnStyle()
     button.value = "Buy";
@@ -217,7 +215,6 @@ async function ledgerLive() {
 
 async function init() {
     walletComponent.style.display = "none";
-    localStorage.removeItem("connected");
     if (window.ethereum) {
         provider = new ethers.providers.Web3Provider(window.ethereum);
         try {
@@ -249,7 +246,7 @@ async function init() {
             button.value = "Connect Wallet";
             button.disabled = true;
             setButtonNormal()
-            localStorage.removeItem("connected");
+            connected = null;
         }
 
 
@@ -258,7 +255,7 @@ async function init() {
         button.value = "Connect Wallet";
         button.disabled = true;
         setButtonNormal()
-        localStorage.removeItem("connected");
+        connected = null;
     }
 }
 
@@ -428,7 +425,7 @@ async function requetsTosAcceptance() {
 }
 
 function checkMinimumPurchase(value, solidSpendAllowance, button) {
-    if (localStorage.getItem("connected") == null && connected == null) return;
+    if (connected == null) return;
     console.log(userUsdcBalance)
     button.disabled = false;
     if (userUsdcBalance < value) {
@@ -614,18 +611,18 @@ window.addEventListener('load', async () => {
     });
 
     connectionButton.addEventListener('click', async (event) => {
-        if (localStorage.getItem("connected") == null && connected == null) {
+        if (connected == null) {
             walletComponent.style.display = "block";
 
         } else {
-            try {
-                localStorage.removeItem("connected");
-                if (localStorage.getItem("walletconnect")) {
-                    localStorage.removeItem("walletconnect")
-                }
-            } catch (err) {
+            // try {
+            //     localStorage.removeItem("connected");
+            //     if (localStorage.getItem("walletconnect")) {
+            //         localStorage.removeItem("walletconnect")
+            //     }
+            // } catch (err) {
 
-            }
+            // }
             connected = null;
             connectionButton.innerHTML = "Connect Wallet";
             connectBtnStyle()
@@ -649,7 +646,7 @@ window.addEventListener('load', async () => {
     button.addEventListener('click', async (event) => {
         console.log(connected)
         event.preventDefault();
-        if (localStorage.getItem("connected") == null && connected == null) {
+        if (connected == null) {
             button.value = "Connect Wallet";
             walletComponent.style.display = "block";
             return
@@ -750,7 +747,7 @@ window.addEventListener('load', async () => {
     })
 
     window.ethereum.on('accountsChanged', async function (accounts) {
-        if (localStorage.getItem("connected") && connected == true) {
+        if (connected == true) {
             acceptedTOS = false;
             button.disabled = true;
             button.value = "Switching..."
@@ -765,7 +762,7 @@ window.addEventListener('load', async () => {
     });
 
     provider.on('accountsChanged', async function (accounts) {
-        if (localStorage.getItem("connected") && connected == true) {
+        if (connected == true) {
             acceptedTOS = false;
             button.disabled = true;
             button.value = "Switching..."
