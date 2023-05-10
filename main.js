@@ -140,12 +140,12 @@ async function connect() {
         await window.ethereum.request({ method: 'eth_requestAccounts' });
         signer = provider.getSigner();
         const signerAddress = await signer.getAddress()
+        connected = true;
         await loadBalance()
         setAddress(signerAddress)
         await fetchTOSStatus();
         button.value = "Buy";
         setButtonNormal()
-        connected = true;
         walletComponent.style.display = "none";
         connectionButton.innerHTML = "Disconnect";
         disconnectBtnStyle()
