@@ -78,31 +78,38 @@ let connected = null;
 
 
 async function fetchTOSStatus() {
-    let signerAddress = await signer.getAddress()
     try {
-        await fetch(`${serverUrl}/accepted`, {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5000ms timeout
+
+        let signerAddress = await signer.getAddress()
+        let res = await fetch(`${serverUrl}/accepted`, {
             method: "POST",
             body: JSON.stringify({ address: signerAddress }),
             headers: {
                 "Content-Type": "application/json"
-            }
-        }).then(async (res) => {
-            if (res.status == 200) {
-                let result = await res.json()
-                acceptedTOS = result.data.accepted
-
-            } else {
-                console.log(res.status)
-                requetsTosAcceptance()
-            }
-        }).catch((err) => {
-            console.log(err)
+            },
+            signal: controller.signal // Pass the AbortSignal to the fetch call
         })
-    } catch (err) {
-        console.log(err)
-    }
 
+        clearTimeout(timeoutId); // Clear the timeout if the fetch succeeded
+
+        if (res.status == 200) {
+            let result = await res.json()
+            acceptedTOS = result.data.accepted
+        } else {
+            console.log(res.status)
+            requetsTosAcceptance()
+        }
+    } catch (err) {
+        if (err.name === 'AbortError') {
+            console.log('Fetch timed out');
+        } else {
+            console.log(err);
+        }
+    }
 }
+
 
 
 
