@@ -58,12 +58,14 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
             }
             await loadBalance();
             walletComponent.style.display = "none";
-            await fetchTOSStatus();
             button.value = "Buy"
             connectionButton.innerHTML = "Disconnect";
             disconnectBtnStyle()
             setButtonNormal()
-            requestChainSwitch();
+            await requestChainSwitch();
+            if (acceptedTOS == false) {
+                requetsTosAcceptance()
+            }
         });
     });
 })();
@@ -135,6 +137,7 @@ async function connect() {
         await loadBalance()
         setAddress(signerAddress)
         connectionButton.innerHTML = "Disconnect";
+        await fetchTOSStatus();
         disconnectBtnStyle()
         button.value = "Approve";
         setButtonNormal()
@@ -158,7 +161,8 @@ async function walletConnect() {
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
     signer = await provider.getSigner();
     const signerAddress = await signer.getAddress()
-    await loadBalance();
+    // await loadBalance();
+    await fetchTOSStatus();
     setAddress(signerAddress)
     console.log(await signer.getAddress())
     localStorage.setItem("connected", true);
@@ -190,6 +194,7 @@ async function ledgerLive() {
     signer = await provider.getSigner();
     const signerAddress = await signer.getAddress()
     await loadBalance();
+    await fetchTOSStatus();
     setAddress(signerAddress)
     localStorage.setItem("connected", true);
     connectionButton.innerHTML = "Disconnect";
