@@ -80,24 +80,29 @@ let connected = null;
 
 async function fetchTOSStatus() {
     let signerAddress = await signer.getAddress()
-    await fetch(`${serverUrl}/accepted`, {
-        method: "POST",
-        body: JSON.stringify({ address: signerAddress }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(async (res) => {
-        if (res.status == 200) {
-            let result = await res.json()
-            acceptedTOS = result.data.accepted
+    try {
+        await fetch(`${serverUrl}/accepted`, {
+            method: "POST",
+            body: JSON.stringify({ address: signerAddress }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(async (res) => {
+            if (res.status == 200) {
+                let result = await res.json()
+                acceptedTOS = result.data.accepted
 
-        } else {
-            console.log(res.status)
-            requetsTosAcceptance()
-        }
-    }).catch((err) => {
+            } else {
+                console.log(res.status)
+                requetsTosAcceptance()
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+    } catch (err) {
         console.log(err)
-    })
+    }
+
 }
 
 
@@ -146,11 +151,9 @@ async function connect() {
         console.log(`checking the connection status: ${connected}`)
         await loadBalance()
         setAddress(signerAddress)
-        try {
-            await fetchTOSStatus();
-        } catch (err) {
-            console.log(err)
-        }
+
+        await fetchTOSStatus();
+
         walletComponent.style.display = "none";
         button.value = "Buy";
         setButtonNormal()
