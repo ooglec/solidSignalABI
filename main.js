@@ -281,6 +281,7 @@ async function loadAmounts() {
     document.getElementById("maximum-amount").innerHTML = `$${numeral(maximumRaiseAmount).format('0,0')} USDC`;
     document.getElementById("progress-indicator-id").style.width = `${parseInt((amtConverted / maximumRaiseAmount) * 300)}px`;
 }
+
 loadAmounts()
 
 async function loadBalance() {
@@ -636,6 +637,7 @@ window.addEventListener('load', async () => {
     })
 
     button.addEventListener('click', async (event) => {
+        console.log(connected)
         event.preventDefault();
         if (localStorage.getItem("connected") == null && connected == null) {
             button.value = "Connect Wallet";
