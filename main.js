@@ -139,7 +139,7 @@ async function connect() {
         connectionButton.innerHTML = "Disconnect";
         await fetchTOSStatus();
         disconnectBtnStyle()
-        button.value = "Approve";
+        button.value = "Buy";
         setButtonNormal()
         localStorage.setItem("connected", true);
         walletComponent.style.display = "none";
@@ -168,7 +168,7 @@ async function walletConnect() {
     localStorage.setItem("connected", true);
     connectionButton.innerHTML = "Disconnect";
     disconnectBtnStyle()
-    button.value = "Approve";
+    button.value = "Buy";
     setButtonNormal()
 }
 
@@ -199,7 +199,7 @@ async function ledgerLive() {
     localStorage.setItem("connected", true);
     connectionButton.innerHTML = "Disconnect";
     disconnectBtnStyle()
-    button.value = "Approve";
+    button.value = "Buy";
     setButtonNormal()
 }
 
