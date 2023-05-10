@@ -149,9 +149,9 @@ async function connect() {
         await fetchTOSStatus();
         button.value = "Buy";
         setButtonNormal()
-        walletComponent.style.display = "none";
         connectionButton.innerHTML = "Disconnect";
         disconnectBtnStyle()
+        walletComponent.style.display = "none";
     } catch (err) {
         error("Connection failed!", extractErrorMessage(err.message))
         console.log(err)
