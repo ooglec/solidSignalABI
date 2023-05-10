@@ -161,7 +161,7 @@ async function walletConnect() {
     provider = new ethers.providers.Web3Provider(walletConnectProvider);
     signer = await provider.getSigner();
     const signerAddress = await signer.getAddress()
-    // await loadBalance();
+    await loadBalance();
     await fetchTOSStatus();
     setAddress(signerAddress)
     console.log(await signer.getAddress())
