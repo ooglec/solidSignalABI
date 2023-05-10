@@ -137,13 +137,13 @@ async function connect() {
         const signerAddress = await signer.getAddress()
         await loadBalance()
         setAddress(signerAddress)
-        connectionButton.innerHTML = "Disconnect";
         await fetchTOSStatus();
         disconnectBtnStyle()
         button.value = "Buy";
         setButtonNormal()
         connected = true;
         walletComponent.style.display = "none";
+        connectionButton.innerHTML = "Disconnect";
     } catch (err) {
         error("Connection failed!", extractErrorMessage(err.message))
         console.log(err)
@@ -168,10 +168,10 @@ async function walletConnect() {
     console.log(await signer.getAddress())
     localStorage.setItem("connected", true);
     connected = true;
-    connectionButton.innerHTML = "Disconnect";
     disconnectBtnStyle()
     button.value = "Buy";
     setButtonNormal()
+    connectionButton.innerHTML = "Disconnect";
 }
 
 async function ledgerLive() {
@@ -200,10 +200,10 @@ async function ledgerLive() {
     setAddress(signerAddress)
     localStorage.setItem("connected", true);
     connected = true;
-    connectionButton.innerHTML = "Disconnect";
     disconnectBtnStyle()
     button.value = "Buy";
     setButtonNormal()
+    connectionButton.innerHTML = "Disconnect";
 }
 
 
