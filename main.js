@@ -30,7 +30,7 @@ let acceptedTOS = false
 const WalletConnectProvider = window.WalletConnectProvider.default;
 const WalletConnect = window.WalletConnect.default;
 const QRCodeModal = window.WalletConnectQRCodeModal.default;
-const connected = null;
+let connected = null;
 
 
 (async function listenForConnection() {
