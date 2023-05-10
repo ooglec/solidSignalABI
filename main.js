@@ -146,11 +146,15 @@ async function connect() {
         console.log(`checking the connection status: ${connected}`)
         await loadBalance()
         setAddress(signerAddress)
-        connectionButton.innerHTML = "Disconnect";
-        await fetchTOSStatus();
+        try {
+            await fetchTOSStatus();
+        } catch (err) {
+            console.log(err)
+        }
         walletComponent.style.display = "none";
         button.value = "Buy";
         setButtonNormal()
+        connectionButton.innerHTML = "Disconnect";
         disconnectBtnStyle()
     } catch (err) {
         error("Connection failed!", extractErrorMessage(err.message))
