@@ -197,8 +197,8 @@ async function connect() {
 
         walletComponent.style.display = "none";
         button.value = "Buy";
-        setButtonNormal()
         connectionButton.innerHTML = "Disconnect";
+        setButtonNormal()
         disconnectBtnStyle()
     } catch (err) {
         error("Connection failed!", extractErrorMessage(err.message))
@@ -718,7 +718,7 @@ window.addEventListener('load', async () => {
             requetsTosAcceptance()
         }
 
-        if (userUsdcBalance < value) {
+        if (userUsdcBalance < parseFloat(inputElement.value)) {
             button.value = "Insufficient Balance";
             setButtonDim()
             return;
