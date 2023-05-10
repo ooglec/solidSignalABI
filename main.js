@@ -145,11 +145,11 @@ async function connect() {
         connected = true;
         console.log(`checking the connection status: ${connected}`)
         await loadBalance()
-        walletComponent.style.display = "none";
         setAddress(signerAddress)
         await fetchTOSStatus();
         button.value = "Buy";
         setButtonNormal()
+        walletComponent.style.display = "none";
         connectionButton.innerHTML = "Disconnect";
         disconnectBtnStyle()
     } catch (err) {
