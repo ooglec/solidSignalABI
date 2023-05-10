@@ -433,6 +433,7 @@ function checkMinimumPurchase(value, solidSpendAllowance, button) {
     button.disabled = false;
     if (userUsdcBalance < value) {
         button.value = "Insufficient Balance";
+        button.disabled = true;
         setButtonDim()
     } else {
         if (value < minimumPurchaseAmount) {
