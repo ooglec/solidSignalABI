@@ -135,7 +135,6 @@ async function acceptTOS() {
 
     const maxAttempts = 5;
     let attempt = 0;
-
     while (attempt < maxAttempts) {
         try {
             const controller = new AbortController();
