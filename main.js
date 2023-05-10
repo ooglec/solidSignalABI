@@ -770,6 +770,9 @@ window.addEventListener('load', async () => {
             console.log(`signer changed ${signerAddress}`)
             await loadBalance();
             await fetchTOSStatus()
+            if (acceptedTOS === false) {
+                requetsTosAcceptance()
+            }
             setAddress(signerAddress)
             reset(button);
         }
