@@ -37,8 +37,13 @@ let connected = null;
     var walletDivs = document.querySelectorAll('.wallet-instance');
     walletDivs.forEach(function (walletDiv) {
         walletDiv.addEventListener('click', async function () {
-            connectionButton.innerHTML = "Connecting...";
-            button.value = "Connecting...";
+            try {
+                connectionButton.innerHTML = "Connecting...";
+                button.value = "Connecting...";
+            } catch (err) {
+                console.log(err)
+            }
+
             let id = walletDiv.id;
             if (id == "metamask") {
                 if (window.ethereum) {
