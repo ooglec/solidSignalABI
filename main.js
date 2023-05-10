@@ -670,6 +670,12 @@ window.addEventListener('load', async () => {
             requetsTosAcceptance()
         }
 
+        if (userUsdcBalance < value) {
+            button.value = "Insufficient Balance";
+            setButtonDim()
+            return;
+        }
+
 
         if ((totalAmountRaised + parseFloat(inputElement.value)) > maximumRaiseAmount) {
             error("Error: Exceeds Presale Target!", "Presale target exceeded")
@@ -680,11 +686,15 @@ window.addEventListener('load', async () => {
 
 
 
+
+
         if (totalAmountRaised >= maximumRaiseAmount) {
             error("Error: Presale Target!", "Presale target exceeded")
 
             return
         }
+
+
 
 
 
