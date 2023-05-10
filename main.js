@@ -68,10 +68,11 @@ let connected = null;
             connectionButton.innerHTML = "Disconnect";
             disconnectBtnStyle()
             setButtonNormal()
-            await requestChainSwitch();
             if (acceptedTOS == false) {
                 requetsTosAcceptance()
             }
+            await requestChainSwitch();
+
         });
     });
 })();
