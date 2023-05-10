@@ -146,8 +146,8 @@ async function connect() {
         console.log(`checking the connection status: ${connected}`)
         await loadBalance()
         setAddress(signerAddress)
-        await fetchTOSStatus();
         connectionButton.innerHTML = "Disconnect";
+        await fetchTOSStatus();
         walletComponent.style.display = "none";
         button.value = "Buy";
         setButtonNormal()
@@ -249,7 +249,7 @@ async function init() {
             button.value = "Connect Wallet";
             button.disabled = true;
             setButtonNormal()
-            connected = null;
+
         }
 
 
@@ -258,7 +258,6 @@ async function init() {
         button.value = "Connect Wallet";
         button.disabled = true;
         setButtonNormal()
-        connected = null;
     }
 }
 
