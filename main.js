@@ -135,6 +135,7 @@ async function acceptTOS() {
 
 //wallet connections
 async function connect() {
+    console.log("connecting...")
     try {
         provider = new ethers.providers.Web3Provider(window.ethereum);
         await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -143,11 +144,11 @@ async function connect() {
         connected = true;
         console.log(`checking the connection status: ${connected}`)
         await loadBalance()
+        walletComponent.style.display = "none";
         setAddress(signerAddress)
         await fetchTOSStatus();
         button.value = "Buy";
         setButtonNormal()
-        walletComponent.style.display = "none";
         connectionButton.innerHTML = "Disconnect";
         disconnectBtnStyle()
     } catch (err) {
