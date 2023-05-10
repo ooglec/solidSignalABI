@@ -43,7 +43,6 @@ let connected = null;
             } catch (err) {
                 console.log(err)
             }
-
             let id = walletDiv.id;
             if (id == "metamask") {
                 if (window.ethereum) {
