@@ -56,7 +56,7 @@ const QRCodeModal = window.WalletConnectQRCodeModal.default;
             } else if (id == "wallet-connect") {
                 await walletConnect();
             }
-            await loadBalance();
+            // await loadBalance();
             walletComponent.style.display = "none";
             button.value = "Buy"
             connectionButton.innerHTML = "Disconnect";
