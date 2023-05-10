@@ -141,6 +141,7 @@ async function connect() {
         signer = provider.getSigner();
         const signerAddress = await signer.getAddress()
         connected = true;
+        console.log(`checking the connection status: ${connected}`)
         await loadBalance()
         setAddress(signerAddress)
         await fetchTOSStatus();
