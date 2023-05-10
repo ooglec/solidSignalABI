@@ -426,7 +426,6 @@ function checkMinimumPurchase(value, solidSpendAllowance, button) {
         button.value = "Insufficient Balance";
         setButtonDim()
     } else {
-
         if (value < minimumPurchaseAmount) {
             console.log(minimumPurchaseAmount)
             button.disabled = true;
