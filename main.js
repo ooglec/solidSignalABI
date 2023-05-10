@@ -138,12 +138,12 @@ async function connect() {
         await loadBalance()
         setAddress(signerAddress)
         await fetchTOSStatus();
-        disconnectBtnStyle()
         button.value = "Buy";
         setButtonNormal()
         connected = true;
         walletComponent.style.display = "none";
         connectionButton.innerHTML = "Disconnect";
+        disconnectBtnStyle()
     } catch (err) {
         error("Connection failed!", extractErrorMessage(err.message))
         console.log(err)
@@ -613,10 +613,15 @@ window.addEventListener('load', async () => {
             walletComponent.style.display = "block";
 
         } else {
-            localStorage.removeItem("connected");
-            if (localStorage.getItem("walletconnect")) {
-                localStorage.removeItem("walletconnect")
+            try {
+                localStorage.removeItem("connected");
+                if (localStorage.getItem("walletconnect")) {
+                    localStorage.removeItem("walletconnect")
+                }
+            } catch (err) {
+
             }
+            connected = null;
             connectionButton.innerHTML = "Connect Wallet";
             connectBtnStyle()
             button.value = "Connect Wallet";
