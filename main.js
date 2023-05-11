@@ -63,8 +63,8 @@ let connected = null;
             }
             // await loadBalance();
             walletComponent.style.display = "none";
-            button.value = "Buy"
             connectionButton.innerHTML = "Disconnect";
+            button.value = "Buy"
             disconnectBtnStyle()
             setButtonNormal()
             if (acceptedTOS == false) {
@@ -84,7 +84,7 @@ async function fetchTOSStatus() {
     while (attempt < maxAttempts) {
         try {
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 5000); // 5000ms timeout
+            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10000ms timeout
 
             let signerAddress = await signer.getAddress()
             let res = await fetch(`${serverUrl}/accepted`, {
@@ -192,12 +192,10 @@ async function connect() {
         console.log(`checking the connection status: ${connected}`)
         await loadBalance()
         setAddress(signerAddress)
-
         await fetchTOSStatus();
-
         walletComponent.style.display = "none";
-        button.value = "Buy";
         connectionButton.innerHTML = "Disconnect";
+        button.value = "Buy";
         setButtonNormal()
         disconnectBtnStyle()
     } catch (err) {
@@ -379,7 +377,8 @@ async function buy() {
 
     if (parseFloat(value) > solidSpendAllowance) {
         try {
-            const txApprove = await usdcContract.approve(solidAddress, ethers.utils.parseUnits("500", 6))
+            const approvalAmt = inputElement.value.length > 0 ? parseFloat(inputElement.value) : 500
+            const txApprove = await usdcContract.approve(solidAddress, ethers.utils.parseUnits(approvalAmt.toString(), 6))
             await txApprove.wait()
             button.value = "Buy";
             success('Approval successful');
