@@ -138,7 +138,7 @@ async function acceptTOS() {
     while (attempt < maxAttempts) {
         try {
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 10000); // 5000ms timeout
+            const timeoutId = setTimeout(() => controller.abort(), 5000); // 5000ms timeout
 
             let res = await fetch(`${serverUrl}/accept`, {
                 method: "POST",
