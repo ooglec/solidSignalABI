@@ -194,10 +194,11 @@ async function connect() {
         setAddress(signerAddress)
         await fetchTOSStatus();
         walletComponent.style.display = "none";
-        connectionButton.innerHTML = "Disconnect";
-        button.value = "Buy";
-        setButtonNormal()
         disconnectBtnStyle()
+        connectionButton.innerHTML = "Disconnect";
+        setButtonNormal()
+        button.value = "Buy";
+
     } catch (err) {
         error("Connection failed!", extractErrorMessage(err.message))
         console.log(err)
@@ -221,10 +222,11 @@ async function walletConnect() {
     setAddress(signerAddress)
     console.log(await signer.getAddress())
     connected = true;
-    disconnectBtnStyle()
-    button.value = "Buy";
     setButtonNormal()
     connectionButton.innerHTML = "Disconnect";
+    disconnectBtnStyle()
+    button.value = "Buy";
+
 }
 
 async function ledgerLive() {
@@ -252,10 +254,11 @@ async function ledgerLive() {
     await fetchTOSStatus();
     setAddress(signerAddress)
     connected = true;
-    disconnectBtnStyle()
-    button.value = "Buy";
     setButtonNormal()
     connectionButton.innerHTML = "Disconnect";
+    disconnectBtnStyle()
+    button.value = "Buy";
+
 }
 
 
@@ -354,8 +357,8 @@ async function loadBalance() {
     document.getElementById("purchase").innerHTML = `$${numeral(formatedUSDCBalance).format("0,0")}`;
     document.getElementById("purchase-signal").innerHTML = `${numeral(formatedSignal).format("0,0")} SIGNAL`;
     // document.getElementById("price").innerHTML = `$${price}`;
-    button.value = "Buy";
-    setButtonNormal()
+    // button.value = "Buy";
+    // setButtonNormal()
 }
 
 //buy and approve
