@@ -21,7 +21,8 @@ const walletBar = document.querySelector("#wallet-bar");
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
 const rpc = "https://arbitrum-goerli.public.blastapi.io";//
-const serverUrl = "https://solid-signal-dz9t.vercel.app"//
+const serverUrl = "http://solid-signal-public-raise-env.eba-jtiz3c5z.us-west-2.elasticbeanstalk.com"//
+// "https://solid-signal-dz9t.vercel.app"
 const chains = ["0x66eed", 421613];//
 const walletChainId = "0x66eed"//
 const blockExplorer = "https://goerli-rollup-explorer.arbitrum.io"//
