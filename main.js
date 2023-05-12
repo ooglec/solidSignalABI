@@ -23,7 +23,7 @@ const connectionButton = document.querySelector('#connect');
 const rpc = "https://arbitrum-one.public.blastapi.io";
 const serverUrl = "https://solid-signal-dz9t.vercel.app"//
 // "https://solid-signal-dz9t.vercel.app"
-const chains = [421613, "0xa4b1"];
+const chains = [42161, "0xa4b1"];
 const walletChainId = "0xa4b1"
 const blockExplorer = "https://arbiscan.io"
 let acceptedTOS = false
@@ -210,7 +210,8 @@ async function walletConnect() {
     const walletConnectProvider = new WalletConnectProvider({
         rpc: {
             // 421613: "https://arbitrum-goerli.public.blastapi.io	",
-            421613: "https://endpoints.omniatech.io/v1/arbitrum/one/public"
+            421613: "https://endpoints.omniatech.io/v1/arbitrum/one/public",
+            42161: "https://endpoints.omniatech.io/v1/arbitrum/one/public"
         },
     });
 
