@@ -1,9 +1,9 @@
 let provider;
 let signer;
 let price;
-const solidAddress = "0xcaE8A39DC4401d0b82f7445262dBe1B5dd75CA9B";//
-const usdcAddress = "0x6b52834DDDa183E4C01d20f1421412035c66Da54";//
-const chainName = 'Arbitrum Goerli';//
+const solidAddress = "0xd7B1bC34881f8f89Dc544179272E0019C169FB3a";
+const usdcAddress = "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8";
+const chainName = 'Arbitrum One';
 let solidSpendAllowance = 0;
 let minimumPurchaseAmount = 500;
 let userUsdcBalance = 0;
@@ -20,12 +20,12 @@ const swicthNework = document.querySelector("#switch-link");
 const walletBar = document.querySelector("#wallet-bar");
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
-const rpc = "https://arbitrum-goerli.public.blastapi.io";//
+const rpc = "https://arbitrum-one.public.blastapi.io";
 const serverUrl = "https://solid-signal-dz9t.vercel.app"//
 // "https://solid-signal-dz9t.vercel.app"
-const chains = ["0x66eed", 421613];//
-const walletChainId = "0x66eed"//
-const blockExplorer = "https://goerli-rollup-explorer.arbitrum.io"//
+const chains = [421613, "0xa4b1"];
+const walletChainId = "0xa4b1"
+const blockExplorer = "https://arbiscan.io"
 let acceptedTOS = false
 
 const WalletConnectProvider = window.WalletConnectProvider.default;
@@ -423,7 +423,7 @@ async function addChain() {
         chainName: chainName,
         nativeCurrency: {
             name: chainName,
-            symbol: 'AGOR',
+            symbol: 'ETH',
             decimals: 18 //In number form
         },
         rpcUrls: [rpc],
@@ -436,7 +436,7 @@ async function requestChainSwitch() {
     try {
         await window.ethereum.request({
             method: 'wallet_switchEthereumChain',
-            params: [{ chainId: '0x66EED' }],
+            params: [{ chainId: '0xa4b1' }],
         });
         try {
             await loadAmounts();
@@ -455,7 +455,7 @@ async function requestChainSwitchV2() {
     try {
         await provider.request({
             method: 'wallet_switchEthereumChain',
-            params: [{ chainId: '0x66EED' }],
+            params: [{ chainId: '0xa4b1' }],
         });
         try {
             await loadAmounts();
