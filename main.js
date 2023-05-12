@@ -540,6 +540,9 @@ function extractErrorMessage(errorString) {
     const regex = /^Error:\s(.*?)\s\(/;
     const match = regex.exec(errorString);
     const errorMessage = match ? match[1] : '';
+    if (errorMessage === '') {
+        return errorString
+    }
     return errorMessage
 }
 
