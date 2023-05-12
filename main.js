@@ -5,7 +5,7 @@ const solidAddress = "0xcaE8A39DC4401d0b82f7445262dBe1B5dd75CA9B";//
 const usdcAddress = "0x6b52834DDDa183E4C01d20f1421412035c66Da54";//
 const chainName = 'Arbitrum Goerli';//
 let solidSpendAllowance = 0;
-let minimumPurchaseAmount = 0;
+let minimumPurchaseAmount = 500;
 let userUsdcBalance = 0;
 let maximumRaiseAmount;
 let totalAmountRaised;
@@ -880,7 +880,7 @@ window.addEventListener('load', async () => {
     });
 
     try {
-        if (minimumPurchaseAmount.length <= 0) {
+        if (minimumPurchaseAmount <= 0) {
             await loadAmounts();
         }
     } catch (err) {
