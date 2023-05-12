@@ -805,7 +805,7 @@ window.addEventListener('load', async () => {
         try {
             await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
-                params: [{ chainId: '0x66EED' }],
+                params: [{ chainId: '0xa4b1' }],
             });
             anouncementBanner.style.display = "none"
         } catch (err) {
