@@ -344,24 +344,25 @@ async function loadBalance() {
     let localProvider = new ethers.providers.JsonRpcProvider(rpc);
     const solidContract = new ethers.Contract(solidAddress, signalABI, localProvider);
     const usdcContract = new ethers.Contract(usdcAddress, erc20ABI, localProvider);
-    signer = await provider.getSigner()
-    // const prc = await solidContract.presalePrice();
-    // price = Math.round(ethers.utils.formatEther(prc) * 100) / 100
+    signer = await provider.getSigner();
     const signerAddress = await signer.getAddress();
-    const balance = await solidContract.myBalance(signerAddress); //signal value
-    const allowance = await usdcContract.allowance(signerAddress, solidAddress);
-    const balanceUsdc = await usdcContract.balanceOf(signerAddress);
-    solidSpendAllowance = Math.round(ethers.utils.formatUnits(allowance, 6) * 1000) / 1000
-    userUsdcBalance = Math.round(ethers.utils.formatUnits(balanceUsdc, 6) * 1000) / 1000
 
-    const formatedUSDCBalance = replaceNaNWithZero(((Math.round(ethers.utils.formatEther(balance) * 100) / 100) * price))
-    const formatedSignal = replaceNaNWithZero((Math.round(ethers.utils.formatEther(balance) * 100) / 100))
+    const [balance, allowance, balanceUsdc] = await Promise.all([
+        solidContract.myBalance(signerAddress),
+        usdcContract.allowance(signerAddress, solidAddress),
+        usdcContract.balanceOf(signerAddress),
+    ]);
+
+    solidSpendAllowance = Math.round(ethers.utils.formatUnits(allowance, 6) * 1000) / 1000;
+    userUsdcBalance = Math.round(ethers.utils.formatUnits(balanceUsdc, 6) * 1000) / 1000;
+
+    const formatedUSDCBalance = replaceNaNWithZero(((Math.round(ethers.utils.formatEther(balance) * 100) / 100) * price));
+    const formatedSignal = replaceNaNWithZero((Math.round(ethers.utils.formatEther(balance) * 100) / 100));
+
     document.getElementById("purchase").innerHTML = `$${numeral(formatedUSDCBalance).format("0,0")}`;
     document.getElementById("purchase-signal").innerHTML = `${numeral(formatedSignal).format("0,0")} SIGNAL`;
-    // document.getElementById("price").innerHTML = `$${price}`;
-    // button.value = "Buy";
-    // setButtonNormal()
 }
+
 
 //buy and approve
 async function buy() {
