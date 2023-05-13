@@ -21,7 +21,7 @@ const walletBar = document.querySelector("#wallet-bar");
 const button = document.getElementById("execute-button");
 const connectionButton = document.querySelector('#connect');
 const rpc = "https://arbitrum-one.public.blastapi.io";
-const serverUrl = "https://l2s7uk1jpb.execute-api.us-east-1.amazonaws.com/default/solidsignal-publicraise"//
+const serverUrl = "https://solid-signal-dz9t.vercel.app"//
 // "https://solid-signal-dz9t.vercel.app"
 const chains = [42161, "0xa4b1"];
 const walletChainId = "0xa4b1"
