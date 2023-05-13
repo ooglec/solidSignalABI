@@ -183,28 +183,44 @@ async function acceptTOS() {
 
 //wallet connections
 async function connect() {
-    console.log("connecting...")
+    console.log("Connecting...");
+
     try {
         provider = new ethers.providers.Web3Provider(window.ethereum);
         await window.ethereum.request({ method: 'eth_requestAccounts' });
         signer = provider.getSigner();
         const signerAddress = await signer.getAddress()
         connected = true;
-        console.log(`checking the connection status: ${connected}`)
-        await loadBalance()
-        setAddress(signerAddress)
-        await fetchTOSStatus();
+
+        console.log(`Checking the connection status: ${connected}`);
+
+        // Set the address before the other tasks
+
+        // Run these tasks concurrently
+        await Promise.all([
+            loadBalance(),
+            fetchTOSStatus()
+        ]);
+
+        setAddress(signerAddress);
+
         walletComponent.style.display = "none";
-        disconnectBtnStyle()
+        disconnectBtnStyle();
         connectionButton.innerHTML = "Disconnect";
-        setButtonNormal()
+        setButtonNormal();
         button.value = "Buy";
 
     } catch (err) {
-        error("Connection failed!", extractErrorMessage(err.message))
-        console.log(err)
+        if (err.code === 4001) { // EIP-1193 userRejectedRequest error
+            console.log("User rejected connection request");
+            error("Connection request denied!", "Please approve the connection request to continue.");
+        } else {
+            console.log(err);
+            error("Connection failed!", extractErrorMessage(err.message));
+        }
     }
 }
+
 
 async function walletConnect() {
     const walletConnectProvider = new WalletConnectProvider({
