@@ -319,16 +319,20 @@ async function loadAmounts() {
     signer = localProvider.getSigner();
     const abi = signalABI;
     const solidContract = new ethers.Contract(solidAddress, abi, localProvider);
-    const amt = await solidContract.usdcRaised();
-    const amtConverted = Math.round(ethers.utils.formatUnits(amt, 6) * 100) / 100
-    const maxPresale = await solidContract.presaleCap()
-    const _minimumPurchaseAmount = await solidContract.minimumPurchaseAmount()
-    const prc = await solidContract.presalePrice();
-    price = Math.round(ethers.utils.formatEther(prc) * 100) / 100
-    maximumRaiseAmount = (Math.round(ethers.utils.formatUnits(maxPresale, 18) * 100) / 100) * price
-    minimumPurchaseAmount = (Math.round(ethers.utils.formatUnits(_minimumPurchaseAmount, 6) * 100) / 100)
-    totalAmountRaised = amtConverted
-    // numeral(1000).format('0,0');
+
+    const [amt, maxPresale, _minimumPurchaseAmount, prc] = await Promise.all([
+        solidContract.usdcRaised(),
+        solidContract.presaleCap(),
+        solidContract.minimumPurchaseAmount(),
+        solidContract.presalePrice(),
+    ]);
+
+    const amtConverted = Math.round(ethers.utils.formatUnits(amt, 6) * 100) / 100;
+    price = Math.round(ethers.utils.formatEther(prc) * 100) / 100;
+    maximumRaiseAmount = (Math.round(ethers.utils.formatUnits(maxPresale, 18) * 100) / 100) * price;
+    minimumPurchaseAmount = (Math.round(ethers.utils.formatUnits(_minimumPurchaseAmount, 6) * 100) / 100);
+    totalAmountRaised = amtConverted;
+
     document.getElementById("price").innerHTML = `$${price}`;
     document.getElementById("funds-raised").innerHTML = `$${numeral(amtConverted).format('0,0')}`;
     document.getElementById("funds-raised-sm").innerHTML = `$${numeral(amtConverted).format('0,0')} USD`;
@@ -336,6 +340,7 @@ async function loadAmounts() {
     document.getElementById("maximum-amount").innerHTML = `$${numeral(maximumRaiseAmount).format('0,0')} USDC`;
     document.getElementById("progress-indicator-id").style.width = `${parseInt((amtConverted / maximumRaiseAmount) * 300)}px`;
 }
+
 
 loadAmounts()
 
