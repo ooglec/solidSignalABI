@@ -376,30 +376,33 @@ async function buy() {
     const signerAddress = await signer.getAddress();
     const solidContract = new ethers.Contract(solidAddress, signalABI, signer);
     const usdcContract = new ethers.Contract(usdcAddress, erc20ABI, signer);
+    //input value
     const value = document.querySelector('#USDC').value;
-    const allowance = await usdcContract.allowance(signerAddress, solidAddress);
-    const userBalance = await usdcContract.balanceOf(signerAddress)
-    const bigNumValue = ethers.utils.parseUnits(value.toString(), 6)
-    solidSpendAllowance = Math.round(ethers.utils.formatUnits(allowance, 6) * 1000) / 1000
+
+    const [allowance, userBalance] = await Promise.all([
+        usdcContract.allowance(signerAddress, solidAddress),
+        usdcContract.balanceOf(signerAddress),
+    ]);
+
+    const bigNumValue = ethers.utils.parseUnits(value.toString(), 6);
+    solidSpendAllowance = Math.round(ethers.utils.formatUnits(allowance, 6) * 1000) / 1000;
     if (bigNumValue.gt(userBalance)) {
-        error(`Error: Insufficient balance`, 'Check you USDC balance')
-        return
+        error(`Error: Insufficient balance`, 'Check your USDC balance');
+        return;
     }
 
     if (parseFloat(value) > solidSpendAllowance) {
         try {
-
-            // const approvalAmt = parseFloat(inputElement.value) > 0 ? parseFloat(inputElement.value) : 500
-            const txApprove = await usdcContract.approve(solidAddress, ethers.utils.parseUnits("500", 6))
-            await txApprove.wait()
+            const txApprove = await usdcContract.approve(solidAddress, ethers.utils.parseUnits("500", 6));
+            await txApprove.wait();
             button.value = "Buy";
             success('Approval successful');
         } catch (err) {
-            console.log(err)
+            console.log(err);
             if (err.code === 4001) {
-                error(`Error: User rejected the transaction`)
+                error(`Error: User rejected the transaction`);
             } else {
-                error(`Error: Approval Failed`, extractErrorMessage(err))
+                error(`Error: Approval Failed`, extractErrorMessage(err));
             }
         }
     } else {
@@ -407,20 +410,20 @@ async function buy() {
             const tx = await solidContract.buy(ethers.utils.parseUnits(value.toString(), 6));
             await tx.wait();
             success(`Transaction successful`, `Purchase of ${value / price} presale signal successful`);
-            resetInputs()
+            resetInputs();
         } catch (err) {
-            console.log(err)
+            console.log(err);
             if (err.code === 4001) {
-                error(`Error: User rejected the transaction`)
+                error(`Error: User rejected the transaction`);
             } else {
-                error(`Error:`, extractErrorMessage(err))
+                error(`Error:`, extractErrorMessage(err));
             }
         }
 
-        await loadAmounts();
-        await loadBalance();
+        await Promise.all([loadAmounts(), loadBalance()]);
     }
 }
+
 
 
 async function addChain() {
