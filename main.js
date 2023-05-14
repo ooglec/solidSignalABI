@@ -1,13 +1,13 @@
 let provider;
 let signer;
-let price;
+let price = 0.4;
 const solidAddress = "0x320f6b99bd5900B31BE1Ea5f3a0714DD641B398A";
 const usdcAddress = "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8";
 const chainName = 'Arbitrum One';
 let solidSpendAllowance = 0;
 let minimumPurchaseAmount = 50;
 let userUsdcBalance = 0;
-let maximumRaiseAmount;
+let maximumRaiseAmount = 800000;
 let totalAmountRaised;
 let presaleEnd;
 let notifications = document.createElement('div');
@@ -351,7 +351,7 @@ async function loadAmounts() {
 
     document.getElementById("price").innerHTML = `$${price}`;
     document.getElementById("funds-raised").innerHTML = `$${numeral(amtConverted).format('0,0')}`;
-    document.getElementById("funds-raised-sm").innerHTML = `$${numeral(amtConverted).format('0,0')} USD`;
+    document.getElementById("funds-raised-sm").innerHTML = `$${numeral(amtConverted).format('0,0')} USDC`;
     document.getElementById("min-purchase").innerHTML = `$${minimumPurchaseAmount}`;
     document.getElementById("maximum-amount").innerHTML = `$${numeral(maximumRaiseAmount).format('0,0')} USDC`;
     document.getElementById("progress-indicator-id").style.width = `${parseInt((amtConverted / maximumRaiseAmount) * 300)}px`;
