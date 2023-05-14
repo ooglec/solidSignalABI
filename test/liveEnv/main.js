@@ -1,7 +1,7 @@
 let provider;
 let signer;
 let price = 0.4;
-const solidAddress = "0x320f6b99bd5900B31BE1Ea5f3a0714DD641B398A";
+const solidAddress = "0x9aB30097A3BC41665Ac11af2bAac73dCFF1e66aF";
 const usdcAddress = "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8";
 const chainName = 'Arbitrum One';
 let solidSpendAllowance = 0;
