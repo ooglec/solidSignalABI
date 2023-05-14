@@ -5,7 +5,7 @@ const solidAddress = "0x320f6b99bd5900B31BE1Ea5f3a0714DD641B398A";
 const usdcAddress = "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8";
 const chainName = 'Arbitrum One';
 let solidSpendAllowance = 0;
-let minimumPurchaseAmount = 500;
+let minimumPurchaseAmount = 50;
 let userUsdcBalance = 0;
 let maximumRaiseAmount;
 let totalAmountRaised;
