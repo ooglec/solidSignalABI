@@ -78,7 +78,7 @@ let QRCodeModal;
 })();
 
 
-function loadVars() {
+async function loadVars() {
     try {
         WalletConnectProvider = window.WalletConnectProvider.default;
         WalletConnect = window.WalletConnect.default;
@@ -828,6 +828,9 @@ window.addEventListener('load', async () => {
 
     consentModalBtn.addEventListener("click", async function (e) {
         e.preventDefault()
+        if (connected == null) {
+            connectionButton.value = "Connect Wallet"
+        }
         try {
             consentModalBtn.value = "Please wait..."
             await acceptTOS()
