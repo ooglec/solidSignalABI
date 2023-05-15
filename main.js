@@ -27,55 +27,60 @@ const chains = [42161, "0xa4b1"];
 const walletChainId = "0xa4b1"
 const blockExplorer = "https://arbiscan.io"
 let acceptedTOS = false
-
-const WalletConnectProvider = window.WalletConnectProvider.default;
-const WalletConnect = window.WalletConnect.default;
-const QRCodeModal = window.WalletConnectQRCodeModal.default;
 let connected = null;
+let WalletConnectProvider;
+let WalletConnect;
+let QRCodeModal;
+(function loadVars() {
+    try {
+        WalletConnectProvider = window.WalletConnectProvider.default;
+        WalletConnect = window.WalletConnect.default;
+        QRCodeModal = window.WalletConnectQRCodeModal.default;
+    } catch (err) { }
+})()
 
-
-(async function listenForConnection() {
-    var walletDivs = document.querySelectorAll('.wallet-instance');
-    walletDivs.forEach(function (walletDiv) {
-        walletDiv.addEventListener('click', async function () {
-            try {
-                connectionButton.innerHTML = "Connecting...";
-                button.value = "Connecting...";
-            } catch (err) {
-                console.log(err)
-            }
-            let id = walletDiv.id;
-            if (id == "metamask") {
-                if (window.ethereum) {
-                    await connect();
-                } else {
-                    window.open("https://metamask.io/download/", "_blank")
+    (async function listenForConnection() {
+        var walletDivs = document.querySelectorAll('.wallet-instance');
+        walletDivs.forEach(function (walletDiv) {
+            walletDiv.addEventListener('click', async function () {
+                try {
+                    connectionButton.innerHTML = "Connecting...";
+                    button.value = "Connecting...";
+                } catch (err) {
+                    console.log(err)
                 }
-            } else if (id == "trustwallet") {
-                if (window.ethereum.isTrust) {
-                    await connect();
-                } else {
-                    window.open("https://trustwallet.com/download", "_blank")
+                let id = walletDiv.id;
+                if (id == "metamask") {
+                    if (window.ethereum) {
+                        await connect();
+                    } else {
+                        window.open("https://metamask.io/download/", "_blank")
+                    }
+                } else if (id == "trustwallet") {
+                    if (window.ethereum.isTrust) {
+                        await connect();
+                    } else {
+                        window.open("https://trustwallet.com/download", "_blank")
+                    }
+                } else if (id == "ledger-live") {
+                    await ledgerLive();
+                } else if (id == "wallet-connect") {
+                    await walletConnect();
                 }
-            } else if (id == "ledger-live") {
-                await ledgerLive();
-            } else if (id == "wallet-connect") {
-                await walletConnect();
-            }
-            // await loadBalance();
-            walletComponent.style.display = "none";
-            connectionButton.innerHTML = "Disconnect";
-            button.value = "Buy"
-            disconnectBtnStyle()
-            setButtonNormal()
-            if (acceptedTOS == false) {
-                requetsTosAcceptance()
-            }
-            await requestChainSwitch();
+                // await loadBalance();
+                walletComponent.style.display = "none";
+                connectionButton.innerHTML = "Disconnect";
+                button.value = "Buy"
+                disconnectBtnStyle()
+                setButtonNormal()
+                if (acceptedTOS == false) {
+                    requetsTosAcceptance()
+                }
+                await requestChainSwitch();
 
+            });
         });
-    });
-})();
+    })();
 
 
 async function fetchTOSStatus() {
@@ -336,16 +341,13 @@ async function loadAmounts() {
     const abi = signalABI;
     const solidContract = new ethers.Contract(solidAddress, abi, localProvider);
 
-    const [amt, maxPresale, _minimumPurchaseAmount, prc] = await Promise.all([
+    const [amt, _minimumPurchaseAmount] = await Promise.all([
         solidContract.usdcRaised(),
-        solidContract.presaleCap(),
         solidContract.minimumPurchaseAmount(),
-        solidContract.presalePrice(),
+
     ]);
 
     const amtConverted = Math.round(ethers.utils.formatUnits(amt, 6) * 100) / 100;
-    price = Math.round(ethers.utils.formatEther(prc) * 100) / 100;
-    maximumRaiseAmount = (Math.round(ethers.utils.formatUnits(maxPresale, 18) * 100) / 100) * price;
     minimumPurchaseAmount = (Math.round(ethers.utils.formatUnits(_minimumPurchaseAmount, 6) * 100) / 100);
     totalAmountRaised = amtConverted;
 
