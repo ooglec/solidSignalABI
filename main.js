@@ -31,13 +31,15 @@ let connected = null;
 let WalletConnectProvider;
 let WalletConnect;
 let QRCodeModal;
-(function loadVars() {
+
+function loadVars() {
     try {
         WalletConnectProvider = window.WalletConnectProvider.default;
         WalletConnect = window.WalletConnect.default;
         QRCodeModal = window.WalletConnectQRCodeModal.default;
     } catch (err) { }
-})()
+}
+loadVars()
 
     (async function listenForConnection() {
         var walletDivs = document.querySelectorAll('.wallet-instance');
@@ -667,6 +669,8 @@ window.addEventListener('load', async () => {
     document.querySelector('#address').style.display = "none";
     const form = document.getElementById('Form');
     const inputElement = document.querySelector('#USDC');
+
+    loadVars();
 
     form.addEventListener('submit', function (event) {
         console.log("prevented")
