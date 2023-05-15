@@ -710,14 +710,13 @@ window.addEventListener('load', async () => {
             walletComponent.style.display = "block";
 
         } else {
-            // try {
-            //     localStorage.removeItem("connected");
-            //     if (localStorage.getItem("walletconnect")) {
-            //         localStorage.removeItem("walletconnect")
-            //     }
-            // } catch (err) {
+            try {
+                if (localStorage.getItem("walletconnect")) {
+                    localStorage.removeItem("walletconnect")
+                }
+            } catch (err) {
 
-            // }
+            }
             connected = null;
             connectionButton.innerHTML = "Connect Wallet";
             connectBtnStyle()
