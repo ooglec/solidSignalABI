@@ -32,57 +32,62 @@ let WalletConnectProvider;
 let WalletConnect;
 let QRCodeModal;
 
+
+
+(async function listenForConnection() {
+    var walletDivs = document.querySelectorAll('.wallet-instance');
+    walletDivs.forEach(function (walletDiv) {
+        walletDiv.addEventListener('click', async function () {
+            try {
+                connectionButton.innerHTML = "Connecting...";
+                button.value = "Connecting...";
+            } catch (err) {
+                console.log(err)
+            }
+            let id = walletDiv.id;
+            if (id == "metamask") {
+                if (window.ethereum) {
+                    await connect();
+                } else {
+                    window.open("https://metamask.io/download/", "_blank")
+                }
+            } else if (id == "trustwallet") {
+                if (window.ethereum.isTrust) {
+                    await connect();
+                } else {
+                    window.open("https://trustwallet.com/download", "_blank")
+                }
+            } else if (id == "ledger-live") {
+                await ledgerLive();
+            } else if (id == "wallet-connect") {
+                await walletConnect();
+            }
+            // await loadBalance();
+            walletComponent.style.display = "none";
+            connectionButton.innerHTML = "Disconnect";
+            button.value = "Buy"
+            disconnectBtnStyle()
+            setButtonNormal()
+            if (acceptedTOS == false) {
+                requetsTosAcceptance()
+            }
+            await requestChainSwitch();
+
+        });
+    });
+})();
+
+
 function loadVars() {
     try {
         WalletConnectProvider = window.WalletConnectProvider.default;
         WalletConnect = window.WalletConnect.default;
         QRCodeModal = window.WalletConnectQRCodeModal.default;
-    } catch (err) { }
+    } catch (err) {
+        console.log(err)
+    }
 }
 loadVars()
-
-    (async function listenForConnection() {
-        var walletDivs = document.querySelectorAll('.wallet-instance');
-        walletDivs.forEach(function (walletDiv) {
-            walletDiv.addEventListener('click', async function () {
-                try {
-                    connectionButton.innerHTML = "Connecting...";
-                    button.value = "Connecting...";
-                } catch (err) {
-                    console.log(err)
-                }
-                let id = walletDiv.id;
-                if (id == "metamask") {
-                    if (window.ethereum) {
-                        await connect();
-                    } else {
-                        window.open("https://metamask.io/download/", "_blank")
-                    }
-                } else if (id == "trustwallet") {
-                    if (window.ethereum.isTrust) {
-                        await connect();
-                    } else {
-                        window.open("https://trustwallet.com/download", "_blank")
-                    }
-                } else if (id == "ledger-live") {
-                    await ledgerLive();
-                } else if (id == "wallet-connect") {
-                    await walletConnect();
-                }
-                // await loadBalance();
-                walletComponent.style.display = "none";
-                connectionButton.innerHTML = "Disconnect";
-                button.value = "Buy"
-                disconnectBtnStyle()
-                setButtonNormal()
-                if (acceptedTOS == false) {
-                    requetsTosAcceptance()
-                }
-                await requestChainSwitch();
-
-            });
-        });
-    })();
 
 
 async function fetchTOSStatus() {
