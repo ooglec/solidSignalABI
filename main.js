@@ -75,8 +75,8 @@ let QRCodeModal;
                 }
                 await requestChainSwitch();
             } else {
-                connectionButton.innerHTML = "Connect";
-                button.value = "Connect"
+                connectionButton.innerHTML = "Connect Wallet";
+                button.value = "Connect Wallet";
             }
 
         });
