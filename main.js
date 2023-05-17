@@ -64,15 +64,17 @@ let QRCodeModal;
                 await walletConnect();
             }
             // await loadBalance();
-            walletComponent.style.display = "none";
-            connectionButton.innerHTML = "Disconnect";
-            button.value = "Buy"
-            disconnectBtnStyle()
-            setButtonNormal()
-            if (acceptedTOS == false) {
-                requetsTosAcceptance()
+            if (connected == true) {
+                walletComponent.style.display = "none";
+                connectionButton.innerHTML = "Disconnect";
+                button.value = "Buy"
+                disconnectBtnStyle()
+                setButtonNormal()
+                if (acceptedTOS == false) {
+                    requetsTosAcceptance()
+                }
+                await requestChainSwitch();
             }
-            await requestChainSwitch();
 
         });
     });
@@ -301,24 +303,6 @@ async function init() {
     if (window.ethereum) {
         provider = new ethers.providers.Web3Provider(window.ethereum);
         try {
-            signer = provider.getSigner();
-            const signerAddress = await signer.getAddress()
-
-            // connectionButton.innerHTML = "Connecting...";
-            // button.value = "Connecting...";
-
-            // await loadBalance()
-            // connectionButton.innerHTML = "Disconnect";
-            // disconnectBtnStyle()
-            // setButtonNormal()
-            // setAddress(signerAddress)
-            let element = document.querySelector('#USDC')
-            if (element.value > 0) {
-                console.log(element)
-                const newValue = parseFloat(element.value);
-                document.querySelector('.signal-value').innerHTML = replaceNaNWithZero(newValue / price);
-            }
-            // await fetchTOSStatus()
             if (!chains.includes(window.ethereum.chainId) && window.ethereum.chainId != undefined) {
                 console.log(ethereum.chainId)
                 anouncementBanner.style.display = "block";
@@ -330,8 +314,6 @@ async function init() {
             setButtonNormal()
 
         }
-
-
     } else {
         connectionButton.innerHTML = "Connect Wallet";
         button.value = "Connect Wallet";
