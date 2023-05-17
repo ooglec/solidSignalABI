@@ -74,6 +74,9 @@ let QRCodeModal;
                     requetsTosAcceptance()
                 }
                 await requestChainSwitch();
+            } else {
+                connectionButton.innerHTML = "Connect";
+                button.value = "Connect"
             }
 
         });
