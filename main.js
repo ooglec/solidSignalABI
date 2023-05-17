@@ -8,6 +8,7 @@ let solidSpendAllowance = 0;
 let minimumPurchaseAmount = 50;
 let userUsdcBalance = 0;
 let maximumRaiseAmount = 800000;
+let priorAmountRaised = 270;
 let totalAmountRaised;
 let presaleEnd;
 let notifications = document.createElement('div');
@@ -359,8 +360,8 @@ async function loadAmounts() {
     totalAmountRaised = amtConverted;
 
     document.getElementById("price").innerHTML = `$${price}`;
-    document.getElementById("funds-raised").innerHTML = `$${numeral(amtConverted).format('0,0')}`;
-    document.getElementById("funds-raised-sm").innerHTML = `$${numeral(amtConverted).format('0,0')} USDC`;
+    document.getElementById("funds-raised").innerHTML = `$${numeral(amtConverted - priorAmountRaised).format('0,0')}`;
+    document.getElementById("funds-raised-sm").innerHTML = `$${numeral(amtConverted - priorAmountRaised).format('0,0')} USDC`;
     document.getElementById("min-purchase").innerHTML = `$${minimumPurchaseAmount}`;
     document.getElementById("maximum-amount").innerHTML = `$${numeral(maximumRaiseAmount).format('0,0')} USDC`;
     document.getElementById("progress-indicator-id").style.width = `${parseInt((amtConverted / maximumRaiseAmount) * 300)}px`;
