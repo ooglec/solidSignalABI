@@ -360,10 +360,10 @@ async function loadAmounts() {
     totalAmountRaised = amtConverted;
 
     document.getElementById("price").innerHTML = `$${price}`;
-    document.getElementById("funds-raised").innerHTML = `$${numeral(amtConverted - priorAmountRaised).format('0,0')}`;
-    document.getElementById("funds-raised-sm").innerHTML = `$${numeral(amtConverted - priorAmountRaised).format('0,0')} USDC`;
     document.getElementById("min-purchase").innerHTML = `$${minimumPurchaseAmount}`;
-    document.getElementById("maximum-amount").innerHTML = `$${numeral(maximumRaiseAmount).format('0,0')} USDC`;
+    // document.getElementById("funds-raised").innerHTML = `$${numeral(amtConverted - priorAmountRaised).format('0,0')}`;
+    // document.getElementById("funds-raised-sm").innerHTML = `$${numeral(amtConverted - priorAmountRaised).format('0,0')} USDC`;
+    // document.getElementById("maximum-amount").innerHTML = `$${numeral(maximumRaiseAmount).format('0,0')} USDC`;
     document.getElementById("progress-indicator-id").style.width = `${parseInt((amtConverted / maximumRaiseAmount) * 300)}px`;
 }
 
@@ -722,7 +722,6 @@ window.addEventListener('load', async () => {
             connectionButton.innerHTML = "Connect Wallet";
             connectBtnStyle()
             button.value = "Connect Wallet";
-            button.disabled = true;
             document.querySelector('#address').style.display = "none";
             walletBar.style.display = "none";
             document.getElementById("purchase").innerHTML = `-`;
