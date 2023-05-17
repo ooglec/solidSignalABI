@@ -674,12 +674,14 @@ window.addEventListener('load', async () => {
     const form = document.getElementById('Form');
     const inputElement = document.querySelector('#USDC');
 
-    loadVars();
-
     form.addEventListener('submit', function (event) {
         console.log("prevented")
         event.preventDefault();
     });
+
+    loadVars();
+
+
     try {
         await init();
     } catch (err) {
