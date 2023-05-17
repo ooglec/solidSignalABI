@@ -327,7 +327,6 @@ async function init() {
         } catch (err) {
             connectionButton.innerHTML = "Connect Wallet";
             button.value = "Connect Wallet";
-            button.disabled = true;
             setButtonNormal()
 
         }
@@ -336,7 +335,6 @@ async function init() {
     } else {
         connectionButton.innerHTML = "Connect Wallet";
         button.value = "Connect Wallet";
-        button.disabled = true;
         setButtonNormal()
     }
 }
